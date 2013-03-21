@@ -1,0 +1,108 @@
+# CONFIGURATION FILE
+# USED TO CONFIGURE THE APPLICATION AT START
+# UPDATED EACH TIME THAT USER CHANGES THE CONFIGURATION
+#
+#
+# PARAMETERS FOR CONFIGURATION :
+#  - cell function
+#  - cell icon file path
+#
+#
+# CURRENTLY NUMBER OF CELLS IS FIXED : 3 rows and 4 columns
+
+
+# Cell(0,0)
+row             =   0
+col             =   0
+function_type   =   None
+icon            =   facebook-logo.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(1,0)
+row             =   0
+col             =   1
+function_type   =   None
+icon            =   twitter-logo.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(2,0)
+row             =   0
+col             =   2
+function_type   =   None
+icon            =   linkedin_logo.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(3,0)
+row             =   0
+col             =   3
+function_type   =   GMAIL
+icon            =   gmail-logo.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(0,1)
+row             =   1
+col             =   0
+function_type   =   None
+icon            =   raspberry.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(1,1)
+row             =   1
+col             =   1
+function_type   =   None
+icon            =   arduino-logo.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(2,1)
+row             =   1
+col             =   2
+function_type   =   None
+icon            =   equipe.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(3,1)
+row             =   1
+col             =   3
+function_type   =   None
+icon            =   Le-Monde-logo.gif
+couleur         =   0
+FullSize        =   false
+
+# Cell(0,2)
+row             =   2
+col             =   0
+function_type   =   None
+icon            =   icone-amis.png
+couleur         =   0
+FullSize        =   false
+
+# Cell(1,2)
+row             =   2
+col             =   1
+function_type   =   None
+icon            =   sante.png
+couleur         =   0
+FullSize        =   false
+
+# Cell(2,2)
+row             =   2
+col             =   2
+function_type   =   None
+icon            =   tele.png
+couleur         =   0
+FullSize        =   false
+
+# Cell(3,2)
+row             =   2
+col             =   3
+function_type   =   None
+icon            =   point-exclam.png
+couleur         =   0
+FullSize        =   false
