@@ -138,9 +138,10 @@ public void draw_case_cliquee() {
 
   if (curr_function_type.equals("Rss")) {
     String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
-     int currentListIndex=getIndexFromUrl(curr_Url);
-     
+    int currentListIndex=getIndexFromUrl(curr_Url);
+
     if (last_mode==2) {
+
       if (ModeLevel==0 && mouseButton==LEFT ) {
 
         indicePrintedRss=NumRss(ListLoader.get(currentListIndex));
@@ -155,12 +156,12 @@ public void draw_case_cliquee() {
 
     if ( ModeLevel==0) {
       offset=ComputeOffset(offset);
-       currentListIndex=getIndexFromUrl(curr_Url);
+      currentListIndex=getIndexFromUrl(curr_Url);
       AffichageRss(offset, ListLoader.get(currentListIndex));
     }
     else if (ModeLevel==1) {
       offsetLecture=ComputeOffsetLecture(offsetLecture); 
-       currentListIndex=getIndexFromUrl(curr_Url);
+      currentListIndex=getIndexFromUrl(curr_Url);
       maxOffsetLecture=DisplayCurrentRSS(offsetLecture, indicePrintedRss, ListLoader.get(currentListIndex)) ;
     }
 
@@ -180,7 +181,15 @@ public void draw_case_cliquee() {
 
 public void draw_applique_tache_planifiees() {
 
-  // monMail.checkEmailAccount(); // cette methode permet de compter les messages et de les recuperer
+  long curr_temps = System.currentTimeMillis();
+
+  if (temps_de_ref + nb_sec_refresh_mails*1000 < curr_temps)
+  {
+    temps_de_ref = curr_temps;   
+    Thread t = new Thread(new RunImpl());
+    t.start(); 
+
+  }
 }
 
 
@@ -508,7 +517,6 @@ public void affichage_gmail(int y)
     bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet);
   }
 }
-
 
 
 

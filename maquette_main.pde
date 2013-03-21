@@ -73,7 +73,7 @@ boolean flag_bouton_type_case = false;
 //===========================================================================
 
 // chemin du fichier de configuration
-String chemin_fichier_config ="/home/damien/sketchbook/maquette_last_version_170313/config_rpi.txt";
+String chemin_fichier_config ="/home/damien/sketchbook/maquette_main/config_rpi.txt";
 
 // on cree un objet cell pour le menu config : cellule ou on enregistre les changements avant de les appliquer
 Cell cellule_fictive = new Cell(0, 0, int(gridSize/cols), int(gridSize/rows), 0);
@@ -81,8 +81,8 @@ Cell cellule_fictive = new Cell(0, 0, int(gridSize/cols), int(gridSize/rows), 0)
 
 int WindowLargeur=400;
 int WindowHauteur=100;
-String nFichier="/home/damien/sketchbook/maquette_last_version_170313/data/yahoo Weather Code.txt";
-String CheminDossierImage="/home/damien/sketchbook/maquette_last_version_170313/data/026";
+String nFichier="/home/damien/sketchbook/maquette_main/data/yahoo Weather Code.txt";
+String CheminDossierImage="/home/damien/sketchbook/maquette_main/data/026";
 String Lieu="Toulouse";
 String tab[][];
 Endroit[] ListeEndroits;
@@ -128,16 +128,15 @@ Afficheur_data bloc_gmail = new Afficheur_data();
 //----------------------
 // OUVERTURE DES THREADS
 //----------------------
-Thread t = new Thread(new RunImpl(monMail));
-
+Thread t = new Thread(new RunImpl());
 
 //--------------------------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------------------------
 // COMPTEURS POUR LES TACHES PLANIFIEES
-//long temps_de_ref = System.currentTimeMillis();
-//long nb_sec_refresh_mails = 60*15; // en secondes
+long temps_de_ref = System.currentTimeMillis();
+long nb_sec_refresh_mails = 60*5; // en secondes
 //-------------------------------------------------------------------------------------- 
 
 

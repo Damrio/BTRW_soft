@@ -28,31 +28,10 @@ class MailChecker {
     numberofMessages           =   0;
 //    array_message            =  new ArrayList<String>();
     array_from                 =  new ArrayList<String>();
-//    array_from.add("cdiscount");
-//    array_from.add("lequipe.fr <djkdas@lequipe.com>");
-//    array_from.add("cdlahfkjsldf <djkdas@lequipe.com>");
-//    array_from.add("moi <daajfajf@gmail.com>");
-//    array_from.add("cdiscount");
-//    array_from.add("lequipe.fr <djkdas@lequipe.com>");
-//    array_from.add("cdlahfkjsldf <djkdas@lequipe.com>");
-//    array_from.add("moi <daajfajf@gmail.com>");
-//    array_from.add("cdiscount");
-//    array_from.add("lequipe.fr <djkdas@lequipe.com>");
-//    array_from.add("cdlahfkjsldf <djkdas@lequipe.com>");
+
     
     array_sujet                =  new ArrayList<String>();
 
-//    array_sujet.add("On vend de la merde");
-//    array_sujet.add("girondins de bordeaux offre exceptionnelle");
-//    array_sujet.add("cdlahfkjsldf <alksds;lflksfa;lskf;l");
-//    array_sujet.add("Test");
-//    array_sujet.add("On vend de la merde");
-//    array_sujet.add("girondins de bordeaux offre exceptionnelle");
-//    array_sujet.add("cdlahfkjsldf <alksds;lflksfa;lskf;l");
-//    array_sujet.add("Test");
-//    array_sujet.add("On vend de la merde");
-//    array_sujet.add("girondins de bordeaux offre exceptionnelle");
-//    array_sujet.add("cdlahfkjsldf <alksds;lflksfa;lskf;l");
     
     flag_changement            =  false;
   }
@@ -61,6 +40,7 @@ class MailChecker {
   // A function to check a mail account
   public void checkEmailAccount() {
   
+  println("MAIL CHECKING...");  
   int result                   =   0;
   int result2                  =   0;
   
@@ -74,8 +54,7 @@ class MailChecker {
     props.setProperty("mail.imaps.port", "993");
     props.setProperty("mail.imaps.connectiontimeout", "5000");
     props.setProperty("mail.imaps.timeout", "5000");
-//    props.setProperty("mail.mime.decodetext.strict", "false");
-//System.setProperty("mail.mime.charset", "utf8");
+
 
     // Create authentication object (permet de se connecter avec login et mdp)
     Auth auth                  =   new Auth();
@@ -107,20 +86,12 @@ class MailChecker {
     for (int i=0; i < nb_mails; i++) {
     
     
-            //String mess_no     =  "  Message # " + (i+1) + " :\n";
-//            String from        =  "  De : " + message[message.length-(i+1)].getFrom()[0] + "\n";
-//            String sujet       =  "  Sujet : " + message[message.length-(i+1)].getSubject()+ "\n";
-                        
-//            String from        =  InternetAddress.toUnicodeString(message[message.length-(i+1)].getFrom());
             String from        =  message[message.length-(i+1)].getFrom()[0].toString();
             InternetAddress myadress = new InternetAddress(from);
             String from_unicode       = myadress.toUnicodeString();
             
             String sujet       =  message[message.length-(i+1)].getSubject();
 
-            //String curr_email  = mess_no + from + sujet;
-            //array_message.add(curr_email);
-            //aray_mess_no.add(mess_no);
             array_from.add(from_unicode);
             array_sujet.add(sujet);
             
@@ -132,7 +103,7 @@ class MailChecker {
     folder.close(false);
     store.close();
     
-  
+    println("MAIL CHECKED !"); 
 
   } 
   

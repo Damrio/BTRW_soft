@@ -19,11 +19,11 @@ void UpdateRss() {
   for (int i=0;i<ListAdresseRSS.size();i++) {
     if (ListFeed.get(i).hasNext ()) {
       if ( ListThread.get(i).getState()!=Thread.State.TERMINATED) {
-        println(ListThread.get(i).getState());
+       // println(ListThread.get(i).getState());
         ListLoader.get(i).loadRss(ListFeed.get(i).next());
       }
       else {
-        println(ListThread.get(i).getState());
+       // println(ListThread.get(i).getState());
         ListLoader.get(i).loadRss(ListFeed.get(i).next());
         ListThread.remove(i);
         ListThread.add(i, new Thread(ListLoader.get(i)));
