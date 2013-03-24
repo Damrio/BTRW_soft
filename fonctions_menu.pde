@@ -1,4 +1,18 @@
 //-----------------------------------------------------------------------------------------------------------------------//
+//                                 SOUS FONCTIONS DE SETUP()
+//-----------------------------------------------------------------------------------------------------------------------//
+
+////////////////////////////////////////////////////
+//		RecupCheminRef()		  //
+////////////////////////////////////////////////////
+public String RecupCheminRef(String NomDuFichier) {
+  //Fonction récupérant l'adresse du dossier local
+  String lines[] = loadStrings(NomDuFichier);
+  return lines[0];
+}
+
+
+//-----------------------------------------------------------------------------------------------------------------------//
 //                                 SOUS FONCTIONS DE DRAW()
 //-----------------------------------------------------------------------------------------------------------------------//
 
@@ -187,8 +201,7 @@ public void draw_applique_tache_planifiees() {
   {
     temps_de_ref = curr_temps;   
     Thread t = new Thread(new RunImpl());
-    t.start(); 
-
+    t.start();
   }
 }
 
@@ -517,8 +530,6 @@ public void affichage_gmail(int y)
     bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet);
   }
 }
-
-
 
 
 

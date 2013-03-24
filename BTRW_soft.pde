@@ -72,8 +72,11 @@ boolean flag_bouton_type_case = false;
 
 //===========================================================================
 
+// chemin dossier local
+String ref_chemin = "./data/Chemin_ref.txt";
+
 // chemin du fichier de configuration
-String chemin_fichier_config ="/home/damien/sketchbook/maquette_main/config_rpi.txt";
+String chemin_fichier_config ="";
 
 // on cree un objet cell pour le menu config : cellule ou on enregistre les changements avant de les appliquer
 Cell cellule_fictive = new Cell(0, 0, int(gridSize/cols), int(gridSize/rows), 0);
@@ -81,8 +84,8 @@ Cell cellule_fictive = new Cell(0, 0, int(gridSize/cols), int(gridSize/rows), 0)
 
 int WindowLargeur=400;
 int WindowHauteur=100;
-String nFichier="/home/damien/sketchbook/maquette_main/data/yahoo Weather Code.txt";
-String CheminDossierImage="/home/damien/sketchbook/maquette_main/data/026";
+String nFichier="";
+String CheminDossierImage="";
 String Lieu="Toulouse";
 String tab[][];
 Endroit[] ListeEndroits;
@@ -155,6 +158,13 @@ void setup() {
 
   fnt=createFont("Courier", 18, false);
   myfont=  createFont("stalker2", 32);
+  
+  //Instanciation du chemin courant
+  String CheminRef=RecupCheminRef(ref_chemin);
+  println(CheminRef);
+  nFichier=CheminRef+"/data/yahoo Weather Code.txt";
+  CheminDossierImage=CheminRef+"/data/026";
+  chemin_fichier_config=CheminRef+"/config_rpi.txt";
 
   // creation du Calendrier : TODO
   Calendrier monCalendrier = new Calendrier();
