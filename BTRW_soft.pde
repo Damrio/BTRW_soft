@@ -31,7 +31,7 @@ Grille Maingrille;
 int cols = 4;
 int rows = 3;
 int scareSize;
-int gridSize=400;
+int gridSize=480;
 
 
 
@@ -81,9 +81,9 @@ String chemin_fichier_config ="";
 // on cree un objet cell pour le menu config : cellule ou on enregistre les changements avant de les appliquer
 Cell cellule_fictive = new Cell(0, 0, int(gridSize/cols), int(gridSize/rows), 0);
 
-
-int WindowLargeur=400;
-int WindowHauteur=100;
+//Paramètres affichage Weather
+int WindowLargeur=480;
+int WindowHauteur=120;
 String nFichier="";
 String CheminDossierImage="";
 String Lieu="Toulouse";
@@ -98,15 +98,17 @@ SimpleDateFormat Hd = new SimpleDateFormat("HH");
 SimpleDateFormat md = new SimpleDateFormat("mm");
 PFont TextWeatherFont;
 
+//Paramètre affichage RSS
 PFont fnt;
 PFont myfont;
+PFont myfontTittleRSS;
 int offset=0;
 float maxOffset;
 int offsetLecture=0;
 float maxOffsetLecture;
 int indicePrintedRss;
-int LargeurPhoto=100;
-int HauteurPhoto=80;
+int LargeurPhoto=200;
+int HauteurPhoto=160;
 int FlagMainRss=1;
 float interstice=5;
 List<Feeder> ListFeed = new ArrayList<Feeder>(); 
@@ -151,13 +153,14 @@ void setup() {
 
 
   scareSize=(int)(gridSize/4);
-  size(gridSize, gridSize);
+  size(640, gridSize);
   Maingrille= new Grille(cols, rows);
   Maingrille.SetDefaultFont("K22 Didoni Swash.ttf");
   Maingrille.SetIconeSize((int)(scareSize*0.25));
 
   fnt=createFont("Courier", 18, false);
-  myfont=  createFont("stalker2", 32);
+  myfont=  createFont("MARYJ___.ttf", 32);
+  myfontTittleRSS=  createFont("Chunkfive Ex.ttf", 32);
   
   //Instanciation du chemin courant
   String CheminRef=RecupCheminRef(ref_chemin);
@@ -227,12 +230,12 @@ void draw() {
     frameRate(24);
     Maingrille.Display(cols, rows);
 
-    rationHL=AffichageImageWeather(weather, 0, WindowHauteur, 0, 300); 
-    float MarginH=Affichage_Text_Weather(WindowHauteur*rationHL, 300);
-    rationHL=AffichageImageWeather(weather, 1, WindowHauteur/2, MarginH+20, 300);
+    rationHL=AffichageImageWeather(weather, 0, WindowHauteur, 0, 360); 
+    float MarginH=Affichage_Text_Weather(WindowHauteur*rationHL, 360);
+    rationHL=AffichageImageWeather(weather, 1, WindowHauteur/2, MarginH+20, 360);
     textFont(TextWeatherFont);
     AffichageTempertaure(weather, 3, 300);
-    AffichageTemperatureLendemain(weather, MarginH+10, 20+WindowHauteur/2+7+300);
+    AffichageTemperatureLendemain(weather, MarginH+10, 20+WindowHauteur/2+7+360);
   }
 
   else if (indicateur_mode == 2) // cas ou on est en MODE case cliquee
