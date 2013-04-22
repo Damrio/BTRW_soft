@@ -230,12 +230,13 @@ void draw() {
     frameRate(24);
     Maingrille.Display(cols, rows);
 
-    rationHL=AffichageImageWeather(weather, 0, WindowHauteur, 0, 360); 
-    float MarginH=Affichage_Text_Weather(WindowHauteur*rationHL, 360);
-    rationHL=AffichageImageWeather(weather, 1, WindowHauteur/2, MarginH+20, 360);
+    //rationHL=AffichageImageWeather(weather, 0, WindowHauteur, 0, 360); 
+    rationHL=AffichageImageWeather(weather, 0, 100, 480, 0); 
+   // float MarginH=Affichage_Text_Weather(480, (int)rationHL*100+20);
+    rationHL=AffichageImageWeather(weather, 1, 100/2,480, (int)rationHL*100+20);
     textFont(TextWeatherFont);
-    AffichageTempertaure(weather, 3, 300);
-    AffichageTemperatureLendemain(weather, MarginH+10, 20+WindowHauteur/2+7+360);
+    AffichageTempertaure(weather, 480+3, 3);
+    AffichageTemperatureLendemain(weather,480+3, (int)rationHL*100+20);
   }
 
   else if (indicateur_mode == 2) // cas ou on est en MODE case cliquee

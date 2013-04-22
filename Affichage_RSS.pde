@@ -98,7 +98,7 @@ float DisplayCurrentRSS(int offset, int indexRss, RSSLoader RSSToLoad) {
   }
   Y+=20;
   HauteurEcrite+=20;
-  textFont(myfont, 25);
+  textFont(myfont, 22);
   textAlign(LEFT);
   text(CurrentEntry.Description, X+5, Y, 640-10, 8000);
 

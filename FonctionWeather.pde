@@ -21,13 +21,12 @@ private float AffichageImageWeather(YahooWeather weather, int Date, int hauteur,
   }
   else if (Date==1) { 
     WeatherCode= weather.getWeatherConditionCodeTomorrow();
-    //println( weather.getWeatherConditionCodeTomorrow()+",Code:"+ weather.getWeatherConditionTomorrow());
+    // println(WeatherCode);
     MaDate=weather.getLastUpdated();
     FaitJour=true;
   }
   else WeatherCode=weather.getWeatherConditionCode();
   int NumeroImageint=Integer.parseInt(NumeroImage(WeatherCode, tab, FaitJour))-1;
-  //println(NumeroImageint);
   float rationHL=(float)WeatherIcon[NumeroImageint].width/(float)WeatherIcon[NumeroImageint].height;
   image(WeatherIcon[NumeroImageint], x, y, hauteur*rationHL, hauteur);
   return rationHL;
@@ -49,7 +48,7 @@ private float Affichage_Text_Weather(float MargeIniH,int OffsetY) {
   textSize(TexteSize=12);
   XY=AddText(weather.getWeatherCondition(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   XY=AddText("Humidité: "+weather.getHumidity()+"%", TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
-  XY=AddText("Vitesse du vent: "+weather.getWindSpeed()+" km/h", TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
+  XY=AddText("Vent: "+weather.getWindSpeed()+" km/h", TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   XY=AddText("Lever du soleil: "+weather.getSunrise(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   XY=AddText("Coucher du soleil: "+weather.getSunset(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   return XY[0]+ MargeDebut+marginH;
@@ -80,7 +79,7 @@ public void AffichageTemperatureLendemain(YahooWeather weather,float x,float y){
   textSize(20);
   String TexteToWrite=weather.getTemperatureLowTomorrow()+"°|"+weather.getTemperatureLowTomorrow()+"°";
   String Texte=weather.getTemperatureLowTomorrow()+"°";
-  float MarginIni=x+((WindowLargeur-x-textWidth(TexteToWrite))/2);
+  float MarginIni=x;
   //fill( CouleurTemperature(weather.getTemperatureLowTomorrow()));
   text(Texte,MarginIni,y);
   MarginIni+=textWidth(Texte);
