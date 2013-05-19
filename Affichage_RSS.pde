@@ -1,4 +1,5 @@
 void AffichageRss(int offset, RSSLoader RSSToLoad) {
+  //println(offset);
   int X=0;
   int Y=offset;
   int  Debut=offset;
@@ -43,10 +44,13 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
 }
 
 int ComputeOffset(int CurrentOffset) {
-  if (mouseY< gridSize && mouseY> gridSize-20 && mouseX>0 && mouseX< gridSize) {
+ // println("X: " + mouseX + "Y: "+ mouseY);
+  if (mouseY< 480 && mouseY> 480-20 && mouseX>0 && mouseX< 640) {
+    //println("osset -15");
     offset=offset-15;
   }
-  else if (mouseY>0 && mouseY<20 && mouseX>0 && mouseX< gridSize) {
+  else if (mouseY>0 && mouseY<20 && mouseX>0 && mouseX< 640) {
+    //println("osset +15");
     offset=offset+15;
   }
   maxOffset=(ListLoader.get(indice).RssContent.size())*(HauteurPhoto+20);
@@ -60,7 +64,7 @@ int ComputeOffset(int CurrentOffset) {
 int NumRss(RSSLoader RSSToLoad) {
   int res=(RSSToLoad.RssContent.size()-1)-(int)((mouseY-offset)/(HauteurPhoto+20));
   res=res;
-  println(res);
+  //println(res);
   return res;
 }
 

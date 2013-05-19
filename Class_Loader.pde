@@ -8,7 +8,7 @@ class RSSLoader implements Runnable {
   public RSSLoader() {
     RssContent= new ArrayList<RssEntry>();
     remaining=0;
-    tailleMax=20;
+    tailleMax=10;
   }
  
   //Charge un flux RSS
@@ -63,6 +63,7 @@ class RSSLoader implements Runnable {
             if (RssContent.get(loadID)!=null) {
               RssContent.get(loadID).ImageRSS.load();
               remaining--;
+              println("Moins 1!");
               loadID--;
               if (remaining==0)loadDone=true;
               try {

@@ -9,11 +9,11 @@ public class Afficheur_data {
 
   // CONSTRUCTEUR
   Afficheur_data() {
-    total_width = gridSize;
+    total_width = 640;
     total_height = gridSize; //int(gridSize/2);
     debut_zone_message = 0;//int(gridSize/2);
     message_height = int(gridSize/8);
-    message_width = gridSize;
+    message_width = 640;
     pos_defil_courant = 0;
   }
 

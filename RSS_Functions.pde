@@ -17,6 +17,7 @@ void CreateRss() {
 //Cette fonction vient mettre à jour l'ensemble des flux RSS
 void UpdateRss() {
   for (int i=0;i<ListAdresseRSS.size();i++) {
+     
     if (ListFeed.get(i).hasNext ()) {
       if ( ListThread.get(i).getState()!=Thread.State.TERMINATED) {
        // println(ListThread.get(i).getState());
@@ -29,12 +30,16 @@ void UpdateRss() {
         ListThread.add(i, new Thread(ListLoader.get(i)));
         ListThread.get(i).start();
       }
+      println("Num remaining:"+ ListLoader.get(i).remaining);
       int Cellule[]=new int[2]; 
       Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
       Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(1);
       Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeColor(color(125, 10, 10));
     }
-  }
+    //int Cellule[]=new int[2]; 
+    //Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
+    //Maingrille.MaGrille[Cellule[0]][Cellule[1]].numberofEvents=ListLoader.get(i).remaining;
+}
 }
 
 int getIndexFromUrl(String Url) {

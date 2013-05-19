@@ -21,7 +21,8 @@ private float AffichageImageWeather(YahooWeather weather, int Date, int hauteur,
   }
   else if (Date==1) { 
     WeatherCode= weather.getWeatherConditionCodeTomorrow();
-    // println(WeatherCode);
+    println(weather.getWeatherConditionTomorrow());
+    println(WeatherCode);
     MaDate=weather.getLastUpdated();
     FaitJour=true;
   }

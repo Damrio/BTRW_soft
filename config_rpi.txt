@@ -47,28 +47,31 @@ FullSize        =   false
 row             =   1
 col             =   0
 function_type   =   Rss
-icon            =   at-sign.png
+icon            =   Le-Monde-logo.gif
 couleur         =   0
 FullSize        =   false
-Url		=   http://www.arretsurimages.net/tous-les-contenus.rss
+Url		=   http://rss.lemonde.fr/c/205/f/3058/index.rss
+
 
 # Cell(1,1)
 row             =   1
 col             =   1
 function_type   =   Rss
-icon            =   inrock_logo.png
+icon            =   Le-Monde-logo.gif
 couleur         =   0
 FullSize        =   false
-Url		=   http://www.lesinrocks.com/feeds/feed-a-la-une/
+Url		=   http://rss.lemonde.fr/c/205/f/3061/index.rss
+
 
 # Cell(2,1)
 row             =   1
 col             =   2
 function_type   =   Rss
-icon            =   Rue89.png
+icon            =   Le-Monde-logo.gif
 couleur         =   0
 FullSize        =   false
-Url		=   http://rue89.feedsportal.com/c/33822/f/608948/index.rss
+Url		=   http://rss.lemonde.fr/c/205/f/3056/index.rss
+
 
 # Cell(3,1)
 row             =   1
@@ -77,7 +80,7 @@ function_type   =   Rss
 icon            =   Le-Monde-logo.gif
 couleur         =   0
 FullSize        =   false
-Url		=   http://rss.lemonde.fr/c/205/f/3050/index.rss
+Url		=   http://www.lemonde.fr/rss/tag/sciences.xml
 
 # Cell(0,2)
 row             =   2
