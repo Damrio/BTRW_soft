@@ -43,7 +43,10 @@ int gridSize=480;
 //    0   1   2   3
 //    4   5   6   7
 //    ..  ..  ..  ..
-int case_courante = -1;
+int case_courante         =   -1;
+int ligne_selected        =   -1;
+int col_selected          =   -1;
+String curr_function_type =   "";
 
 
 //--------------------------------------------------------------------
@@ -55,7 +58,6 @@ int case_courante = -1;
 // 3 - MODE config
 // 4 - MODE case a configurer
 int indicateur_mode = 1;
-int last_mode=1;
 //--------------------------------------------------------------------
 //     Niveau du mode activé 
 int ModeLevel=0;
@@ -205,6 +207,7 @@ void setup() {
   //InitilialisationRSS
   Maingrille.InitListRSS(cols, rows);
   CreateRss() ;
+  
 }  
 
 
@@ -223,7 +226,7 @@ void draw() {
 
   // ON ne rafraichit l'affichage que si on est dans le MODE principal 
   // (sinon cela signifie que les mails sont consultes et le reste de l'affichage est freeze)
-  if (indicateur_mode == 1)
+  if (indicateur_mode == 1) // Il faudrait rajouter une condition : and Change_flag == true
   {
 
     strokeWeight(1);
@@ -324,22 +327,65 @@ void mousePressed()
 
   // d'abord on regarde si on a deja ouvert une case (MODE case cliquee)
   if (indicateur_mode == 2) {
-    // si OUI alors l'ecran d'affichage des mails est deja ouvert et il faut le refermer : pour cela il suffit de remettre le flag a false
-    last_mode          =    2;
+    
+      ligne_selected = int(floor(case_courante / cols));
+      col_selected   = int(case_courante%4);
+      curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
+      
+      String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
+      int currentListIndex=getIndexFromUrl(curr_Url);
+      
+    
     if (mouseButton==RIGHT &&  ModeLevel==0) {
       indicateur_mode    =    1; // on repasse en MODE principal
       case_courante      =   -1; // on met case_courante a -1
     }
+    
+
+
+      if (ModeLevel==0 && mouseButton==LEFT ) { // cas ou on veut lire un flux, un mail
+
+        ModeLevel=1 ;
+
+        if (curr_function_type.equals("GMAIL")) {
+          // on determine index du mail a afficher et mise a jour offset lecture
+           bloc_gmail.pos_defil_contenu_mail_courant = 0;
+           bloc_gmail.index_mail_a_afficher = round((mouseY - bloc_gmail.pos_defil_courant) / bloc_gmail.message_height);
+         
+        }
+
+
+        
+        if (curr_function_type.equals("Rss")) {
+          // mise a jour offset lecture (uniquement pour RSS)
+          
+         indicePrintedRss=NumRss(ListLoader.get(currentListIndex));
+          offsetLecture=0;
+        }
+        
+      }
+      
+      if (ModeLevel==1 &&  mouseButton==RIGHT) { // cas ou on veut revenir a la liste des flux, mails
+        ModeLevel=0;
+        offset=0;
+      }
+    
     // TODO : rajouter un compteur pour ne pas que cet ecran soit ouvert trop longtemps ? (genre qqs min)
   }
 
 
   else if (indicateur_mode == 1) // sinon on regarde si on est dans le mode principal
   {              
-    last_mode       = 1 ;
+    //last_mode       = 1 ;
     indicateur_mode = 2 ; // on bascule en MODE case cliquee
-    ModeLevel=0;
+
+    // on calcule la case courante, la ligne, la colonne, et le type de fonction selectionne
     case_courante = (int)(x/(gridSize/4)) + cols*(int)(y/(gridSize/4));
+    ligne_selected = int(floor(case_courante / cols));
+    col_selected   = int(case_courante%4);
+    curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
+    ModeLevel=0;
+
     // on regarde sur quelle case on a clique : les cases sont numerotees :
     //    0   1   2   3
     //    4   5   6   7
@@ -350,10 +396,12 @@ void mousePressed()
   else if (indicateur_mode == 3) // cas ou est en mode config et ou on a clique sur une case
   {
     case_courante = (int)(x/(gridSize/4)) + cols*(int)(y/(gridSize/4));
+    ligne_selected = int(floor(case_courante / cols));
+    col_selected   = int(case_courante%4);
     indicateur_mode = 4; // on passe en mode CASE A CONFIGURER
-    last_mode       = 3 ;
-    int ligne_selected = int(floor(case_courante / cols));
-    int col_selected   = int(case_courante%4);
+
+    ligne_selected = int(floor(case_courante / cols));
+    col_selected   = int(case_courante%4);
     // on met dans la cellule fictive les valeurs courante de la case
     cellule_fictive.Icone = Maingrille.MaGrille[col_selected][ligne_selected].Icone;
     cellule_fictive.function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
@@ -364,7 +412,7 @@ void mousePressed()
   {
     String case_cliquee_mode_4 = "-1";
     case_cliquee_mode_4 = mousepressed_gestion_boutons(x, y);
-    last_mode       = 4 ;
+
     // si on sort en ayant clique sur OK alors on repasse dans le mode principal
     if (case_cliquee_mode_4.equals("OK")) {
 

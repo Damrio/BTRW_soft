@@ -12,9 +12,10 @@ class MailChecker {
   
   // les attributs sont declares en public pour ne pas avoir besoin de faire d'accesseur
   public int numberofMessages;            // nombre de messages non lus
-//  public ArrayList array_message;         // liste des N derniers messages
+  public ArrayList array_contenu;         // liste des N derniers messages
   public ArrayList array_from;
   public ArrayList array_sujet;  
+  
   public boolean flag_changement;         // TODO : flag pour voir si le nombre de messages a change depuis la derniere fois
   
   
@@ -26,13 +27,12 @@ class MailChecker {
   // CONSTRUCTEUR  
   MailChecker() {
     numberofMessages           =   0;
-//    array_message            =  new ArrayList<String>();
+    array_contenu            =  new ArrayList<String>();
     array_from                 =  new ArrayList<String>();
 
     
     array_sujet                =  new ArrayList<String>();
 
-    
     flag_changement            =  false;
   }
   
@@ -81,6 +81,8 @@ class MailChecker {
     // on nettoie les tableaux des mails precedents
     array_from.clear();
     array_sujet.clear();
+    array_contenu.clear();
+    
     int nb_mails               =   min(message.length, NB_MAX_MESSAGES);
     
     for (int i=0; i < nb_mails; i++) {
@@ -91,9 +93,36 @@ class MailChecker {
             String from_unicode       = myadress.toUnicodeString();
             
             String sujet       =  message[message.length-(i+1)].getSubject();
+            String contenu = message[message.length-(i+1)].getContent().toString(); 
 
             array_from.add(from_unicode);
             array_sujet.add(sujet);
+            array_contenu.add("Salut\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na\na");
+            
+            Message p = message[message.length-(i+1)];
+            
+            if (p.isMimeType("text/plain")) {
+	    println("This is plain text");
+	    println("---------------------------");
+            println(p.getContent());
+	} else if (p.isMimeType("multipart/*")) {
+	    println("This is a Multipart");
+	    println("---------------------------");
+	    Multipart mp = (Multipart)p.getContent();
+	    int count = mp.getCount();
+	    for (int j = 0; j < count; j++) {
+  
+  println(mp.getBodyPart(j).getContentType());
+            }
+	} else if (p.isMimeType("message/rfc822")) {
+	    println("This is a Nested Message");
+	    println("---------------------------");
+
+	}
+            
+            
+//            array_contenu.add(contenu);
+//            println(contenu);
             
           
     }

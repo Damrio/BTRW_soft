@@ -43,8 +43,8 @@ public void draw_configuration()
 public void draw_case_a_configurer()
 {
 
-  int ligne_selected = int(floor(case_courante / cols));
-  int col_selected   = int(case_courante%4);
+//  ligne_selected = int(floor(case_courante / cols));
+//  col_selected   = int(case_courante%4);
 
   fill(0);
   rect(0, 0, 400, 300);
@@ -138,35 +138,27 @@ public void draw_case_a_configurer()
 
 public void draw_case_cliquee() {
 
-
-  int ligne_selected = int(floor(case_courante / cols));
-  int col_selected   = int(case_courante%4);
-
-  String curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
-
+  // CAS OU A CLIQUE SUR UNE CASE GMAIL
   if (curr_function_type.equals("GMAIL"))
   {
-    int y=mouseY;
-    affichage_gmail(y);
+        int y=mouseY;
+    
+    if ( ModeLevel==0) {
+      
+      affichage_gmail(y); // affichage liste des mails
+    }
+    else if (ModeLevel==1) {
+     
+      affichage_contenu_mail(y); // affichage d'un mail particulier
+      
+    }
   }
 
+
+  // CAS OU A CLIQUE SUR UNE CASE RSS
   if (curr_function_type.equals("Rss")) {
-    String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
-    int currentListIndex=getIndexFromUrl(curr_Url);
-
-    if (last_mode==2) {
-
-      if (ModeLevel==0 && mouseButton==LEFT ) {
-
-        indicePrintedRss=NumRss(ListLoader.get(currentListIndex));
-        offsetLecture=0;
-        ModeLevel=1 ;
-      }
-      if (ModeLevel==1 &&  mouseButton==RIGHT) {
-        ModeLevel=0;
-        offset=0;
-      }
-    }
+      String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
+      int currentListIndex=getIndexFromUrl(curr_Url);
 
     if ( ModeLevel==0) {
       offset=ComputeOffset(offset);
@@ -179,8 +171,9 @@ public void draw_case_cliquee() {
       maxOffsetLecture=DisplayCurrentRSS(offsetLecture, indicePrintedRss, ListLoader.get(currentListIndex)) ;
     }
 
-    Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
-    Maingrille.MaGrille[col_selected][ligne_selected].ChangeColor(color(0, 0, 0));
+// TODO : mettre ca au bon endroit
+//    Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
+//    Maingrille.MaGrille[col_selected][ligne_selected].ChangeColor(color(0, 0, 0));
   }
 }
 
@@ -236,8 +229,8 @@ public String mousepressed_gestion_boutons(int x, int y)
 {
 
   String string_to_return = "-1";
-  int ligne_selected = int(floor(case_courante / cols));
-  int col_selected   = int(case_courante%4);
+  ligne_selected = int(floor(case_courante / cols));
+  col_selected   = int(case_courante%4);
   println("ligne : " + ligne_selected + "\n col : " + col_selected);
 
   // si on appuie sur le bouton de config du type de case
@@ -534,8 +527,57 @@ public void affichage_gmail(int y)
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+//  affichage_contenu_gmail()            //
+////////////////////////////////////////////////////
+public void affichage_contenu_mail(int y) {
+ 
 
 
+ if (y < bloc_gmail.debut_zone_message + 20 && y > bloc_gmail.debut_zone_message) {
+    // on a la souris en haut
+
+    // on avance la position de defilement
+    bloc_gmail.pos_defil_contenu_mail_courant = bloc_gmail.pos_defil_contenu_mail_courant + 15;
+    // on rafraichit 
+    bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
+    
+    // on dessine une petite fleche
+    fill(230, 230, 255, 50);
+    rect(0, bloc_gmail.debut_zone_message, bloc_gmail.total_width, 20);
+    fill(150, 150, 255, 50);
+    stroke(200);
+    triangle(0 + 100, bloc_gmail.debut_zone_message, int(gridSize/2), bloc_gmail.debut_zone_message + 20, gridSize -100, bloc_gmail.debut_zone_message);
+  }
+
+  else if (y < bloc_gmail.debut_zone_message + bloc_gmail.total_height && y > bloc_gmail.debut_zone_message + bloc_gmail.total_height-20) {
+    // on a la souris en bas
+
+    // on recule la position de defilement
+    bloc_gmail.pos_defil_contenu_mail_courant = bloc_gmail.pos_defil_contenu_mail_courant - 15;
+    // on rafraichit 
+    bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
+
+    // on dessine une petite fleche
+    fill(230, 230, 255, 50);
+    rect(0, bloc_gmail.debut_zone_message + bloc_gmail.total_height -20, bloc_gmail.total_width, 20);
+    fill(150, 150, 255, 50);
+    stroke(200);
+    triangle(0 + 100, bloc_gmail.debut_zone_message + bloc_gmail.total_height, int(gridSize/2), bloc_gmail.debut_zone_message + bloc_gmail.total_height-20, gridSize -100, bloc_gmail.debut_zone_message + bloc_gmail.total_height);
+  }   
+
+  else {
+    bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
+  }
+  
+  
+ // on affiche le contenu du mail
+   
+ 
+ 
+  
+}
 
 
 
