@@ -53,6 +53,7 @@ String curr_function_type =   "";
 //      INSTANCIATION DE l'INDICATEUR DE MODE
 // Il s'agit de savoir dans quel menu on est
 // CONVENTION :
+// 0 - MODE VEILLE
 // 1 - MODE principal
 // 2 - MODE case cliquee
 // 3 - MODE config
@@ -148,8 +149,16 @@ Thread t = new Thread(new RunImpl());
 
 //--------------------------------------------------------------------------------------
 // COMPTEURS POUR LES TACHES PLANIFIEES
-long temps_de_ref = System.currentTimeMillis();
-long nb_sec_refresh_mails = 60*5; // en secondes
+long temps_derniere_action=System.currentTimeMillis();
+long temps_de_ref_mails = System.currentTimeMillis();
+long nb_sec_refresh_mails = 60*5;// en secondes
+long temps_de_ref_Rss = System.currentTimeMillis();
+long tempsIni=temps_de_ref_Rss;
+long nb_sec_refresh_Rss;
+long nb_sec_refresh_Rss_ini=1;
+long nb_sec_refresh_Rss_nominal=3*60;
+long Init_Temps_Rss=10;//en secondes
+long nb_sec_mode_veille=5*60;// en secondes
 //-------------------------------------------------------------------------------------- 
 
 
@@ -213,6 +222,7 @@ void setup() {
   //InitilialisationRSS
   Maingrille.InitListRSS(cols, rows);
   CreateRss() ;
+  UpdateRss() ;
 
   //Instancitation de l'offset du bandeau de flux Rss 
   OffsetTitreRss=650;
@@ -229,8 +239,10 @@ void draw() {
   // fonction de taches planifiees
   draw_applique_tache_planifiees();
 
-  //Mis a jour Flux RSS
-  UpdateRss();
+  // Si on n'est dans le mode veille on ne fait rien on laisse le background en noir
+  if (indicateur_mode == 0)
+  {
+  } 
 
 
   // ON ne rafraichit l'affichage que si on est dans le MODE principal 
@@ -281,6 +293,8 @@ void draw() {
 //              FONCTION KEYPRESSED               //
 ////////////////////////////////////////////////////
 void keyPressed() {
+
+  Action_detectee(); 
 
   // basculement dans le MODE config (pour l'instant accessible uniquement depuis le mode principal)
   if (key == 'M' || key == 'm') 
@@ -333,6 +347,8 @@ void keyPressed() {
 void mousePressed()
 
 {
+  Action_detectee(); 
+
   // on recupere les coordonnees de la souris a l'endroit ou le bouton a ete presse
   int x=mouseX;
   int y=mouseY;
@@ -435,5 +451,9 @@ void mousePressed()
       indicateur_mode = 3;
     }
   }
+}
+
+void mouseMoved() {
+  Action_detectee();
 }
 

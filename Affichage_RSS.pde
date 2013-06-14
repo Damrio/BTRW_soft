@@ -7,8 +7,6 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
   RssEntry CurrentEntry;
   DateFormat df = new SimpleDateFormat("dd/MM HH:mm");
 
-
-
   for (int i=RSSToLoad.RssContent.size()-1; i>=0; i--) {
     Y=Debut;
     CurrentEntry=RSSToLoad.getRss(i);
@@ -21,6 +19,10 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
         if (RatioHL*HauteurPhoto>LargeurPhoto) larg=LargeurPhoto;
         else larg=RatioHL*HauteurPhoto;
         image(tmp, X+(LargeurPhoto-larg)/2, Y, larg, HauteurPhoto);
+      }
+      else{
+        //println(RSSToLoad.get(i).ImageRSS.loaded);
+        print("image vide");
       }
     }
     else {
@@ -41,6 +43,8 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
     text(CurrentEntry.Description, X, Y, 640-X-4, HauteurPhoto-saut);
     Debut=Debut+HauteurPhoto+20;
   }
+    //println();
+    //println();
 }
 
 int ComputeOffset(int CurrentOffset) {

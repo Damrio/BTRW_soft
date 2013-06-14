@@ -6,7 +6,7 @@ void CreateRss() {
     ListFeed.get(ListFeed.size()-1).verbose = true;
     ListFeed.get(ListFeed.size()-1).sortByPublishedDate();
     ListFeed.get(ListFeed.size()-1).load(ListAdresseRSS.get(i));
-    ListFeed.get(ListFeed.size()-1).setUpdateInterval(60*1000);
+    ListFeed.get(ListFeed.size()-1).setUpdateInterval(60*1000*5);
     ListFeed.get(ListFeed.size()-1).startUpdate();
     ListLoader.add(new RSSLoader());
     ListThread.add(new Thread(ListLoader.get(ListLoader.size()-1)));  
@@ -18,31 +18,38 @@ void CreateRss() {
 void UpdateRss() {
   boolean HasBeenUpdated=false; 
   for (int i=0;i<ListAdresseRSS.size();i++) {
-
-    if (ListFeed.get(i).hasNext ()) {
-      if ( ListThread.get(i).getState()!=Thread.State.TERMINATED) {
-        // println(ListThread.get(i).getState());
-        ListLoader.get(i).loadRss(ListFeed.get(i).next());
+    boolean   FluxUpadted =false;
+    while ( FluxUpadted==false ) {
+      if (ListFeed.get(i).hasNext ()) {
+        if ( ListThread.get(i).getState()!=Thread.State.TERMINATED) {
+          // println(ListThread.get(i).getState());
+          ListLoader.get(i).loadRss(ListFeed.get(i).next());
+        }
+        else {
+          // println(ListThread.get(i).getState());
+          ListLoader.get(i).loadRss(ListFeed.get(i).next());
+          ListThread.remove(i);
+          ListThread.add(i, new Thread(ListLoader.get(i)));
+          ListThread.get(i).start();
+        }
+        TestIfAddToTitleList(ListLoader.get(i).RssContent.get(ListLoader.get(i).RssContent.size()-1));
+        HasBeenUpdated=true;
+        println("Num remaining:"+ ListLoader.get(i).remaining);
+        int Cellule[]=new int[2]; 
+        Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
+        Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(1);
+        Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeColor(color(125, 10, 10));
       }
       else {
-        // println(ListThread.get(i).getState());
-        ListLoader.get(i).loadRss(ListFeed.get(i).next());
-        ListThread.remove(i);
-        ListThread.add(i, new Thread(ListLoader.get(i)));
-        ListThread.get(i).start();
+        FluxUpadted =true;
       }
-      TestIfAddToTitleList(ListLoader.get(i).RssContent.get(ListLoader.get(i).RssContent.size()-1));
-      HasBeenUpdated=true;
-      println("Num remaining:"+ ListLoader.get(i).remaining);
-      int Cellule[]=new int[2]; 
-      Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
-      Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(1);
-      Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeColor(color(125, 10, 10));
     }
 
     if (HasBeenUpdated) {
       TitreRss=ListoFTitle();
     }
+
+    println("Rss updated!");
     //int Cellule[]=new int[2]; 
     //Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
     //Maingrille.MaGrille[Cellule[0]][Cellule[1]].numberofEvents=ListLoader.get(i).remaining;
