@@ -119,13 +119,28 @@ List<RSSLoader> ListLoader = new ArrayList<RSSLoader>();
 List<Thread> ListThread = new ArrayList<Thread>(); 
 List<String> ListAdresseRSS = new ArrayList<String>(); 
 
-List<String> ListTitleToPrint = new ArrayList<String>(); 
-List<Date> ListTitleDate= new ArrayList<Date>(); 
-int NombreTitreToPlot=10;
+//-------------------------------------------------------------------
+// DECLARATION DE LA PARTIE HEURE
+int minutes;
+int dizaine_de_minute;
+int chiffre_minute;
+int heures; 
+PFont FontHeure;
+PFont Font_Dminutes;
+PFont Font_Cminutes;
+
+
+//-------------------------------------------------------------------
+// DECLARATION DE LA PARTIE BANDEAU Titre RSS
+List<String> ListTitleToPrint = new ArrayList<String>(); // Liste des titres des entrées Rss
+List<Date> ListTitleDate= new ArrayList<Date>(); // Liste des dates des entrées Rss
+int NombreTitreToPlot=10; //Nombres d'entrées à afficher
 int OffsetTitreRss; 
 String TitreRss;
 int indice=0;
-
+int Offset_deplacement=3;// vitesse de déplacment du bandeau en pixel
+long nb_millisec_deplacement=20;// intervalle de temps entre chaque déplacement du bandeau
+long temps_dernier_deplacement_bandeau=System.currentTimeMillis();// temps de la dernière mise à jour du bandeau
 
 //-------------------------------------------------------------------
 // DECLARATION DE LA PARTIE MAILS
@@ -143,22 +158,24 @@ Afficheur_data bloc_gmail = new Afficheur_data();
 // OUVERTURE DES THREADS
 //----------------------
 Thread t = new Thread(new RunImpl());
+TestThread s = new TestThread();
+
 
 //--------------------------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------------------------
 // COMPTEURS POUR LES TACHES PLANIFIEES
-long temps_derniere_action=System.currentTimeMillis();
-long temps_de_ref_mails = System.currentTimeMillis();
+long temps_derniere_action=System.currentTimeMillis();// garde le temps  de la dernière action de l'utilisateur
+long temps_de_ref_mails = System.currentTimeMillis();// temps de la dernière MAJ mail en secondes
 long nb_sec_refresh_mails = 60*5;// en secondes
-long temps_de_ref_Rss = System.currentTimeMillis();
-long tempsIni=temps_de_ref_Rss;
+long temps_de_ref_Rss = System.currentTimeMillis();// temps de la dernière MAJ RSS en seconde
+long tempsIni=System.currentTimeMillis();// temps du démarrage de l'application
 long nb_sec_refresh_Rss;
-long nb_sec_refresh_Rss_ini=1;
-long nb_sec_refresh_Rss_nominal=3*60;
-long Init_Temps_Rss=10;//en secondes
-long nb_sec_mode_veille=5*60;// en secondes
+long nb_sec_refresh_Rss_ini=1;//intervalle de temps de rafraîchissement des flux Rss initial
+long nb_sec_refresh_Rss_nominal=3*60;//intervalle de temps de rafraîchissement des flux Rss nominal
+long Init_Temps_Rss=20;//en secondes
+long nb_sec_mode_veille=10;// en secondes
 //-------------------------------------------------------------------------------------- 
 
 
@@ -175,9 +192,12 @@ void setup() {
   Maingrille.SetDefaultFont("K22 Didoni Swash.ttf");
   Maingrille.SetIconeSize((int)(scareSize*0.3));
 
-  fnt=createFont("Courier", 18, false);
+  fnt=createFont("Courier", 18);
   myfont=  createFont("MARYJ___.ttf", 32);
   myfontTittleRSS=  createFont("Chunkfive Ex.ttf", 32);
+  FontHeure=createFont("PostinkantajaJob.ttf", 100);
+  Font_Dminutes=createFont("CuteWriting.ttf", 80);
+  Font_Cminutes=createFont("DK Father Frost.otf", 70);
 
   //Instanciation du chemin courant
   String CheminRef=RecupCheminRef(ref_chemin);
@@ -191,6 +211,16 @@ void setup() {
 
   // demarrage thread gmail
   t.start();
+
+  //Instancitation de l'offset du bandeau de flux Rss 
+  OffsetTitreRss=650;
+  TitreRss="";
+
+  // demarrage du Thread du bandeau Rss
+  s.setPriority(Thread.MAX_PRIORITY);
+  s.start();
+
+
 
   TextWeatherFont=createFont("Georgia", 15);
   //Initilaisation du tableau de correspondance Weather Code/ Image
@@ -223,10 +253,6 @@ void setup() {
   Maingrille.InitListRSS(cols, rows);
   CreateRss() ;
   UpdateRss() ;
-
-  //Instancitation de l'offset du bandeau de flux Rss 
-  OffsetTitreRss=650;
-  TitreRss="";
 }  
 
 
@@ -242,6 +268,7 @@ void draw() {
   // Si on n'est dans le mode veille on ne fait rien on laisse le background en noir
   if (indicateur_mode == 0)
   {
+    Affichage_Heure();
   } 
 
 
@@ -262,8 +289,9 @@ void draw() {
     AffichageTempertaure(weather, 480+3, 3);
     AffichageTemperatureLendemain(weather, 480+3, (int)rationHL*100+20);
 
-    if (ListTitleToPrint.size()==NombreTitreToPlot) {
-      AffichegeBandeauTitreRss();
+    if (ListTitleToPrint.size()>=NombreTitreToPlot) {
+      textFont(myfontTittleRSS, 45);
+      text(TitreRss, OffsetTitreRss, 360+(60)+textAscent()/2);
     }
   }
 

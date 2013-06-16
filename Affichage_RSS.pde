@@ -20,7 +20,7 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
         else larg=RatioHL*HauteurPhoto;
         image(tmp, X+(LargeurPhoto-larg)/2, Y, larg, HauteurPhoto);
       }
-      else{
+      else {
         //println(RSSToLoad.get(i).ImageRSS.loaded);
         print("image vide");
       }
@@ -43,8 +43,8 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
     text(CurrentEntry.Description, X, Y, 640-X-4, HauteurPhoto-saut);
     Debut=Debut+HauteurPhoto+20;
   }
-    //println();
-    //println();
+  //println();
+  //println();
 }
 
 int ComputeOffset(int CurrentOffset) {
@@ -134,14 +134,5 @@ int ComputeOffsetLecture(int CurrentOffset) {
 }
 
 
-void AffichegeBandeauTitreRss() {
-  if (TitreRss!="") {
-    textFont(myfontTittleRSS,45);
-    text(TitreRss, OffsetTitreRss, 360+(60)+textAscent()/2);
-    OffsetTitreRss-=4;
-    if (OffsetTitreRss<640-textWidth(TitreRss)-50) {
-      OffsetTitreRss=650;
-    }
-  }
-}
+
 
