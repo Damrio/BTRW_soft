@@ -1,4 +1,4 @@
-public class TestThread extends Thread {
+/*public class TestThread extends Thread {
   public TestThread() {
     //super(name);
   }
@@ -17,7 +17,7 @@ public class TestThread extends Thread {
       }
     }
   }
-}
+}*/
 
 void DefilerBandeauTitreRss() {
 
@@ -25,6 +25,7 @@ void DefilerBandeauTitreRss() {
     if (System.currentTimeMillis()-temps_dernier_deplacement_bandeau>nb_millisec_deplacement) {
       OffsetTitreRss-=Offset_deplacement;
       temps_dernier_deplacement_bandeau=System.currentTimeMillis();
+      textFont(myfontTittleRSS, 45);
       if (OffsetTitreRss<640-textWidth(TitreRss)-50) {
         OffsetTitreRss=650;
       }

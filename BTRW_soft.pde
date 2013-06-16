@@ -158,7 +158,7 @@ Afficheur_data bloc_gmail = new Afficheur_data();
 // OUVERTURE DES THREADS
 //----------------------
 Thread t = new Thread(new RunImpl());
-TestThread s = new TestThread();
+//TestThread s = new TestThread();
 
 
 //--------------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ void setup() {
   fnt=createFont("Courier", 18);
   myfont=  createFont("MARYJ___.ttf", 32);
   myfontTittleRSS=  createFont("Chunkfive Ex.ttf", 32);
-  FontHeure=createFont("PostinkantajaJob.ttf", 100);
+  FontHeure=createFont("PostinkantajaJob.ttf", 90);
   Font_Dminutes=createFont("CuteWriting.ttf", 80);
   Font_Cminutes=createFont("DK Father Frost.otf", 70);
 
@@ -217,8 +217,8 @@ void setup() {
   TitreRss="";
 
   // demarrage du Thread du bandeau Rss
-  s.setPriority(Thread.MAX_PRIORITY);
-  s.start();
+  //s.setPriority(Thread.MAX_PRIORITY);
+  //s.start();
 
 
 
@@ -276,7 +276,7 @@ void draw() {
   // (sinon cela signifie que les mails sont consultes et le reste de l'affichage est freeze)
   if (indicateur_mode == 1) // Il faudrait rajouter une condition : and Change_flag == true
   {
-
+    
     strokeWeight(1);
     frameRate(30);
     Maingrille.Display(cols, rows);
@@ -290,6 +290,7 @@ void draw() {
     AffichageTemperatureLendemain(weather, 480+3, (int)rationHL*100+20);
 
     if (ListTitleToPrint.size()>=NombreTitreToPlot) {
+      DefilerBandeauTitreRss();
       textFont(myfontTittleRSS, 45);
       text(TitreRss, OffsetTitreRss, 360+(60)+textAscent()/2);
     }

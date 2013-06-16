@@ -150,7 +150,6 @@ class Grille {
     }
   }
 
-
   void InitListRSS(int row, int col) {
     for (int i=0;i<row;i++) {
       for (int j=0;j<col;j++) {
@@ -161,7 +160,7 @@ class Grille {
       }
     }
   }
-
+  
   int[] RechercheAdresseDansGrille(int row, int col, String Url) {
    int Cellule[]=new int[2];
     for (int i=0;i<row;i++) {
