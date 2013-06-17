@@ -171,9 +171,7 @@ public void draw_case_cliquee() {
       maxOffsetLecture=DisplayCurrentRSS(offsetLecture, indicePrintedRss, ListLoader.get(currentListIndex)) ;
     }
 
-// TODO : mettre ca au bon endroit
-//    Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
-//    Maingrille.MaGrille[col_selected][ligne_selected].ChangeColor(color(0, 0, 0));
+
   }
 }
 

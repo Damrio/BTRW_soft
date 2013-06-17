@@ -358,7 +358,7 @@ void mousePressed()
         
         if (curr_function_type.equals("Rss")) {
           // mise a jour offset lecture (uniquement pour RSS)
-          
+
          indicePrintedRss=NumRss(ListLoader.get(currentListIndex));
           offsetLecture=0;
         }
@@ -385,7 +385,11 @@ void mousePressed()
     col_selected   = int(case_courante%4);
     curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
     ModeLevel=0;
-
+    
+    if (curr_function_type.equals("Rss")) {
+    Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
+    Maingrille.MaGrille[col_selected][ligne_selected].ChangeColor(color(0, 0, 0));
+    }
     // on regarde sur quelle case on a clique : les cases sont numerotees :
     //    0   1   2   3
     //    4   5   6   7
