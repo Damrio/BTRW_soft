@@ -53,6 +53,7 @@ String curr_function_type =   "";
 //      INSTANCIATION DE l'INDICATEUR DE MODE
 // Il s'agit de savoir dans quel menu on est
 // CONVENTION :
+// 0 - MODE VEILLE
 // 1 - MODE principal
 // 2 - MODE case cliquee
 // 3 - MODE config
@@ -117,8 +118,29 @@ List<Feeder> ListFeed = new ArrayList<Feeder>();
 List<RSSLoader> ListLoader = new ArrayList<RSSLoader>(); 
 List<Thread> ListThread = new ArrayList<Thread>(); 
 List<String> ListAdresseRSS = new ArrayList<String>(); 
-int indice=0;
 
+//-------------------------------------------------------------------
+// DECLARATION DE LA PARTIE HEURE
+int minutes;
+int dizaine_de_minute;
+int chiffre_minute;
+int heures; 
+PFont FontHeure;
+PFont Font_Dminutes;
+PFont Font_Cminutes;
+
+
+//-------------------------------------------------------------------
+// DECLARATION DE LA PARTIE BANDEAU Titre RSS
+List<String> ListTitleToPrint = new ArrayList<String>(); // Liste des titres des entrées Rss
+List<Date> ListTitleDate= new ArrayList<Date>(); // Liste des dates des entrées Rss
+int NombreTitreToPlot=10; //Nombres d'entrées à afficher
+int OffsetTitreRss; 
+String TitreRss;
+int indice=0;
+int Offset_deplacement=3;// vitesse de déplacment du bandeau en pixel
+long nb_millisec_deplacement=20;// intervalle de temps entre chaque déplacement du bandeau
+long temps_dernier_deplacement_bandeau=System.currentTimeMillis();// temps de la dernière mise à jour du bandeau
 
 //-------------------------------------------------------------------
 // DECLARATION DE LA PARTIE MAILS
@@ -136,14 +158,24 @@ Afficheur_data bloc_gmail = new Afficheur_data();
 // OUVERTURE DES THREADS
 //----------------------
 Thread t = new Thread(new RunImpl());
+//TestThread s = new TestThread();
+
 
 //--------------------------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------------------------
 // COMPTEURS POUR LES TACHES PLANIFIEES
-long temps_de_ref = System.currentTimeMillis();
-long nb_sec_refresh_mails = 60*5; // en secondes
+long temps_derniere_action=System.currentTimeMillis();// garde le temps  de la dernière action de l'utilisateur
+long temps_de_ref_mails = System.currentTimeMillis();// temps de la dernière MAJ mail en secondes
+long nb_sec_refresh_mails = 60*5;// en secondes
+long temps_de_ref_Rss = System.currentTimeMillis();// temps de la dernière MAJ RSS en seconde
+long tempsIni=System.currentTimeMillis();// temps du démarrage de l'application
+long nb_sec_refresh_Rss;
+long nb_sec_refresh_Rss_ini=1;//intervalle de temps de rafraîchissement des flux Rss initial
+long nb_sec_refresh_Rss_nominal=3*60;//intervalle de temps de rafraîchissement des flux Rss nominal
+long Init_Temps_Rss=20;//en secondes
+long nb_sec_mode_veille=10;// en secondes
 //-------------------------------------------------------------------------------------- 
 
 
@@ -158,12 +190,15 @@ void setup() {
   size(640, gridSize);
   Maingrille= new Grille(cols, rows);
   Maingrille.SetDefaultFont("K22 Didoni Swash.ttf");
-  Maingrille.SetIconeSize((int)(scareSize*0.25));
+  Maingrille.SetIconeSize((int)(scareSize*0.3));
 
-  fnt=createFont("Courier", 18, false);
+  fnt=createFont("Courier", 18);
   myfont=  createFont("MARYJ___.ttf", 32);
   myfontTittleRSS=  createFont("Chunkfive Ex.ttf", 32);
-  
+  FontHeure=createFont("PostinkantajaJob.ttf", 90);
+  Font_Dminutes=createFont("CuteWriting.ttf", 80);
+  Font_Cminutes=createFont("DK Father Frost.otf", 70);
+
   //Instanciation du chemin courant
   String CheminRef=RecupCheminRef(ref_chemin);
   println(CheminRef);
@@ -176,6 +211,16 @@ void setup() {
 
   // demarrage thread gmail
   t.start();
+
+  //Instancitation de l'offset du bandeau de flux Rss 
+  OffsetTitreRss=650;
+  TitreRss="";
+
+  // demarrage du Thread du bandeau Rss
+  //s.setPriority(Thread.MAX_PRIORITY);
+  //s.start();
+
+
 
   TextWeatherFont=createFont("Georgia", 15);
   //Initilaisation du tableau de correspondance Weather Code/ Image
@@ -207,7 +252,7 @@ void setup() {
   //InitilialisationRSS
   Maingrille.InitListRSS(cols, rows);
   CreateRss() ;
-  
+  UpdateRss() ;
 }  
 
 
@@ -220,26 +265,35 @@ void draw() {
   // fonction de taches planifiees
   draw_applique_tache_planifiees();
 
-  //Mis a jour Flux RSS
-  UpdateRss();
+  // Si on n'est dans le mode veille on ne fait rien on laisse le background en noir
+  if (indicateur_mode == 0)
+  {
+    Affichage_Heure();
+  } 
 
 
   // ON ne rafraichit l'affichage que si on est dans le MODE principal 
   // (sinon cela signifie que les mails sont consultes et le reste de l'affichage est freeze)
   if (indicateur_mode == 1) // Il faudrait rajouter une condition : and Change_flag == true
   {
-
+    
     strokeWeight(1);
-    frameRate(24);
+    frameRate(30);
     Maingrille.Display(cols, rows);
 
     //rationHL=AffichageImageWeather(weather, 0, WindowHauteur, 0, 360); 
     rationHL=AffichageImageWeather(weather, 0, 100, 480, 0); 
-   // float MarginH=Affichage_Text_Weather(480, (int)rationHL*100+20);
-    rationHL=AffichageImageWeather(weather, 1, 100/2,480, (int)rationHL*100+20);
+    // float MarginH=Affichage_Text_Weather(480, (int)rationHL*100+20);
+    rationHL=AffichageImageWeather(weather, 1, 100/2, 480, (int)rationHL*100+20);
     textFont(TextWeatherFont);
     AffichageTempertaure(weather, 480+3, 3);
-    AffichageTemperatureLendemain(weather,480+3, (int)rationHL*100+20);
+    AffichageTemperatureLendemain(weather, 480+3, (int)rationHL*100+20);
+
+    if (ListTitleToPrint.size()>=NombreTitreToPlot) {
+      DefilerBandeauTitreRss();
+      textFont(myfontTittleRSS, 45);
+      text(TitreRss, OffsetTitreRss, 360+(60)+textAscent()/2);
+    }
   }
 
   else if (indicateur_mode == 2) // cas ou on est en MODE case cliquee
@@ -268,6 +322,8 @@ void draw() {
 //              FONCTION KEYPRESSED               //
 ////////////////////////////////////////////////////
 void keyPressed() {
+
+  Action_detectee(); 
 
   // basculement dans le MODE config (pour l'instant accessible uniquement depuis le mode principal)
   if (key == 'M' || key == 'm') 
@@ -320,6 +376,8 @@ void keyPressed() {
 void mousePressed()
 
 {
+  Action_detectee(); 
+
   // on recupere les coordonnees de la souris a l'endroit ou le bouton a ete presse
   int x=mouseX;
   int y=mouseY;
@@ -327,49 +385,48 @@ void mousePressed()
 
   // d'abord on regarde si on a deja ouvert une case (MODE case cliquee)
   if (indicateur_mode == 2) {
-    
-      ligne_selected = int(floor(case_courante / cols));
-      col_selected   = int(case_courante%4);
-      curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
-      
-      String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
-      int currentListIndex=getIndexFromUrl(curr_Url);
-      
-    
+
+    ligne_selected = int(floor(case_courante / cols));
+    col_selected   = int(case_courante%4);
+    curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
+
+    String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
+    int currentListIndex=getIndexFromUrl(curr_Url);
+
+
     if (mouseButton==RIGHT &&  ModeLevel==0) {
       indicateur_mode    =    1; // on repasse en MODE principal
       case_courante      =   -1; // on met case_courante a -1
     }
-    
 
 
-      if (ModeLevel==0 && mouseButton==LEFT ) { // cas ou on veut lire un flux, un mail
 
-        ModeLevel=1 ;
+    if (ModeLevel==0 && mouseButton==LEFT ) { // cas ou on veut lire un flux, un mail
 
-        if (curr_function_type.equals("GMAIL")) {
-          // on determine index du mail a afficher et mise a jour offset lecture
-           bloc_gmail.pos_defil_contenu_mail_courant = 0;
-           bloc_gmail.index_mail_a_afficher = round((mouseY - bloc_gmail.pos_defil_courant) / bloc_gmail.message_height);
-         
-        }
+      ModeLevel=1 ;
 
 
-        
-        if (curr_function_type.equals("Rss")) {
-          // mise a jour offset lecture (uniquement pour RSS)
-
-         indicePrintedRss=NumRss(ListLoader.get(currentListIndex));
-          offsetLecture=0;
-        }
-        
+      if (curr_function_type.equals("GMAIL")) {
+        // on determine index du mail a afficher et mise a jour offset lecture
+        bloc_gmail.pos_defil_contenu_mail_courant = 0;
+        bloc_gmail.index_mail_a_afficher = round((mouseY - bloc_gmail.pos_defil_courant) / bloc_gmail.message_height);
       }
-      
-      if (ModeLevel==1 &&  mouseButton==RIGHT) { // cas ou on veut revenir a la liste des flux, mails
-        ModeLevel=0;
-        offset=0;
+
+
+
+      if (curr_function_type.equals("Rss")) {
+        // mise a jour offset lecture (uniquement pour RSS)
+
+        indicePrintedRss=NumRss(ListLoader.get(currentListIndex));
+        offsetLecture=0;
       }
-    
+    }
+
+    if (ModeLevel==1 &&  mouseButton==RIGHT) { // cas ou on veut revenir a la liste des flux, mails
+      ModeLevel=0;
+      offset=0;
+    }
+
     // TODO : rajouter un compteur pour ne pas que cet ecran soit ouvert trop longtemps ? (genre qqs min)
   }
 
@@ -428,5 +485,9 @@ void mousePressed()
       indicateur_mode = 3;
     }
   }
+}
+
+void mouseMoved() {
+  Action_detectee();
 }
 

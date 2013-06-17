@@ -14,8 +14,8 @@
 # Cell(0,0)
 row             =   0
 col             =   0
-function_type   =   cellule_fictive.function_type
-icon            =   facebook-logo.gif
+function_type   =   None
+icon            =   Metro UI Icon Set/Internet Shortcuts/Facebook alt 1.png
 couleur         =   0
 FullSize        =   false
 
@@ -23,7 +23,7 @@ FullSize        =   false
 row             =   0
 col             =   1
 function_type   =   None
-icon            =   twitter-logo.gif
+icon            =   Metro UI Icon Set/Internet Shortcuts/Twitter alt 2.png
 couleur         =   0
 FullSize        =   false
 
@@ -31,7 +31,7 @@ FullSize        =   false
 row             =   0
 col             =   2
 function_type   =   None
-icon            =   linkedin_logo.gif
+icon            =   Metro UI Icon Set/Internet Shortcuts/Linked in alt.png
 couleur         =   0
 FullSize        =   false
 
@@ -39,7 +39,7 @@ FullSize        =   false
 row             =   0
 col             =   3
 function_type   =   GMAIL
-icon            =   gmail-logo.gif
+icon            =   Metro UI Icon Set/Google Services/Gmail.png
 couleur         =   0
 FullSize        =   false
 
@@ -94,7 +94,7 @@ FullSize        =   false
 row             =   2
 col             =   1
 function_type   =   None
-icon            =   sante.png
+icon            =   Metro UI Icon Set/System Icons/Task Manager alt 2.png
 couleur         =   0
 FullSize        =   false
 
@@ -102,7 +102,7 @@ FullSize        =   false
 row             =   2
 col             =   2
 function_type   =   None
-icon            =   tele.png
+icon            =   Metro UI Icon Set/Folders & OS/Videos Library.png
 couleur         =   0
 FullSize        =   false
 
@@ -110,6 +110,6 @@ FullSize        =   false
 row             =   2
 col             =   3
 function_type   =   None
-icon            =   point-exclam.png
+icon            =   Metro UI Icon Set/System Icons/Action Center.png
 couleur         =   0
 FullSize        =   false

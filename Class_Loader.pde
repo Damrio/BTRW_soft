@@ -7,14 +7,14 @@ class RSSLoader implements Runnable {
 
   public RSSLoader() {
     RssContent= new ArrayList<RssEntry>();
-    remaining=0;
+    remaining=1;
     tailleMax=10;
   }
  
   //Charge un flux RSS
   void loadRss(SyndEntry entry) {
     // expand array if necessary
-    if (RssContent.size()==this.tailleMax) 
+    if (RssContent.size()>this.tailleMax) 
     {
       if(RssContent.get(0).HasImage==true && !RssContent.get(0).ImageRSS.loaded )remaining--;
       if(remaining<0) remaining=0;
@@ -22,6 +22,7 @@ class RSSLoader implements Runnable {
     }
 
     RssContent.add(new RssEntry(entry));
+    
     if (RssContent.get(RssContent.size()-1).HasImage==true) {
       remaining++;
       loadDone=false;
@@ -100,7 +101,7 @@ class ImageURL {
 
 
   void load() {
-    println("\nLoading image: "+url);
+    println("\n Loading image: "+url);
     img=loadImage(url);
     if (img==null) {
       error=true;

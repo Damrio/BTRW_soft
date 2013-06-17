@@ -7,8 +7,6 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
   RssEntry CurrentEntry;
   DateFormat df = new SimpleDateFormat("dd/MM HH:mm");
 
-
-
   for (int i=RSSToLoad.RssContent.size()-1; i>=0; i--) {
     Y=Debut;
     CurrentEntry=RSSToLoad.getRss(i);
@@ -21,6 +19,10 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
         if (RatioHL*HauteurPhoto>LargeurPhoto) larg=LargeurPhoto;
         else larg=RatioHL*HauteurPhoto;
         image(tmp, X+(LargeurPhoto-larg)/2, Y, larg, HauteurPhoto);
+      }
+      else {
+        //println(RSSToLoad.get(i).ImageRSS.loaded);
+        print("image vide");
       }
     }
     else {
@@ -37,14 +39,16 @@ void AffichageRss(int offset, RSSLoader RSSToLoad) {
     //println("Nombre de lignes:"+ numLine);
     float saut=(textAscent()+textDescent())*numLine+5;
     Y+=saut;
-     textFont(myfont, 16);
+    textFont(myfont, 16);
     text(CurrentEntry.Description, X, Y, 640-X-4, HauteurPhoto-saut);
     Debut=Debut+HauteurPhoto+20;
   }
+  //println();
+  //println();
 }
 
 int ComputeOffset(int CurrentOffset) {
- // println("X: " + mouseX + "Y: "+ mouseY);
+  // println("X: " + mouseX + "Y: "+ mouseY);
   if (mouseY< 480 && mouseY> 480-20 && mouseX>0 && mouseX< 640) {
     //println("osset -15");
     offset=offset-15;
@@ -128,4 +132,7 @@ int ComputeOffsetLecture(int CurrentOffset) {
 
   return offsetLecture;
 }
+
+
+
 

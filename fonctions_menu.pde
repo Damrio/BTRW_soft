@@ -43,8 +43,8 @@ public void draw_configuration()
 public void draw_case_a_configurer()
 {
 
-//  ligne_selected = int(floor(case_courante / cols));
-//  col_selected   = int(case_courante%4);
+  //  ligne_selected = int(floor(case_courante / cols));
+  //  col_selected   = int(case_courante%4);
 
   fill(0);
   rect(0, 0, 400, 300);
@@ -141,24 +141,23 @@ public void draw_case_cliquee() {
   // CAS OU A CLIQUE SUR UNE CASE GMAIL
   if (curr_function_type.equals("GMAIL"))
   {
-        int y=mouseY;
-    
+    int y=mouseY;
+
     if ( ModeLevel==0) {
-      
+
       affichage_gmail(y); // affichage liste des mails
     }
     else if (ModeLevel==1) {
-     
+
       affichage_contenu_mail(y); // affichage d'un mail particulier
-      
     }
   }
 
 
   // CAS OU A CLIQUE SUR UNE CASE RSS
   if (curr_function_type.equals("Rss")) {
-      String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
-      int currentListIndex=getIndexFromUrl(curr_Url);
+    String curr_Url=Maingrille.MaGrille[col_selected][ligne_selected].Url;
+    int currentListIndex=getIndexFromUrl(curr_Url);
 
     if ( ModeLevel==0) {
       offset=ComputeOffset(offset);
@@ -170,7 +169,6 @@ public void draw_case_cliquee() {
       currentListIndex=getIndexFromUrl(curr_Url);
       maxOffsetLecture=DisplayCurrentRSS(offsetLecture, indicePrintedRss, ListLoader.get(currentListIndex)) ;
     }
-
 
   }
 }
@@ -187,12 +185,30 @@ public void draw_case_cliquee() {
 public void draw_applique_tache_planifiees() {
 
   long curr_temps = System.currentTimeMillis();
+  
+  if(curr_temps-temps_derniere_action>1000*nb_sec_mode_veille){
+    indicateur_mode=0;
+  }
 
-  if (temps_de_ref + nb_sec_refresh_mails*1000 < curr_temps)
+  if (temps_de_ref_mails+ nb_sec_refresh_mails*1000 < curr_temps)
   {
-    temps_de_ref = curr_temps;   
+    temps_de_ref_mails = curr_temps;   
     Thread t = new Thread(new RunImpl());
     t.start();
+  }
+
+  if (System.currentTimeMillis()-tempsIni<Init_Temps_Rss*1000) {
+    nb_sec_refresh_Rss=nb_sec_refresh_Rss_ini;
+  } 
+  else {
+    nb_sec_refresh_Rss=nb_sec_refresh_Rss_nominal;
+  }
+
+  if (temps_de_ref_Rss+ nb_sec_refresh_Rss*1000 < curr_temps)
+  {
+    temps_de_ref_Rss=System.currentTimeMillis();
+    //Mis a jour Flux RSS
+    UpdateRss();
   }
 }
 
@@ -530,17 +546,17 @@ public void affichage_gmail(int y)
 //  affichage_contenu_gmail()            //
 ////////////////////////////////////////////////////
 public void affichage_contenu_mail(int y) {
- 
 
 
- if (y < bloc_gmail.debut_zone_message + 20 && y > bloc_gmail.debut_zone_message) {
+
+  if (y < bloc_gmail.debut_zone_message + 20 && y > bloc_gmail.debut_zone_message) {
     // on a la souris en haut
 
     // on avance la position de defilement
     bloc_gmail.pos_defil_contenu_mail_courant = bloc_gmail.pos_defil_contenu_mail_courant + 15;
     // on rafraichit 
     bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
-    
+
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
     rect(0, bloc_gmail.debut_zone_message, bloc_gmail.total_width, 20);
@@ -568,15 +584,8 @@ public void affichage_contenu_mail(int y) {
   else {
     bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
   }
-  
-  
- // on affiche le contenu du mail
-   
- 
- 
-  
+
+
+  // on affiche le contenu du mail
 }
-
-
-
 
