@@ -146,7 +146,7 @@ long temps_dernier_deplacement_bandeau=System.currentTimeMillis();// temps de la
 // DECLARATION DE LA PARTIE MAILS
 // on declare un objet monMail qui va s'occuper de recuperer les mails
 MailChecker monMail = new MailChecker();
-int NB_MAX_MESSAGES = 12; // nombre max de messages que l'on veut recuperer
+int NB_MAX_MESSAGES = 15; // nombre max de messages que l'on veut recuperer
 // attention : ils seront tous precharges lors de l'affichage
 
 // creation de l'afficheur GMail
@@ -157,7 +157,7 @@ Afficheur_data bloc_gmail = new Afficheur_data();
 //----------------------
 // OUVERTURE DES THREADS
 //----------------------
-Thread t = new Thread(new RunImpl());
+Thread t = new Thread(new RunImpl(monMail));
 //TestThread s = new TestThread();
 
 
@@ -168,14 +168,14 @@ Thread t = new Thread(new RunImpl());
 // COMPTEURS POUR LES TACHES PLANIFIEES
 long temps_derniere_action=System.currentTimeMillis();// garde le temps  de la dernière action de l'utilisateur
 long temps_de_ref_mails = System.currentTimeMillis();// temps de la dernière MAJ mail en secondes
-long nb_sec_refresh_mails = 60*5;// en secondes
+long nb_sec_refresh_mails = 30;// en secondes
 long temps_de_ref_Rss = System.currentTimeMillis();// temps de la dernière MAJ RSS en seconde
 long tempsIni=System.currentTimeMillis();// temps du démarrage de l'application
 long nb_sec_refresh_Rss;
 long nb_sec_refresh_Rss_ini=1;//intervalle de temps de rafraîchissement des flux Rss initial
 long nb_sec_refresh_Rss_nominal=3*60;//intervalle de temps de rafraîchissement des flux Rss nominal
 long Init_Temps_Rss=20;//en secondes
-long nb_sec_mode_veille=10;// en secondes
+long nb_sec_mode_veille=10000;// en secondes
 //-------------------------------------------------------------------------------------- 
 
 
@@ -442,6 +442,11 @@ void mousePressed()
     col_selected   = int(case_courante%4);
     curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
     ModeLevel=0;
+
+    if (curr_function_type.equals("GMAIL")) {
+    Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
+    Maingrille.MaGrille[col_selected][ligne_selected].ChangeColor(color(0, 0, 0));
+    }
     
     if (curr_function_type.equals("Rss")) {
     Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;

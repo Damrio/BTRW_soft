@@ -173,5 +173,20 @@ class Grille {
     }
     return Cellule;
   }
+  
+  
+  int[] Recherchefunction_typeDansGrille(int row, int col, String function_type) {
+   int Cellule[]=new int[2];
+    for (int i=0;i<row;i++) {
+      for (int j=0;j<col;j++) {
+        if (MaGrille[i][j].function_type.equals(function_type)) {
+          Cellule[0]=i;
+          Cellule[1]=j;
+        }
+      }
+    }
+    return Cellule;
+  }
+  
 }
 

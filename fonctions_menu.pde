@@ -193,8 +193,9 @@ public void draw_applique_tache_planifiees() {
   if (temps_de_ref_mails+ nb_sec_refresh_mails*1000 < curr_temps)
   {
     temps_de_ref_mails = curr_temps;   
-    Thread t = new Thread(new RunImpl());
+    Thread t = new Thread(new RunImpl(monMail));
     t.start();
+
   }
 
   if (System.currentTimeMillis()-tempsIni<Init_Temps_Rss*1000) {

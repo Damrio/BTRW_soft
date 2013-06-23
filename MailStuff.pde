@@ -15,7 +15,8 @@ class MailChecker {
   public ArrayList array_contenu;         // liste des N derniers messages
   public ArrayList array_from;
   public ArrayList array_sujet;  
-
+  public int nb_nvx_mails;
+  public int current_nb_mails;            // nombre de mails courant (utilise pour faire un delta et ne recuperer que les derniers)
   public boolean flag_changement;         // TODO : flag pour voir si le nombre de messages a change depuis la derniere fois
 
 
@@ -27,13 +28,13 @@ class MailChecker {
   // CONSTRUCTEUR  
   MailChecker() {
     numberofMessages           =   0;
-    array_contenu            =  new ArrayList<String>();
-    array_from                 =  new ArrayList<String>();
+    array_contenu              =   new ArrayList<String>();
+    array_from                 =   new ArrayList<String>();
+    current_nb_mails           =   0;
+    nb_nvx_mails               =   0;
+    array_sujet                =   new ArrayList<String>();
 
-
-    array_sujet                =  new ArrayList<String>();
-
-    flag_changement            =  false;
+    flag_changement            =   false;
   }
 
 
@@ -70,45 +71,62 @@ class MailChecker {
 
       // compte et met a jour le nombre de messages
       numberofMessages   =   folder.getMessageCount();
+
       System.out.println(numberofMessages + " total messages.");
 
-      // on recupere les N derniers messages non lus et on les met dans un tableau
-      //  Message message[]      =   folder.getMessages();
+      // on compte le nombre de nouveaux mails depuis le dernier check
+      nb_nvx_mails = numberofMessages - current_nb_mails;      
 
-      FlagTerm ft                =   new FlagTerm(new Flags(Flags.Flag.SEEN), false);
-      Message message[]          =   folder.search(ft);
 
-      // on nettoie les tableaux des mails precedents
-      array_from.clear();
-      array_sujet.clear();
-      array_contenu.clear();
+      // on recupere au plus les NB_MAX_MESSAGES derniers messages
+      //        Message message[]      =   folder.getMessages(max(numberofMessages-current_nb_mails,1),numberofMessages);
+      Message message[]      =   folder.getMessages(max(numberofMessages-NB_MAX_MESSAGES, 1), numberofMessages);  
 
-      int nb_mails               =   min(message.length, NB_MAX_MESSAGES);
 
-      // pour chaque mail recupere
-      for (int i=0; i < nb_mails; i++) {
-
-        // on recupere le from
-        String from        =  message[message.length-(i+1)].getFrom()[0].toString();
-        InternetAddress myadress = new InternetAddress(from);
-        String from_unicode       = myadress.toUnicodeString();
-
-        // on recupere le sujet
-        String sujet       =  message[message.length-(i+1)].getSubject();
-        String contenu = message[message.length-(i+1)].getContent().toString(); 
-
-        // on recupere le contenu
-        Message p = message[message.length-(i+1)];
-        String resultat = dumpPart(p);
+      
+      // Si il y a des nouveaux mails, on recharge tout
+      if (nb_nvx_mails > 0) {
+      
+        int nb_mails =   min(message.length, NB_MAX_MESSAGES);
         
-        // on les ajoute au tableau des mails
-        array_from.add(from_unicode);
-        array_sujet.add(sujet);
-        array_contenu.add(resultat);
+        // on nettoie les tableaux des mails precedents
+            array_from.clear();
+            array_sujet.clear();
+            array_contenu.clear();
+        
+        // pour chaque mail recupere
+        for (int i=0; i < nb_mails; i++) {
+          println("ENtre dans la boucle");
+          // on recupere le from
+          String from        =  message[message.length-(i+1)].getFrom()[0].toString();
 
+          // TODO : RAJOUTER Date du message, et flag SEEN / NOT SEEN
+          //Date my_date = message[message.length-(i+1)].getReceivedDate();
+          //println("date du message : " + my_date.toString());
+
+
+          InternetAddress myadress = new InternetAddress(from);
+          String from_unicode       = myadress.toUnicodeString();
+
+          // on recupere le sujet
+          String sujet       =  message[message.length-(i+1)].getSubject();
+          String contenu = message[message.length-(i+1)].getContent().toString(); 
+
+          // on recupere le contenu
+          Message p = message[message.length-(i+1)];
+          String resultat = dumpPart(p);
+
+          // on les ajoute au tableau des mails
+          array_from.add(from_unicode);
+          array_sujet.add(sujet);
+          println(sujet);
+          array_contenu.add(resultat);
+        }
       }
 
 
+      // MAJ current nb mails
+      current_nb_mails = numberofMessages;
       // Close the session
       folder.close(false);
       store.close();
@@ -128,7 +146,7 @@ class MailChecker {
 
   // fonction recursive qui sert a lire le contenu des mails
 
-    public String dumpPart(Part p) throws Exception {
+  public String dumpPart(Part p) throws Exception {
 
 
     String result="";
@@ -137,17 +155,17 @@ class MailChecker {
         	 * Using isMimeType to determine the content type avoids
      	 * fetching the actual content data until we need it.
      	 */
-     
-     // si le mail est deja du texte
+
+    // si le mail est deja du texte
     if (p.isMimeType("text/plain")) {
-      println("This is plain text");
+      //println("This is plain text");
       result = p.getContent().toString();
       return result;
     } 
 
     // sinon si c'est un objet multipart
     else if (p.isMimeType("multipart/*")) {
-      println("This is a Multipart");
+      //println("This is a Multipart");
 
       Multipart mp = (Multipart)p.getContent();
       int count = mp.getCount();
