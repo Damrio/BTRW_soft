@@ -14,7 +14,8 @@ class MailChecker {
   public int numberofMessages;            // nombre de messages non lus
   public ArrayList array_contenu;         // liste des N derniers messages
   public ArrayList array_from;
-  public ArrayList array_sujet;  
+  public ArrayList array_sujet;
+  public ArrayList array_date;
   public int nb_nvx_mails;
   public int current_nb_mails;            // nombre de mails courant (utilise pour faire un delta et ne recuperer que les derniers)
   public boolean flag_changement;         // TODO : flag pour voir si le nombre de messages a change depuis la derniere fois
@@ -33,6 +34,7 @@ class MailChecker {
     current_nb_mails           =   0;
     nb_nvx_mails               =   0;
     array_sujet                =   new ArrayList<String>();
+    array_date                 =   new ArrayList<String>();
 
     flag_changement            =   false;
   }
@@ -101,8 +103,21 @@ class MailChecker {
           String from        =  message[message.length-(i+1)].getFrom()[0].toString();
 
           // TODO : RAJOUTER Date du message, et flag SEEN / NOT SEEN
-          //Date my_date = message[message.length-(i+1)].getReceivedDate();
-          //println("date du message : " + my_date.toString());
+          
+          // Reupceration de la date du message et mise au bon format
+          Date date_mail = message[message.length-(i+1)].getReceivedDate();
+          GregorianCalendar cal = new GregorianCalendar();
+          cal.setTime(date_mail);
+          // on recupere chaque item de la date
+          int year     =   cal.get(Calendar.YEAR);
+          int month    =   cal.get(Calendar.MONTH);
+          int day      =   cal.get(Calendar.DAY_OF_MONTH);
+          int hour     =   cal.get(Calendar.HOUR);
+          int minute   =   cal.get(Calendar.MINUTE);
+          int second   =   cal.get(Calendar.SECOND);
+          // on met tout dans une string
+          String cal_str = String.valueOf(day)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year)+"  "+String.valueOf(hour)+":"+String.valueOf(minute)+":"+String.valueOf(second);
+//          println("date du message : " + cal_str);
 
 
           InternetAddress myadress = new InternetAddress(from);
@@ -119,7 +134,7 @@ class MailChecker {
           // on les ajoute au tableau des mails
           array_from.add(from_unicode);
           array_sujet.add(sujet);
-          println(sujet);
+          array_date.add(cal_str);
           array_contenu.add(resultat);
         }
       }

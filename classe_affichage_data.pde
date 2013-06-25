@@ -24,7 +24,7 @@ public class Afficheur_data {
 
 
   // fonction d'affichage
-  void affiche_data(ArrayList array_from, ArrayList array_sujet) {
+  void affiche_data(ArrayList array_from, ArrayList array_sujet, ArrayList array_date) {
 
     int nb_messages_available =  array_from.size();
 
@@ -64,7 +64,7 @@ public class Afficheur_data {
       PFont myFont2 = createFont("Arial Italic", 32);
       textFont(myFont2);
       fill(255);
-      textSize(14);
+      textSize(16);
       String string_from = array_from.get(i).toString();
       int index_adresse  =      string_from.indexOf("<");
       String string_from_to_display;
@@ -84,6 +84,11 @@ public class Afficheur_data {
         text(string_from_to_display.substring(0, 30)+" ...", 5, pos_defil_courant + debut_zone_message + i*message_height+5, message_width, message_height);
       }
 
+     // on ecrit la date
+     textSize(20);
+     fill(200,200,255);
+      String date_to_display = array_date.get(i).toString();
+      text(date_to_display, gridSize - 25, pos_defil_courant + debut_zone_message + i*message_height+20, message_width, message_height);
 
       // On ecrit le sujet du message
 
@@ -91,13 +96,13 @@ public class Afficheur_data {
       PFont myFont = createFont("Arial Bold", 32);
       textFont(myFont);
       fill(255);
-      textSize(14);
+      textSize(18);
       if (numLine2 == 1) {
         text(array_sujet.get(i).toString(), 5, pos_defil_courant + debut_zone_message + i*message_height+5 + 20, message_width, message_height);
       }
       else
       {
-        text(array_sujet.get(i).toString().substring(0, 40)+" ...", 5, pos_defil_courant + debut_zone_message + i*message_height+5 + 20, message_width, message_height);
+        text(array_sujet.get(i).toString().substring(0, 35)+" ...", 5, pos_defil_courant + debut_zone_message + i*message_height+5 + 30, message_width, message_height);
       }
     }
   }
@@ -152,7 +157,7 @@ public class Afficheur_data {
       }
       else
       {
-        text(string_from_to_display.substring(0, 30)+" ...", 5 + pos_defil_contenu_mail_courant, 5, gridSize, gridSize);
+        text(string_from_to_display.substring(0, 30)+" ...", 5, 5 + pos_defil_contenu_mail_courant, gridSize, gridSize);
       }
   
   

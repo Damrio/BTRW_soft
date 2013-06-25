@@ -508,7 +508,7 @@ public void affichage_gmail(int y)
     // on avance la position de defilement
     bloc_gmail.pos_defil_courant = bloc_gmail.pos_defil_courant + 15;
     // on rafraichit 
-    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet);
+    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet, monMail.array_date);
 
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
@@ -524,7 +524,7 @@ public void affichage_gmail(int y)
     // on recule la position de defilement
     bloc_gmail.pos_defil_courant = bloc_gmail.pos_defil_courant - 15;
     // on rafraichit 
-    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet);
+    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet, monMail.array_date);
 
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
@@ -535,7 +535,7 @@ public void affichage_gmail(int y)
   }   
 
   else {
-    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet);
+    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet, monMail.array_date);
   }
 }
 
