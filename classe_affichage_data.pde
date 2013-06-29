@@ -32,6 +32,13 @@ public class Afficheur_data {
     // ATTENTION : cela signifie que chaque fois que l'on touche la consigne dans le main() il faut faire appel a affiche_data ensuite
     int hauteur_max = debut_zone_message;
     int hauteur_min = total_height - nb_messages_available * message_height;
+    
+    // on calcul la taille de police a utiliser
+    int marge = 3; // marge a prendre pour ne pas etre au bord du cadre
+    int size_font = message_height / 2 - 2*marge;
+    textSize(size_font);
+    String date_type = "00/00/0000 00:00:00";
+    int date_size = int(textWidth(date_type));   
 
     if (pos_defil_courant > hauteur_max) {
       pos_defil_courant = hauteur_max;
@@ -64,7 +71,7 @@ public class Afficheur_data {
       PFont myFont2 = createFont("Arial Italic", 32);
       textFont(myFont2);
       fill(255);
-      textSize(16);
+      textSize(size_font);
       String string_from = array_from.get(i).toString();
       int index_adresse  =      string_from.indexOf("<");
       String string_from_to_display;
@@ -75,34 +82,34 @@ public class Afficheur_data {
       {
         string_from_to_display = string_from.substring(0, index_adresse);
       }
-      int numLine=(int)(textWidth(string_from_to_display)/(message_width-X))+1;               
+      int numLine=(int)(textWidth(string_from_to_display)/(message_width-date_size-marge))+1;               
       if (numLine == 1) {
-        text(string_from_to_display, 5, pos_defil_courant + debut_zone_message + i*message_height+5, message_width, message_height);
+        text(string_from_to_display, marge, pos_defil_courant + debut_zone_message + i*message_height+marge, message_width, message_height);
       }
       else
       {
-        text(string_from_to_display.substring(0, 30)+" ...", 5, pos_defil_courant + debut_zone_message + i*message_height+5, message_width, message_height);
+        text(string_from_to_display.substring(0, int(15*(message_width-date_size)/date_size))+" ...", marge, pos_defil_courant + debut_zone_message + i*message_height+marge, message_width, message_height);
       }
 
      // on ecrit la date
-     textSize(20);
+     textSize(size_font);
      fill(200,200,255);
       String date_to_display = array_date.get(i).toString();
-      text(date_to_display, gridSize - 25, pos_defil_courant + debut_zone_message + i*message_height+20, message_width, message_height);
+      text(date_to_display, message_width - date_size -marge, pos_defil_courant + debut_zone_message + i*message_height+message_height/2-size_font/2, message_width, message_height);
 
       // On ecrit le sujet du message
 
-      int numLine2=(int)(textWidth(array_sujet.get(i).toString())/(message_width-X))+1; 
+      int numLine2=(int)(textWidth(array_sujet.get(i).toString())/(message_width-date_size-marge))+1; 
       PFont myFont = createFont("Arial Bold", 32);
       textFont(myFont);
       fill(255);
-      textSize(18);
+      textSize(size_font-3);
       if (numLine2 == 1) {
-        text(array_sujet.get(i).toString(), 5, pos_defil_courant + debut_zone_message + i*message_height+5 + 20, message_width, message_height);
+        text(array_sujet.get(i).toString(), marge, pos_defil_courant + debut_zone_message + i*message_height+message_height/2 + marge, message_width, message_height);
       }
       else
       {
-        text(array_sujet.get(i).toString().substring(0, 35)+" ...", 5, pos_defil_courant + debut_zone_message + i*message_height+5 + 30, message_width, message_height);
+        text(array_sujet.get(i).toString().substring(0, int(15*(message_width-date_size)/date_size))+" ...", marge, pos_defil_courant + debut_zone_message + i*message_height+message_height/2 + marge, message_width, message_height);
       }
     }
   }
