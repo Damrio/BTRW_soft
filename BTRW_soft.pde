@@ -268,7 +268,7 @@ void draw() {
   // Si on n'est dans le mode veille on ne fait rien on laisse le background en noir
   if (indicateur_mode == 0)
   {
-    Affichage_Heure();
+   Affichage_Heure();
   } 
 
 
