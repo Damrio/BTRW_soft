@@ -83,6 +83,9 @@ String Donne_l_heure(int heure) {
     heureString= "Nineteen"; 
     break;
   case 20: 
+    heureString= "Twenty"; 
+    break;
+      case 21: 
     heureString= "Twenty One"; 
     break;
   case 22: 

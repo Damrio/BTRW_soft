@@ -2,7 +2,7 @@
 void Action_detectee() {
   if (indicateur_mode == 0) {
     indicateur_mode =1;
-    temps_derniere_action=System.currentTimeMillis();
   }
+     temps_derniere_action=System.currentTimeMillis();
 }
 
