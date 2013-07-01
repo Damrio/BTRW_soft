@@ -98,7 +98,7 @@ class MailChecker {
         
         // pour chaque mail recupere
         for (int i=0; i < nb_mails; i++) {
-          println("ENtre dans la boucle");
+          
           // on recupere le from
           String from        =  message[message.length-(i+1)].getFrom()[0].toString();
 
@@ -117,7 +117,6 @@ class MailChecker {
           int second   =   cal.get(Calendar.SECOND);
           // on met tout dans une string
           String cal_str = String.valueOf(day)+"/"+String.valueOf(month+1)+"/"+String.valueOf(year)+"  "+String.valueOf(hour)+":"+String.valueOf(minute)+":"+String.valueOf(second);
-//          println("date du message : " + cal_str);
 
 
           InternetAddress myadress = new InternetAddress(from);
@@ -125,17 +124,17 @@ class MailChecker {
 
           // on recupere le sujet
           String sujet       =  message[message.length-(i+1)].getSubject();
-          String contenu = message[message.length-(i+1)].getContent().toString(); 
 
           // on recupere le contenu
           Message p = message[message.length-(i+1)];
           String resultat = dumpPart(p);
 
           // on les ajoute au tableau des mails
-          array_from.add(from_unicode);
-          array_sujet.add(sujet);
-          array_date.add(cal_str);
-          array_contenu.add(resultat);
+          if (from_unicode != null) { array_from.add(from_unicode); } else { array_from.add("No author");}
+          if (sujet != null) { array_sujet.add(sujet); } else { array_sujet.add("No subject");}
+          if (cal_str != null) { array_date.add(cal_str); } else { array_date.add("No date");}
+          if (resultat != null) { array_contenu.add(resultat); } else { array_contenu.add("No content");}
+          
         }
       }
 
