@@ -21,8 +21,11 @@ private float AffichageImageWeather(YahooWeather weather, int Date, int hauteur,
   }
   else if (Date==1) { 
     WeatherCode= weather.getWeatherConditionCodeTomorrow();
-    //println(weather.getWeatherConditionTomorrow());
-    //println(WeatherCode);
+    MaDate=weather.getLastUpdated();
+    FaitJour=true;
+  }
+  else if (Date==2) { 
+    WeatherCode= weather.getWeatherConditionCodeDayAfterTomorrow();
     MaDate=weather.getLastUpdated();
     FaitJour=true;
   }
@@ -34,7 +37,7 @@ private float AffichageImageWeather(YahooWeather weather, int Date, int hauteur,
 }
 
 
-private float Affichage_Text_Weather(float MargeIniH,int OffsetY) { 
+private float Affichage_Text_Weather(float MargeIniH, int OffsetY) { 
   float MargeDebut=MargeIniH;
   int marginH=5;
   int marginV=1;
@@ -56,6 +59,38 @@ private float Affichage_Text_Weather(float MargeIniH,int OffsetY) {
 }
 
 
+private void Affichage_Vitesse_Vent(YahooWeather weather, float taille, float x, float y) {
+  float Windspeed;
+  float Direction;
+
+  Windspeed=weather.getWindSpeed();
+  Direction=weather.getWindDirection();
+
+  pushMatrix();
+  strokeWeight(5);
+  smooth();
+  translate(x, y);
+  rotate(radians(Direction));
+  if (Windspeed<15) {
+    stroke(25, 225, 65);
+  }
+  else if (Windspeed<50) {
+    stroke(243, 146, 0);
+  }
+  else {
+    stroke(243, 24, 0);
+  }
+  line(0, -taille/2, 0, taille/2);
+  triangle(0, -taille/2, taille/6, -taille/2+taille/6, -taille/6, -taille/2+taille/6);
+
+  rotate(radians(-Direction));
+  textFont(TextWeatherFont);
+  textSize(20);
+  text(round(Windspeed)+"km/h", taille/2+10, textAscent()/2);
+  popMatrix();
+} 
+
+
 
 private float[] AddText(String Text, int TextSize, float rationHL, float DebutH, int marginH, int marginV, float y, float MaxH) {
   float[] XY= new float[2];
@@ -72,50 +107,92 @@ private void AffichageTempertaure(YahooWeather weather, int x, int y) {
   //fill( CouleurTemperature(weather.getWindTemperature()));
   textSize(TexteSize);
   text(+weather.getWindTemperature()+"°", x, TexteSize+y+3);
-
 }
 
-public void AffichageTemperatureLendemain(YahooWeather weather,float x,float y){
+public void AffichageTemperatureLendemain(YahooWeather weather, int DayToPlot, float x, float y) {
   textFont(TextWeatherFont);
   textSize(20);
-  String TexteToWrite=weather.getTemperatureLowTomorrow()+"°|"+weather.getTemperatureLowTomorrow()+"°";
-  String Texte=weather.getTemperatureLowTomorrow()+"°";
+
+  String Texte="";
+  if (DayToPlot==1)
+    Texte=weather.getTemperatureLowTomorrow()+"°";
+  else if (DayToPlot==2)
+    Texte=weather.getTemperatureLowDayAfterTomorrow()+"°";
+
   float MarginIni=x;
-  //fill( CouleurTemperature(weather.getTemperatureLowTomorrow()));
-  text(Texte,MarginIni,y);
+  text(Texte, MarginIni, y);
   MarginIni+=textWidth(Texte);
   Texte="|";
-  //fill(255);
-  text(Texte,MarginIni,y);
+  text(Texte, MarginIni, y);
   MarginIni+=textWidth(Texte);
-  Texte=weather.getTemperatureHighTomorrow()+"°";
-  //fill( CouleurTemperature(weather.getTemperatureHighTomorrow()));
-  text(Texte,MarginIni,y);
+  if (DayToPlot==1)
+    Texte=weather.getTemperatureHighTomorrow()+"°";
+  else if (DayToPlot==2)
+    Texte=weather.getTemperatureHighDayAfterTomorrow()+"°";
+
+  text(Texte, MarginIni, y);
 }
 
-public color CouleurTemperature(int Temp){
-int MinTemp=-20;
-int MaxTemp=40;
-int delta;
-color CouleurTexte;
-colorMode(HSB,100);
-int H,S,B;
-B=400;
-if(Temp<MinTemp+(MaxTemp-MinTemp)/2){
-H=188;  
-delta=(int)constrain((Temp-MinTemp)*99/((MaxTemp-MinTemp)/2),0,100);
-//println(delta);
-S=99-delta;
+private void Affichage_Journee(YahooWeather weather, int DayToPlot, float x, float y) {
+  String Weekday="";
+  if (DayToPlot==1) {
+    Weekday=weather.getWeekdayTomorrow();
+  }
+  else if (DayToPlot==2) {
+    Weekday=weather. getWeekdayDayAfterTomorrow();
+  }
+  //println( Weekday);
+  Weekday=TraductionJournee(Weekday);
+  textFont(TextWeatherFont);
+  textSize(20);
+  text(Weekday, x, y);
 }
-else{
-H=188; 
-delta=(int)constrain((Temp-(MinTemp+(MaxTemp-MinTemp)/2))*99/((MaxTemp-MinTemp)/2),0,100);
-S=0+delta;
+
+String TraductionJournee(String Jour) {
+  String Trad="";
+
+  if (Jour.equals("Mon"))
+    Trad="Lun";
+  else if (Jour.equals("Tue"))
+    Trad="Mar";
+  else if (Jour.equals("Wed"))
+    Trad="Mer";
+  else if (Jour.equals("Thu"))
+    Trad="Jeu";
+  else if (Jour.equals("Fri"))
+    Trad="Ven";
+  else if (Jour.equals("Sat"))
+    Trad="Sam";
+  else if (Jour.equals("Sun"))
+    Trad="Dim";
+
+
+  return Trad;
 }
-CouleurTexte=color(H,S,B);
-colorMode(RGB);
-//println("H:"+H+" S: "+S+" B:"+B);
-return CouleurTexte;
+
+public color CouleurTemperature(int Temp) {
+  int MinTemp=-20;
+  int MaxTemp=40;
+  int delta;
+  color CouleurTexte;
+  colorMode(HSB, 100);
+  int H, S, B;
+  B=400;
+  if (Temp<MinTemp+(MaxTemp-MinTemp)/2) {
+    H=188;  
+    delta=(int)constrain((Temp-MinTemp)*99/((MaxTemp-MinTemp)/2), 0, 100);
+    //println(delta);
+    S=99-delta;
+  }
+  else {
+    H=188; 
+    delta=(int)constrain((Temp-(MinTemp+(MaxTemp-MinTemp)/2))*99/((MaxTemp-MinTemp)/2), 0, 100);
+    S=0+delta;
+  }
+  CouleurTexte=color(H, S, B);
+  colorMode(RGB);
+  //println("H:"+H+" S: "+S+" B:"+B);
+  return CouleurTexte;
 }
 
 private String NumeroImage(int WeatherConditionCode, String tabImageCode[][], boolean Enjournee) {

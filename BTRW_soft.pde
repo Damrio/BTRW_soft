@@ -279,15 +279,24 @@ void draw() {
     
     strokeWeight(1);
     frameRate(30);
-    Maingrille.Display(cols, rows);
-
-    //rationHL=AffichageImageWeather(weather, 0, WindowHauteur, 0, 360); 
-    rationHL=AffichageImageWeather(weather, 0, 100, 480, 0); 
-    // float MarginH=Affichage_Text_Weather(480, (int)rationHL*100+20);
-    rationHL=AffichageImageWeather(weather, 1, 100/2, 480, (int)rationHL*100+20);
-    textFont(TextWeatherFont);
-    AffichageTempertaure(weather, 480+3, 3);
-    AffichageTemperatureLendemain(weather, 480+3, (int)rationHL*100+20);
+    Maingrille.Display(cols, rows); 
+    
+    int xpos;
+    xpos=0;
+    int hauteurVent=40;
+    AffichageTempertaure(weather, 480+3, xpos);
+    rationHL=AffichageImageWeather(weather, 0, 100, 480, xpos+3); 
+    xpos+=(int)rationHL*100+10;
+    Affichage_Vitesse_Vent(weather,hauteurVent,480+10+hauteurVent/2, xpos);
+    xpos+=hauteurVent+20;
+    AffichageTemperatureLendemain(weather, 1,480+3, xpos);
+    rationHL=AffichageImageWeather(weather, 1, 80, 480, xpos);
+    Affichage_Journee(weather, 1,  480+110, xpos);
+    xpos+=(int)rationHL*100+10;
+    AffichageTemperatureLendemain(weather, 2,480+3, xpos);
+    rationHL=AffichageImageWeather(weather, 2, 80, 480, xpos);
+    Affichage_Journee(weather, 2,  480+110, xpos);
+    
 
     if (ListTitleToPrint.size()>=NombreTitreToPlot) {
       DefilerBandeauTitreRss();
