@@ -71,7 +71,7 @@ private void Affichage_Vitesse_Vent(YahooWeather weather, float taille, float x,
   smooth();
   translate(x, y);
   rotate(radians(Direction));
-  if (Windspeed<15) {
+  if (Windspeed<20) {
     stroke(25, 225, 65);
   }
   else if (Windspeed<50) {
