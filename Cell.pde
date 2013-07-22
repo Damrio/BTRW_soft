@@ -5,7 +5,8 @@ class Cell {
   // A cell object knows about its location in the grid as well as its size with the variables x, y, w, h.
   float x, y;   // x,y location
   float w, h;   // width and height
-  color couleur; 
+  color couleur;
+  color couleur_bulle; 
   PImage Icone;
   Boolean FullSize;
   String Type; 
@@ -20,8 +21,9 @@ class Cell {
     w = tempW;
     h = tempH;
     couleur= Couleur;
+    couleur_bulle = color(0,0,100);
     numberofEvents=0;
-    FullSize=false;
+    FullSize=true;//false;
     Type="Event";
     function_type = "none";
     Url="";
@@ -39,17 +41,22 @@ class Cell {
     couleur= colorToSet;
     //display(Maingrille);
   }
+  
+  void ChangeCouleurBulle(color colorToSet) {
+    couleur_bulle= colorToSet;
+    //display(Maingrille);
+  }
 
   void displayImage(Grille CurrentGrille) {
     float rationHL;
     if (Icone!=null) {
       rationHL=(float)Icone.width/(float)Icone.height;
       if (FullSize==false) {
-        image (Icone, x+1, y+1, (int)(rationHL*CurrentGrille.iconeSize), CurrentGrille.iconeSize);
+        // on centre l'image dans la case
+        image (Icone, x+(scareSize-CurrentGrille.iconeSize)/2, y+(scareSize-CurrentGrille.iconeSize)/2, (int)(rationHL*CurrentGrille.iconeSize), CurrentGrille.iconeSize);
         tint(255, 255);
       }
       else {
-
         image (Icone, x, y, (int)(rationHL*scareSize), scareSize);
         tint(255, 255);
       }
@@ -58,7 +65,8 @@ class Cell {
 
 
   void display(Grille CurrentGrille) {
-    stroke(255);
+    stroke(0);
+    strokeWeight(0);
     fill(couleur, 255);
     rect(x, y, w, h);
     displayImage(CurrentGrille);
@@ -92,7 +100,7 @@ class Cell {
   String getFunction_type() {
     return function_type;
   }
-
+  
   void displayEvent(Grille CurrentGrille) {
     textFont(CurrentGrille.font, 150);
     String Value;
@@ -109,8 +117,19 @@ class Cell {
       else {
         fill(0, 0, 0);
       }
-      textSize(75);
-      text(Value, x+(w/2-(int)(textWidth(Value)/2)), y+(int)((h+25+textAscent()-textDescent())/2));
+      
+      // On met les events dans une petite bulle toute mignonne !
+      strokeWeight(2);
+      stroke(couleur_bulle);
+      fill(255);
+      textSize(20);
+      ellipse(x+20, y+scareSize-25, 37, 37);
+      fill(couleur_bulle);
+      textAlign(CENTER, CENTER);
+      text(Value, x+20, y+scareSize-25);
+      textAlign(LEFT);
+      fill(255);
+     // text(Value, x+(w/2-(int)(textWidth(Value)/2)), y+(int)((h+25+textAscent()-textDescent())/2));
     }
   }
 }

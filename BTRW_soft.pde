@@ -175,7 +175,7 @@ long nb_sec_refresh_Rss;
 long nb_sec_refresh_Rss_ini=1;//intervalle de temps de rafraîchissement des flux Rss initial
 long nb_sec_refresh_Rss_nominal=3*60;//intervalle de temps de rafraîchissement des flux Rss nominal
 long Init_Temps_Rss=20;//en secondes
-long nb_sec_mode_veille=10000;// en secondes
+long nb_sec_mode_veille=100;// en secondes
 //-------------------------------------------------------------------------------------- 
 
 
@@ -190,7 +190,8 @@ void setup() {
   size(640, gridSize);
   Maingrille= new Grille(cols, rows);
   Maingrille.SetDefaultFont("K22 Didoni Swash.ttf");
-  Maingrille.SetIconeSize((int)(scareSize*0.3));
+//  Maingrille.SetIconeSize((int)(scareSize*0.3));
+  Maingrille.SetIconeSize((int)(scareSize*0.85));
 
   fnt=createFont("Courier", 18);
   myfont=  createFont("MARYJ___.ttf", 32);
@@ -248,7 +249,8 @@ void setup() {
   // ON lit le fichier de configuration pour mettre a jour les cellules de la grille
   // TODO : gerer les exceptions si le fichier n'est pas bien configure (valeurs idiotes)
   applique_fichier_config(chemin_fichier_config);
-
+  
+ 
   //InitilialisationRSS
   Maingrille.InitListRSS(cols, rows);
   CreateRss() ;
@@ -280,6 +282,7 @@ void draw() {
     strokeWeight(1);
     frameRate(30);
     Maingrille.Display(cols, rows); 
+
     
     int xpos;
     xpos=0;
@@ -302,6 +305,8 @@ void draw() {
       DefilerBandeauTitreRss();
       textFont(myfontTittleRSS, 45);
       text(TitreRss, OffsetTitreRss, 360+(60)+textAscent()/2);
+      
+      
     }
   }
 
@@ -454,12 +459,12 @@ void mousePressed()
 
     if (curr_function_type.equals("GMAIL")) {
     Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
-    Maingrille.MaGrille[col_selected][ligne_selected].ChangeColor(color(0, 0, 0));
+    Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
     }
     
     if (curr_function_type.equals("Rss")) {
     Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
-    Maingrille.MaGrille[col_selected][ligne_selected].ChangeColor(color(0, 0, 0));
+    Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
     }
     // on regarde sur quelle case on a clique : les cases sont numerotees :
     //    0   1   2   3

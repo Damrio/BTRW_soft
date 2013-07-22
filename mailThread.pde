@@ -22,7 +22,7 @@ Cellule=Maingrille.Recherchefunction_typeDansGrille(cols, rows, "GMAIL");
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(monMail.nb_nvx_mails);
 // TODO : faire un changement de couleur "intelligent (mais ne sera probablement pas dans cette fonction"
 if (monMail.nb_nvx_mails > 0) {
-  Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeColor(color(125, 10, 10));
+  Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeCouleurBulle(color(200, 0, 0));
 }
   } 
 }

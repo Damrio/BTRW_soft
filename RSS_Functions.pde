@@ -38,7 +38,7 @@ void UpdateRss() {
         int Cellule[]=new int[2]; 
         Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(1);
-        Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeColor(color(125, 10, 10));
+        Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeCouleurBulle(color(200, 0, 0));
       }
       else {
         FluxUpadted =true;

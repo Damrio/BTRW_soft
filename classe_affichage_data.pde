@@ -34,7 +34,7 @@ public class Afficheur_data {
     int hauteur_min = total_height - nb_messages_available * message_height;
     
     // on calcul la taille de police a utiliser
-    int marge = 3; // marge a prendre pour ne pas etre au bord du cadre
+    int marge = 4; // marge a prendre pour ne pas etre au bord du cadre
     int size_font = message_height / 2 - 2*marge;
     textSize(size_font);
     String date_type = "00/00/0000 00:00:00";
@@ -68,7 +68,7 @@ public class Afficheur_data {
 
 
 
-      PFont myFont2 = createFont("Arial Italic", 32);
+      PFont myFont2 = createFont("Arial", 32);
       textFont(myFont2);
       fill(255);
       textSize(size_font);
@@ -92,6 +92,8 @@ public class Afficheur_data {
       }
 
      // on ecrit la date
+     PFont myFont3 = createFont("Arial Italic", 32);
+     textFont(myFont3);
      textSize(size_font);
      fill(200,200,255);
       String date_to_display = array_date.get(i).toString();
@@ -100,7 +102,7 @@ public class Afficheur_data {
       // On ecrit le sujet du message
 
       int numLine2=(int)(textWidth(array_sujet.get(i).toString())/(message_width-date_size-marge))+1; 
-      PFont myFont = createFont("Arial Bold", 32);
+      PFont myFont = createFont("Arial Bold Italic", 32);
       textFont(myFont);
       fill(255);
       textSize(size_font-3);
