@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Comprendre le multiplexeur PWN TLC5940 | ZeM, geekeries en tout genre</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/reset.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/defaults.css" type="text/css" media="screen, projection">
+<!--[if lt IE 8]><link rel="stylesheet" href="http://www.zem.fr/wp-content/themes/Vento/lib/css/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+
+<link rel="stylesheet" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/style.css" type="text/css" media="screen, projection">
+
+
+            <script async="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/cbgapi.js"></script><script src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/all_002.js" id="facebook-jssdk"></script><script async="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/cbgapi_002.js"></script><script src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/ga.js" async="" type="text/javascript"></script><script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.3 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-1727817-9']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="ZeM, geekeries en tout genre » Comprendre le multiplexeur PWM TLC5940 Comments Feed" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/feed/">
+<link rel="stylesheet" id="dws_bootstrap-css" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/bootstrap.css" type="text/css" media="all">
+<link rel="stylesheet" id="dws_shortcodes-css" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/shortcodes.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="digg-digg-css" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/diggdigg-style.css" type="text/css" media="screen">
+<link rel="stylesheet" id="arevico_scsfbcss-css" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/scs.css" type="text/css" media="all">
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/jquery_003.js"></script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/jquery-migrate.js"></script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/bootstrap.js"></script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/comment-reply.js"></script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/scs.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var lb_l_ret = {"fb_id":"393871930637739","display_on_page":"1","display_on_post":"1","display_on_homepage":"1","display_on_archive":"1","show_once":"1","delay":"1000","fancybox":"","facebookheader":"","gaevent":"","eam":"","hideonlike":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/launch.js"></script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/superfish.js"></script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/jquery.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.zem.fr/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.zem.fr/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Intéraction entre Dotnet et Arduino" href="http://www.zem.fr/interaction-entre-dotnet-et-arduino/">
+<link rel="next" title="Arduino Wire Scanner sur le bus I2C" href="http://www.zem.fr/arduino-wire-scanner-sur-le-bus-i2c/">
+
+<link rel="shortlink" href="http://www.zem.fr/?p=697">
+
+<link rel="stylesheet" href="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/wp-synhighlighter.css" type="text/css" media="screen">
+
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/wp-synhighlighter.js"></script>
+<link rel="shortcut icon" href="http://www.zem.fr/wp-content/themes/Vento/images/favicon.png" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="ZeM, geekeries en tout genre RSS Feed" href="http://www.zem.fr/feed/">
+<link rel="pingback" href="http://www.zem.fr/xmlrpc.php">
+
+<!-- All in One SEO Pack 2.0.3.1 by Michael Torbert of Semper Fi Web Design[185,261] -->
+<link rel="author" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/jhdscript">
+<meta name="description" content="Apprenez à utiliser le multiplexeur PWN TLC5940 afin d'augmenter le nombre de canaux PWN de votre Arduino">
+
+<meta name="keywords" content="easylight, multiplex, multiplexer led, multiplexer pwn, pwn, tlc5940, tlc5940arduino,arduino,multiplex,multiplexer led,multiplexer pwm,pwm,tlc5940,tlc5940arduino,geekeries,programmation">
+
+<link rel="canonical" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/">
+<!-- /all in one seo pack -->
+<style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style>
+<script src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/nonSecureAnonymousFramework.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;left:-10000px;overflow:visible;position:absolute;top:-10000px;width:100%
+}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0 0, 0 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0 0, 0 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style><style type="text/css">* html #li_ui_li_gen_1377953485177_0 a#li_ui_li_gen_1377953485177_0-link{height:1% !important;}#li_ui_li_gen_1377953485177_0{position:relative !important;overflow:visible !important;display:block !important;}#li_ui_li_gen_1377953485177_0 a#li_ui_li_gen_1377953485177_0-link{border:0 !important;height:20px !important;text-decoration:none !important;padding:0 !important;margin:0 !important;display:inline-block !important;}#li_ui_li_gen_1377953485177_0 a#li_ui_li_gen_1377953485177_0-link:link, #li_ui_li_gen_1377953485177_0 a#li_ui_li_gen_1377953485177_0-link:visited, #li_ui_li_gen_1377953485177_0 a#li_ui_li_gen_1377953485177_0-link:hover, #li_ui_li_gen_1377953485177_0 a#li_ui_li_gen_1377953485177_0-link:active{border:0 !important;text-decoration:none !important;}#li_ui_li_gen_1377953485177_0 a#li_ui_li_gen_1377953485177_0-link:after{content:"." !important;display:block !important;clear:both !important;visibility:hidden !important;line-height:0 !important;height:0 !important;}#li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-logo{background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -276px no-repeat !important;cursor:pointer !important;border:0 !important;text-indent:-9999em !important;overflow:hidden !important;padding:0 !important;margin:0 !important;position:absolute !important;left:0px !important;top:0px !important;display:block !important;width:20px !important;height:20px !important;float:right !important;}#li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-logo{background-position:-20px -276px !important;}#li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-logo, #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-logo{background-position:-40px -276px !important;}.IN-shadowed #li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-logo{}#li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title{color:#333 !important;cursor:pointer !important;display:block !important;white-space:nowrap !important;float:left !important;margin-left:1px !important;vertical-align:top !important;overflow:hidden !important;text-align:center !important;height:18px !important;padding:0 4px 0 23px !important;border:1px solid #000 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;border-left:0 !important;text-shadow:#FFFFFF -1px 1px 0 !important;line-height:20px !important;border-radius:0 !important;-moz-border-radius:0 !important;border-top-right-radius:2px !important;border-bottom-right-radius:2px !important;-moz-border-radius-topright:2px !important;-moz-border-radius-bottomright:2px !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}#li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-title{border:1px solid #000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;border-left:0 !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}#li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title, #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title{color:#666 !important;border:1px solid #000 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;border-left:0 !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.IN-shadowed #li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title{}.IN-shadowed #li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-title{}.IN-shadowed #li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title, .IN-shadowed #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title{}#li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title-text, #li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title-text *{color:#333 !important;font-size:11px !important;font-family:Arial, sans-serif !important;font-weight:bold !important;font-style:normal !important;display:inline-block !important;background:transparent none !important;vertical-align:baseline !important;height:18px !important;line-height:20px !important;float:none !important;}#li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title-text strong{font-weight:bold !important;}#li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title-text em{font-style:italic !important;}#li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-title-text, #li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-title-text *{color:#000 !important;}#li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title-text, #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title-text, #li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title-text *, #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title-text *{color:#666 !important;}#li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title #li_ui_li_gen_1377953485177_0-mark{display:inline-block !important;width:0px !important;overflow:hidden !important;}.success #li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title{color:#333 !important;border-top-color:#E2E2E2 !important;border-right-color:#BFBFBF !important;border-bottom-color:#B9B9B9 !important;border-left-color:#E2E2E2 !important;background-color:#ECECEC !important;background-image:-moz-linear-gradient(top, #FEFEFE 0%, #ECECEC 100%) !important;}.success #li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title-text, .success #li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title-text *{color:#333 !important;}.IN-shadowed .success #li_ui_li_gen_1377953485177_0 #li_ui_li_gen_1377953485177_0-title{}.success #li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-title{color:#000 !important;border-top-color:#ABABAB !important;border-right-color:#9A9A9A !important;border-bottom-color:#787878 !important;border-left-color:#04568B !important;background-color:#EDEDED !important;background-image:-moz-linear-gradient(top, #EDEDED 0%, #DEDEDE 100%) !important;}.success #li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-title-text, .success #li_ui_li_gen_1377953485177_0.hovered #li_ui_li_gen_1377953485177_0-title-text *{color:#000 !important;}.success #li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title, .success #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title{color:#666 !important;border-top-color:#B6B6B6 !important;border-right-color:#B3B3B3 !important;border-bottom-color:#9D9D9D !important;border-left-color:#49627B !important;background-color:#DEDEDE !important;background-image:-moz-linear-gradient(top, #E3E3E3 0%, #EDEDED 100%) !important;}.success #li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title-text, .success #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title-text, .success #li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title-text *, .success #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title-text *{color:#666 !important;}.IN-shadowed .success #li_ui_li_gen_1377953485177_0.clicked #li_ui_li_gen_1377953485177_0-title, .IN-shadowed .success #li_ui_li_gen_1377953485177_0.down #li_ui_li_gen_1377953485177_0-title{}#li_ui_li_gen_1377953485232_1-container.IN-top {display:inline-block !important;overflow:visible !important;position:relative !important;height:42px !important;line-height:1px !important;cursor:pointer !important;}#li_ui_li_gen_1377953485232_1.IN-top {display:inline-block !important;height:42px !important;width:57px !important;text-align:center !important;background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) -150px top no-repeat !important;}#li_ui_li_gen_1377953485232_1-content.IN-top {display:inline !important;font-size:16px !important;color:#04558B !important;font-weight:bold !important;font-family:Arial, sans-serif !important;line-height:34px !important;}#li_ui_li_gen_1377953485232_1-container.IN-hovered #li_ui_li_gen_1377953485232_1.IN-top, #li_ui_li_gen_1377953485232_1-container.IN-clicked #li_ui_li_gen_1377953485232_1.IN-top, #li_ui_li_gen_1377953485232_1-container.IN-down #li_ui_li_gen_1377953485232_1.IN-top {background-position-x:-210px !important;}#li_ui_li_gen_1377953485232_1-container.IN-empty #li_ui_li_gen_1377953485232_1-inner.IN-top {background:url(http://s.c.lnkd.licdn.com/scds/common/u/img/sprite/sprite_connect_v13.png) 0px -20px no-repeat !important;overflow:hidden !important;margin:5px auto 0 auto !important;width:26px !important;height:26px !important;display:block !important;}#li_ui_li_gen_1377953485232_1-container.IN-empty #li_ui_li_gen_1377953485232_1-content.IN-top {text-indent:-999px !important;display:inline-block !important;}#li_ui_li_gen_1377953485232_1-container.IN-hidden #li_ui_li_gen_1377953485232_1 {display:none !important;}</style></head>
+
+<body data-twttr-rendered="true" class="single single-post postid-697 single-format-standard">
+
+<div id="container">
+
+            <div class="clearfix">
+            			        <div class="menu-primary-container">
+			<ul class="menus menu-primary sub-menu sf-js-enabled">
+                <li><a href="http://www.zem.fr/">Home</a></li>
+				<li class="page_item page-item-148"><a href="http://www.zem.fr/netsysinfo/">NetSysInfo</a></li>
+<li class="page_item page-item-727"><a href="http://www.zem.fr/easylight-ambilight-clone-system/">EasyLight, Ambilight Clone System</a></li>
+<li class="page_item page-item-844"><a href="http://www.zem.fr/wordpress-brute-force/">WordPress Brute Force</a></li>
+<li class="page_item page-item-911"><a href="http://www.zem.fr/contact/">Contact</a></li>
+<li class="page_item page-item-1012"><a href="http://www.zem.fr/nazduino-robot-idiot/">Nazduino, le Robot Idiot</a></li>
+			</ul>
+		</div><div class="menu-primary-responsive-container"><select class="menu-primary-responsive"><option selected="selected" value="#">Menu</option><option value="http://www.zem.fr/">–&nbsp;Home</option><option value="http://www.zem.fr/netsysinfo/">–&nbsp;NetSysInfo</option><option value="http://www.zem.fr/easylight-ambilight-clone-system/">–&nbsp;EasyLight, Ambilight Clone System</option><option value="http://www.zem.fr/wordpress-brute-force/">–&nbsp;WordPress Brute Force</option><option value="http://www.zem.fr/contact/">–&nbsp;Contact</option><option value="http://www.zem.fr/nazduino-robot-idiot/">–&nbsp;Nazduino, le Robot Idiot</option></select></div>
+                      <!--.primary menu--> 	
+                </div>
+        
+
+    <div id="header">
+    
+        <div class="logo">
+         
+            <a href="http://www.zem.fr/"><img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/logo.png" alt="ZeM, geekeries en tout genre" title="ZeM, geekeries en tout genre"></a>
+         
+        </div><!-- .logo -->
+
+        <div class="header-right">
+        
+            <div id="topsearch">
+                 
+<div id="search" title="Type and hit enter">
+    <form method="get" id="searchform" action="http://www.zem.fr/"> 
+        <input value="Search" name="s" id="s" onblur="if (this.value == '')  {this.value = 'Search';}" onfocus="if (this.value == 'Search') {this.value = '';}" type="text">
+    </form>
+</div><!-- #search -->            </div>
+            
+            <div id="top-social-profiles">
+                            <ul class="widget-container"><li class="social-profiles-widget">
+            <a href="http://twitter.com/jhdscript" target="_blank"><img title="Twitter" alt="Twitter" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/twitter.png"></a><a href="http://www.facebook.com/ZemLesGeekeries" target="_blank"><img title="Facebook" alt="Facebook" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/facebook.png"></a><a href="http://www.zem.fr/feed/" target="_blank"><img title="RSS Feed" alt="RSS Feed" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/rss.png"></a><a href="mailto:jhdscript@gmail.com" target="_blank"><img title="Email" alt="Email" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/email.png"></a>            </li></ul>
+                        </div>
+            
+        </div><!-- .header-right -->
+        
+    </div><!-- #header -->
+    
+            <div class="clearfix">
+            			        <div class="menu-secondary-container">
+			<ul class="menus menu-secondary sub-menu sf-js-enabled">
+					<li class="cat-item cat-item-7"><a href="http://www.zem.fr/category/bidouilles/" title="Tous mes tests et bidouilles">Bidouilles</a>
+</li>
+	<li class="cat-item cat-item-631"><a href="http://www.zem.fr/category/crypto-currencies/" title="Découvrez le monde des crypto currencies: Bitcoin, Litecoin, PPCoin, Terracoin, ...">CryptoCurrencies</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.zem.fr/category/geekeries/" title="Truc de geeks">Geekeries</a>
+</li>
+	<li class="cat-item cat-item-57"><a href="http://www.zem.fr/category/linux-2/" title="Découvrir le monde du pingouin Nux">Linux</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.zem.fr/category/programmation/" title="Apprendre à coder">Programmation</a>
+</li>
+	<li class="cat-item cat-item-709"><a href="http://www.zem.fr/category/web-marketing/" title="Booster le nombre de visiteurs, devenez le numéro un de votre secteur d'activité">Web Marketing</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.zem.fr/category/zem/" title="Tout ce que vous ZeMeZ">ZeM</a>
+</li>
+			</ul>
+		</div><div class="menu-secondary-responsive-container"><select class="menu-secondary-responsive"><option selected="selected" value="#">Navigation</option><option value="http://www.zem.fr/category/bidouilles/">–&nbsp;Bidouilles</option><option value="http://www.zem.fr/category/crypto-currencies/">–&nbsp;CryptoCurrencies</option><option value="http://www.zem.fr/category/geekeries/">–&nbsp;Geekeries</option><option value="http://www.zem.fr/category/linux-2/">–&nbsp;Linux</option><option value="http://www.zem.fr/category/programmation/">–&nbsp;Programmation</option><option value="http://www.zem.fr/category/web-marketing/">–&nbsp;Web Marketing</option><option value="http://www.zem.fr/category/zem/">–&nbsp;ZeM</option></select></div>
+                      <!--.secondary menu--> 	
+                </div>
+    
+    <div id="main">
+    
+            
+        <div id="content">
+            
+                    
+            
+    <div class="post-697 post type-post status-publish format-standard hentry category-geekeries category-programmation tag-arduino tag-easylight tag-multiplex tag-multiplexer-led tag-multiplexer-pwm tag-pwm tag-tlc5940 tag-tlc5940arduino post post-single clearfix" id="post-697">
+    
+        <h2 class="title">Comprendre le multiplexeur PWM TLC5940</h2>
+        
+        <div class="postmeta-primary">
+    
+            <span class="meta_date">January 23, 2013</span>
+           &nbsp; <span class="meta_categories"><a href="http://www.zem.fr/category/geekeries/" title="View all posts in Geekeries" rel="category tag">Geekeries</a>, <a href="http://www.zem.fr/category/programmation/" title="View all posts in Programmation" rel="category tag">Programmation</a></span>
+    
+                 &nbsp; <span class="meta_comments"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comments" title="Comment on Comprendre le multiplexeur PWM TLC5940">48 Comments</a></span> 
+        </div>
+        
+        <div class="entry clearfix">
+            
+            <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/TLC5940-pins.png" class="alignleft featured_image wp-post-image" alt="TLC5940 pins" height="175" width="134">            
+            <a id="dd_start"></a><h2>A quoi sert le composant TLC5940 ?</h2>
+<p>Le composant <strong>TLC5940</strong> est un&nbsp;<strong>multiplexeur&nbsp;PWM&nbsp;</strong>(Pulse Width Modulation) qui peut gérer jusqu’à 16 canaux <strong>PWM</strong>. Ainsi avec seulement 3 pins de votre <strong>Arduino</strong> vous allez pouvoir utiliser jusqu’à 16 canaux <strong>PWM</strong>.</p>
+<p>Tout comme le composant <a title="Utiliser le composant 74HC595 8 Bit Shift Register avec un Arduino" href="http://www.zem.fr/decouverte-du-composant-74hc595-8-bit-shift-register/">Shift Register 74HC595</a>, le circuit intégré <strong>TLC5940</strong> peut être connecté en cascade, ce qui permet d’étendre considérablement le nombre de canaux <strong>PWM</strong> utilisables.</p>
+<p>Cela va donc être parfaitement adapté à mon projet <strong>EasyLight</strong> pour <strong>multiplexer</strong> des <strong>leds RGB</strong>.</p>
+<h2>Comment utiliser le composant TLC5940 avec Arduino ?</h2>
+<p>Il existe une bibliothèque nommée <strong>TLC5940Arduino</strong> qui permet de contrôler simplement un ou plusieurs composants <strong>TLC5940</strong> directement avec<strong> Arduino</strong>.</p>
+<p>La librairie TLC5940Arduino peut être téléchargée sur <a title="TLC5940Arduino" href="https://code.google.com/p/tlc5940arduino/downloads/list" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://code.google.com']);">ce site</a>.</p>
+<h2>&nbsp;Comment fonctionne le composant TLC5940 ?</h2>
+<p>Le plus simple pour comprendre le fonctionnement du composant TLC5940 est de lire la&nbsp;<a href="http://www.zem.fr/wp-content/uploads/2013/01/TLC5940.pdf" onclick="javascript:_gaq.push(['_trackEvent','download','http://www.zem.fr/wp-content/uploads/2013/01/TLC5940.pdf']);">fiche technique TLC5940</a>.</p>
+<p>Voici le schéma du <strong>composant TLC5940</strong>:</p>
+<p><a href="http://www.zem.fr/wp-content/uploads/2013/01/TLC5940-pins.png"><img class="aligncenter size-full wp-image-708" alt="TLC5940 pins" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/TLC5940-pins.png" height="284" width="219"></a></p>
+<p>&nbsp;</p>
+<p>Comme on peut le voir, on a bien nos 16 sorties <strong>PWM</strong> (de OUT0 à OUT15). Voici le détail des autres pins:</p>
+<ul>
+<li>XERR: open collector, wire or-ed output that lets you know a TLC5940
+ is over heated or has a burnt out LED. We can ignore this as it will 
+always be on unless you have current using elements on all of the 
+outputs.</li>
+<li>SOUT: serial data out from the TLC5940. Unless you wish to try to 
+read the error bits you do not need this to come to the Arduino. If you 
+have more than one TLC5940 this is the line you daisy chain to the SIN 
+of the next package.</li>
+<li>DCPRG: this selects the source of the current limiter register, you could just tie it high.</li>
+<li>XLAT: you will need this to latch data after shifting.</li>
+<li>SCLK: you will need this to shift data.</li>
+<li>SIN: serial in to TLC5940, this is the output from the Arduino.</li>
+<li>VPRG: you need this to select either the current limit registers or the duty cycle registers for writing.</li>
+<li>GSCLK: this is the clock for the PWM. We will reprogram TIMER2 in 
+the Arduino to make this signal. That will cost us the native PWM on 
+that timer, digital 11 on a mega8, 11 and 3 on a mega168.</li>
+<li>BLANK: this marks the end of a PWM cycle in addition to blanking the
+ output. We will reprogram TIMER1 to generate this signal. That will 
+cost us the native PWMs on digital 9 and digital 10. (Tie a real, 
+physical pull-up resistor on this line to keep things blanked while your
+ Arduino boots. Depending on your hardware, it is possible that the 
+TLC5940 would come up in a configuration that would dissipate too much 
+power.)</li>
+</ul>
+<h3>&nbsp;La broche 20 du TLC5940: IREF</h3>
+<p>Sur la broche numérotée 20 du <strong>composant TLC5940</strong>, il 
+faut brancher une résistance. Pour trouver la valeur de la résistance à 
+utiliser, il suffit d’appliquer la formule suivante:</p>
+<p style="text-align: center;"><span style="color: #ff9900;"><strong>valeur de la résistance = 39.06 / intensité de la LED</strong></span></p>
+<p style="text-align: left;">Ainsi dans le cas où l’intensité de vos 
+leds est de 30mA, vous devrez utiliser une résistance de 1302 ohms. On 
+utilisera donc une résistance de 2K ohms.</p>
+<p style="text-align: left;">Si vous utilisez des leds avec des intensités différentes, prenez l’intensité la plus faible comme base.</p>
+<h2 style="text-align: left;">Comment brancher le composant TLC5940?</h2>
+<p style="text-align: left;">Voici le schéma électronique de branchement du <strong>composant TLC5940</strong>:</p>
+<p style="text-align: left;"><a href="http://www.zem.fr/wp-content/uploads/2013/01/tlc5940-schema-electronique.png"><img class="aligncenter size-medium wp-image-712" alt="tlc5940 schema electronique" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/tlc5940-schema-electronique-300x281.png" height="281" width="300"></a></p>
+<p style="text-align: left;">Et le schéma de connection e ntre un <strong>Arduino</strong> et un <strong>composant TLC5940</strong>:</p>
+<p style="text-align: left;"><a href="http://www.zem.fr/wp-content/uploads/2013/01/tlc5940-schema-arduino.png"><img class="aligncenter size-medium wp-image-713" alt="tlc5940 schema arduino" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/tlc5940-schema-arduino-300x206.png" height="206" width="300"></a></p>
+<h2>Comment brancher le composant TLC5940 en cascade ?</h2>
+<p style="text-align: left;">Un des intérêts à utiliser le <strong>multiplexeur TLC5940</strong> est qu’on peut <strong>chainer plusieurs composants</strong> ensemble afin d’augmenter de nombre de canaux PWM. On dit alors qu’on met les composants TLC5940 en cascade.</p>
+<p style="text-align: left;">Voici le schéma électronique:</p>
+<p style="text-align: left;"><a href="http://www.zem.fr/wp-content/uploads/2013/01/tlc5940-schema-electronique-cascade.png"><img class="aligncenter size-medium wp-image-715" alt="tlc5940 schema electronique cascade" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/tlc5940-schema-electronique-cascade-222x300.png" height="300" width="222"></a></p>
+<p style="text-align: left;">Et voici le schéma de connection entre plusieurs multiplexeur TLC5940 en cascade et un Arduino:</p>
+<p style="text-align: left;"><a href="http://www.zem.fr/wp-content/uploads/2013/01/tlc5940-schema-arduino-cascade.png"><img class="aligncenter size-medium wp-image-716" alt="tlc5940 schema arduino cascade" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/tlc5940-schema-arduino-cascade-300x294.png" height="294" width="300"></a></p>
+<p style="text-align: left;">Lorsque l’on utilise les multiplexeurs TLC5940 en cascade, il faut penser à modifier le fichier&nbsp;<strong>tlc_config.h</strong> de la librairie&nbsp;<strong>TLC5940Arduino</strong>:</p>
+<p style="text-align: left;">Changez la ligne #define NUM_TLCS 1 pour #define NUM_TLCS n (ou n est le nombre de TLC5940 que vous avez chainé).</p>
+<h2 style="text-align: left;">Conclusion sur le multiplexeur TLC5940</h2>
+<p style="text-align: left;">Les <strong>multiplexeurs TLC5940</strong> sont des composants qui ne coûtent pas cher et qui permettent d’augmenter le nombre de canaux <strong>PWM</strong> de votre <strong>Arduino</strong>.</p>
+<p style="text-align: left;">Ils sont relativement pratique si vous 
+devez utiliser des leds RGB par exemple. Le schéma suivant illustre 
+parfaitement leur utilisation:</p>
+<p style="text-align: left;"><a href="http://www.zem.fr/wp-content/uploads/2013/01/tlc5940-schema-led-rgb.png"><img class="aligncenter size-medium wp-image-720" alt="tlc5940 schema led rgb" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/tlc5940-schema-led-rgb-286x300.png" height="300" width="286"></a></p>
+<p style="text-align: left;">Attention toutefois lorsque vous utilisez 
+des leds RGB avec le multiplexeur TLC5940 à verifier que vos leds soient
+ à anode commune:</p>
+<p style="text-align: left;"><a href="http://www.zem.fr/wp-content/uploads/2013/01/led-rgb-common-anode.png"><img class="aligncenter size-medium wp-image-721" alt="led rgb common anode" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/led-rgb-common-anode-214x300.png" height="300" width="214"></a></p>
+<a id="dd_end"></a><script type="text/javascript">var dd_offset_from_content = 40;var dd_top_offset_from_content = -100;var dd_override_start_anchor_id = "";var dd_override_top_offset = "";</script><script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/diggdigg-floating-bar.js"></script>    
+        </div>
+        
+        <div class="postmeta-secondary"><span class="meta_tags"><a href="http://www.zem.fr/tag/arduino/" rel="tag">arduino</a>, <a href="http://www.zem.fr/tag/easylight/" rel="tag">easylight</a>, <a href="http://www.zem.fr/tag/multiplex/" rel="tag">multiplex</a>, <a href="http://www.zem.fr/tag/multiplexer-led/" rel="tag">multiplexer led</a>, <a href="http://www.zem.fr/tag/multiplexer-pwm/" rel="tag">multiplexer pwm</a>, <a href="http://www.zem.fr/tag/pwm/" rel="tag">pwm</a>, <a href="http://www.zem.fr/tag/tlc5940/" rel="tag">tlc5940</a>, <a href="http://www.zem.fr/tag/tlc5940arduino/" rel="tag">TLC5940Arduino</a></span></div> 
+        
+    
+    </div><!-- Post ID 697 -->
+    
+    
+       
+            <div id="comments">
+            
+            <h3 id="comments-title">48 Responses to <em>Comprendre le multiplexeur PWM TLC5940</em></h3>
+            
+            <ol class="commentlist">
+    		  		<li class="comment even thread-even depth-1 parent" id="comment-636">
+				<div id="div-comment-636" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/177c4f9b457b669501e657740cfcea81.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Guillaume</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-636">
+			February 3, 2013 at 11:01 am</a>		</div>
+
+		<p>Bonjour,<br>
+juste pour dire à l’auteur de corriger PWN vers PWM.<br>
+M comme Modulation.<br>
+Merci <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_wink.gif" alt=";)" class="wp-smiley"><br>
+Guillaume</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=636#respond" onclick='return addComment.moveForm("div-comment-636", "636", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-639">
+				<div id="div-comment-639" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-639">
+			February 3, 2013 at 12:43 pm</a>		</div>
+
+		<p>Merci je corrige ca <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=639#respond" onclick='return addComment.moveForm("div-comment-639", "639", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-642">
+				<div id="div-comment-642" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/21d06577584fc94ff0ccc239421b65b0.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Damien</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-642">
+			February 4, 2013 at 12:54 am</a>		</div>
+
+		<p>Bonjour<br>
+excellent, ou peut on trouver le composant en cms ?</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=642#respond" onclick='return addComment.moveForm("div-comment-642", "642", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-645">
+				<div id="div-comment-645" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-645">
+			February 4, 2013 at 8:49 am</a>		</div>
+
+		<p>J achete la plupart de mes composants sur ebay. As tu regardé?</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=645#respond" onclick='return addComment.moveForm("div-comment-645", "645", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even depth-2" id="comment-647">
+				<div id="div-comment-647" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/d958c698000dff91587336c61f09e0d9.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Pierre</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-647">
+			February 4, 2013 at 4:31 pm</a>		</div>
+
+		<p>Texas Instrument les fournis en CMS. Tu peux même en commander quelques uns gratuitement (sample) : <a href="http://www.ti.com/product/tlc5940" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.ti.com']);" rel="nofollow">http://www.ti.com/product/tlc5940</a></p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=647#respond" onclick='return addComment.moveForm("div-comment-647", "647", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1 parent" id="comment-676">
+				<div id="div-comment-676" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/ff8c5f0e32f6d5874804040476131a3f.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Mathieu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-676">
+			February 17, 2013 at 11:33 am</a>		</div>
+
+		<p>Salut, j’ai moi aussi un projet de matrice rgb et du coup je m’interroge.<br>
+Je commanderais le composant avec la arduino mais l’alimenterais avec 
+une alim externe (une alim de pc 5V/22A) pour avoir assez d’intensité 
+nécessaire au 64 x 3 leds (disons 5 ou 6 ampères en tout). Ca va marcher
+ ? </p>
+<p>Ou alors doit-je vraiment mettre un transistor par led… ?</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=676#respond" onclick='return addComment.moveForm("div-comment-676", "676", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor even depth-2" id="comment-680">
+				<div id="div-comment-680" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-680">
+			February 18, 2013 at 5:33 pm</a>		</div>
+
+		<p>Normalement cela va marcher mais je suis en train de tester pour 
+mon projet avec 50 leds et les TLC5940 chauffe enormement et lorsqu’ils 
+chauffent cela fait n’importe quoi…</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=680#respond" onclick='return addComment.moveForm("div-comment-680", "680", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-679">
+				<div id="div-comment-679" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-679">
+			February 18, 2013 at 12:27 pm</a>		</div>
+
+		<p>Bonjour.</p>
+<p>Je souhaite utiliser 2 TLC5940 en cascade pour contrôler :<br>
+- 8 petits rubans de LED RGB en 12V (6 LED SMD 5050 en parallele par ruban).</p>
+<p>8 groupes de LED * 3 couleurs = 24 PWM (l’anode entant directement relié au +12V).</p>
+<p>Le problème c’est que ces rubans de LED ont déjà les résistances de 
+LED pour etre utilisé directement en 12V. On ne peut pas les retirer.</p>
+<p>Peut on utiliser les sorties PWM en +12V (40mA-12V par sortie).<br>
+Que faut il mettre a la place de la résistance IREF (une 1 ohm ?).<br>
+J’ai cru voir 17V max sur les PWM.<br>
+En 12V je peux “tirer” combien de mA par PWM ?</p>
+<p>Merci pour les éventuelles infos.<br>
+Je vais reconsulter le datasheet.<br>
+Cordialement.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=679#respond" onclick='return addComment.moveForm("div-comment-679", "679", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor even depth-2" id="comment-681">
+				<div id="div-comment-681" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-681">
+			February 18, 2013 at 5:33 pm</a>		</div>
+
+		<p>Je pense qu’il faut quand même mettre une résistance. Essaye en les
+ mettants et si tes leds ne s’allume pas assez alors retire les <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=681#respond" onclick='return addComment.moveForm("div-comment-681", "681", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1 parent" id="comment-682">
+				<div id="div-comment-682" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-682">
+			February 19, 2013 at 9:56 am</a>		</div>
+
+		<p>Le souci c’est que j’ai pas encore commandé les 5940, je voulais être sur de pouvoir le faire avant d’acheter le matos.<br>
+Je cherche un peu partout un montage similaire mais je trouve que des utilisations en 5v du 5940.<br>
+Après je peux mettre 1 transistor par sortie PWM mais ca m’en fait 24 !!<br>
+30 même car maintenant je veux gérer 10 lignes RVB. </p>
+<p>J’ai déjà fait le montage avec que des transistors npn et pnp en 
+multiplexant avec un arduino. Ça fonctionne mais je voudrais remplacer 
+ces transistors.<br>
+J’aurais pu utiliser 2 ULN2803 à la place des transistors mais avoir 30 
+sorties PWM c’est plus confortable qu’une bidouille logiciel de 
+multiplexage avec 3 PWM.</p>
+<p>Il me faut des PWM en 12v et seulement 40mA (voir un peu plus), c’est pas la mort <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_wink.gif" alt=";)" class="wp-smiley"><br>
+….<br>
+Bon j’ai commandé le matos, on verra bien.<br>
+Je continue quand même a chercher l’info.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=682#respond" onclick='return addComment.moveForm("div-comment-682", "682", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor even depth-2" id="comment-683">
+				<div id="div-comment-683" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-683">
+			February 19, 2013 at 10:55 am</a>		</div>
+
+		<p>Pour le 12V il y a aucun probleme par contre comme je disais j’ai 
+un souci les tlc5940 chauffe et devienne fou et je ne sais pas comment 
+éviter qu’ils chauffent :/</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=683#respond" onclick='return addComment.moveForm("div-comment-683", "683", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-684">
+				<div id="div-comment-684" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-684">
+			February 19, 2013 at 11:42 am</a>		</div>
+
+		<p>J’ai lu pas mal de truc et c’est de plus en plus confus.</p>
+<p>Beaucoup de personnes ont des problèmes de chauffe.<br>
+Soit on tire trop par sortie, surtout si elles sont toutes utilisées en même temps.<br>
+Soit il faut mettre des dissipateurs sur le 5940 mais ca c’est dommage.<br>
+Soit il faut utiliser 1 transistor par sortie mais ca c’est encore pire.</p>
+<p>En trouvant les specs de ce C.I. je croyais avoir trouvé le Graal 
+mais c’est pas le cas. C’est une bébête qu’il faut apprendre à 
+maitriser.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=684#respond" onclick='return addComment.moveForm("div-comment-684", "684", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-686">
+				<div id="div-comment-686" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-686">
+			February 19, 2013 at 5:52 pm</a>		</div>
+
+		<p>“Normalement cela va marcher mais je suis en train de tester pour 
+mon projet avec 50 leds et les TLC5940 chauffe enormement et lorsqu’ils 
+chauffent cela fait n’importe quoi…<br>
+Reply”</p>
+<p>Comment t’as cablé tes LED ?<br>
+50 led sur 50 sorties pwm ?<br>
+Si t’as mis 1 LED par sortie et que ca chauffe je comprend pas.</p>
+<p>J’ai lu quelque part que quand le 5940 recevait moins de 0.6v sur une
+ sortie, il comprenait que la LED etait HS et compensait en donnait plus
+ de jus.<br>
+Tu as des LED sur chaque sortie ?</p>
+<p>Bon j’y connais pas grand chose sur le 5940 mais ca fait 3h que je matte des fofos anglais et j’ai la tête qui va exploser.</p>
+<p>Je pense que je vais suivre les conseils de Texas Instruments et 
+mettre un MOSFET N ou un transistor NPN par sortie. Ça va grandement 
+augmenter la taille du PCB mais au moins ca devrait pas chauffer.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=686#respond" onclick='return addComment.moveForm("div-comment-686", "686", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-690">
+				<div id="div-comment-690" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-690">
+			February 20, 2013 at 7:17 pm</a>		</div>
+
+		<p>j utilises des leds RGB (4 leds par sorties)</p>
+<p>et ca chauffe dur</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=690#respond" onclick='return addComment.moveForm("div-comment-690", "690", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-692">
+				<div id="div-comment-692" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-692">
+			February 22, 2013 at 9:22 am</a>		</div>
+
+		<p>T’as essayé d’alimenter le 5940 en 3.3 volts ?<br>
+J’ai lu que ca chauffait beaucoup moins comme ca.<br>
+Mais t’as plus 120mA par sortie mais 60mA.<br>
+une LED RGB = environ 20 mA a 30mA soit 7mA a 10mA par couleur.<br>
+4 couleurs par sortie = 28mA a 40mA donc ca passe en 3.3 volts.</p>
+<p>T’as essayé d’alimenter ton 5940 avec du 5 volts autre que la sortie de l’Arduino ?</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=692#respond" onclick='return addComment.moveForm("div-comment-692", "692", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-693">
+				<div id="div-comment-693" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-693">
+			February 22, 2013 at 10:03 am</a>		</div>
+
+		<p>J’alimente avec le 5 volts d’une alimentation de pc.</p>
+<p>J’ai pas essayé avec du 3.3V. Je crois que mes leds tire en tout 60mA, vu que j’en ai 4 par pattes ca fait 4*60 non ?</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=693#respond" onclick='return addComment.moveForm("div-comment-693", "693", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-697">
+				<div id="div-comment-697" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-697">
+			February 23, 2013 at 10:02 am</a>		</div>
+
+		<p>Bon, j’ai reçu mes 5940 et aujourd’hui c’est journée expérience.</p>
+<p>Une LED RGB consomme 20mA ou 30mA si les 3 couleurs sont utilisées simultanément.</p>
+<p>J’ai mesuré a l’ampèremètre une LED SMD 5050 RGB sensé faire 20mA. Et
+ bien c’est 20mA/3 (si on met les résistances adaptées) pour chaque 
+couleur. J’ai pas de LED RGB traditionnelle donc jeux peux pas mesurer.</p>
+<p>Si je prends 4 LED RGB j’utilise 3 sortie PWM et 1 commun +5V. (les 4 broches de la LED).<br>
+Les 4 rouges sont en parallèle ainsi que les 4 verts et 4 bleus. (Et les 4 communs).<br>
+Avec mes SMD RGB ca fait 4*6mA par couleur soit 24mA par sortie.</p>
+<p>Je suis pas plus compétant que toi, je t’explique juste mes découvertes sur les LED RGB.</p>
+<p>C’est pas 4*60mA (en supposant que tu ai raison sur la consommation).<br>
+Si tes LED consomment 60mA c’est donc 20mA par couleur.<br>
+Ca fait beaucoup, mes SMD 5050 a 3*6mA éclairent plus qu’une LED RGB standard. [LED 5mm 2V:(rouge) / 3.2V:(vert) / (bleu):3.2V].</p>
+<p>Donc 20mA*4LED = 80mA par patte du 5940 (donc par couleur).<br>
+Si t’as un ampèremètre ca serait intéressant de faire des relevé. La 
+résistance du 5940 est peut être a ajuster pour baiser la consommation 
+des LED.</p>
+<p>Bon j’espère ne pas avoir dis de conneries, en tout cas c’est ce que j’ai constaté chez moi.<br>
+Je parts expérimenter tout ca…</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=697#respond" onclick='return addComment.moveForm("div-comment-697", "697", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-698">
+				<div id="div-comment-698" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-698">
+			February 23, 2013 at 11:42 am</a>		</div>
+
+		<p>Bon… perplexe…v<br>
+J’utilise un Clone Arduino nano Atmega168 qui je pense est compatible pin a pin avec un Arduino Uno.<br>
+J’arrive a allumer un led (rose <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_wink.gif" alt=";)" class="wp-smiley">  et a la faire varier mais le 5940 fait n’importe quoi.</p>
+<p>void loop()<br>
+{<br>
+    Tlc.clear();<br>
+    Tlc.set(1, 4095);<br>
+    Tlc.update();<br>
+}</p>
+<p> Il fait varier la LED tout seul et l’éteint .. l’allume.. l’éteint….. et la coupe au bout d’un moment.<br>
+Même débrancher  l’alim de l’arduino ne relance pas le sketch, ni un reset.<br>
+Par contre si je débranche la LED et que je la remet, ca refonctionne.<br>
+Pas de chauffe du 5940, ya qu’une led.</p>
+<p>J’ai un doute sur mon arduino nano tout neuf.<br>
+Faut que je regarde le câblage aussi de plus prêt.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=698#respond" onclick='return addComment.moveForm("div-comment-698", "698", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-699">
+				<div id="div-comment-699" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-699">
+			February 23, 2013 at 12:30 pm</a>		</div>
+
+		<p>Bon j’espère pas trop polluer ta page avec mes commentaires.<br>
+J’ai trouvé mon problème de 5940 fou.<br>
+C’était simplement une LED traditionnelle rose de 3.2v a 30mA qui pétait les plombs.<br>
+J’ai jamais vu ca, une LED neuve complétement folle.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=699#respond" onclick='return addComment.moveForm("div-comment-699", "699", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-700">
+				<div id="div-comment-700" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-700">
+			February 23, 2013 at 12:43 pm</a>		</div>
+
+		<p>moi aussi ca yoyotte completement.</p>
+<p>j’ai ces leds la <a href="http://www.ebay.com/itm/121008043060?_trksid=p3984.m1439.l2649&amp;item=121008043060&amp;viewitem=&amp;sspagename=STRK:MEWNX:IT&amp;vxp=mtr" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.ebay.com']);" rel="nofollow">http://www.ebay.com/itm/121008043060?_trksid=p3984.m1439.l2649&amp;item=121008043060&amp;viewitem=&amp;sspagename=STRK:MEWNX:IT&amp;vxp=mtr</a></p>
+<p>Tu saurais me filer un lien pour tes smd ruban</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=700#respond" onclick='return addComment.moveForm("div-comment-700", "700", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-701">
+				<div id="div-comment-701" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-701">
+			February 23, 2013 at 1:42 pm</a>		</div>
+
+		<p>D’après ton lien tu as des LED de 10mm a 60mA.<br>
+Donc c’est plus puissant que des LED 3mm ou 5mm.<br>
+60mA par LED c’est a dire 3*20mA (avec des pointes de 30mA max).<br>
+Le problème c’est qu’il n’y a qu’une résistance pour toutes les LED sur 
+le 5940 et tes LED ont des tensions différentes en fonction des couleurs
+ donc en principe des résistances différentes.</p>
+<p>Rouge : 20mA – Tension : 1.9v/2.1v/2.3v (2.1Volts)<br>
+Vert  : 20mA – Tension : 3.2v/3.4v/3.6v (3.4Volts)<br>
+Bleu  : 20mA – Tension : 3.2v/3.4v/3.6v (3.4Volts)</p>
+<p>Donc c’est bien 20mA par couleur donc si tu as 4 LED en parallèle ca 
+fait 4*20mA soit 80mA. C’est en dessous des 120mA par sortie du 5940 
+mais les 120mA par sortie c’est pour une sortie. Si tu utilises 120mA 
+par sortie et sur toutes les sorties ca chauffe énormément.<br>
+Apparemment, 80mA sur toutes les sorties ca chauffe aussi beaucoup de 
+ton coté. J’ai pas trop de solution. (peut être augmenter la résistance 
+de limitation de courant du 5940 et/ou utiliser des valeurs PWM de 3000 
+maxi au lieu de 4095). A essayer…</p>
+<p>Pour les rubans de LED je veux bien te donner le lien mais j’ai pas 
+encore validé cette solution. Comme c’est en 12Volts et que la 
+résistance est déjà sur les ruban de LED, je sais pas quoi mettre comme 
+résistance de limitation.</p>
+<p><a href="http://www.ebay.fr/itm/5M-5050-SMD-IP65-Waterproof-RGB-300-LED-Strip-24-44-KEY-IR-12V-5A-Power-Supply-/160961383512?pt=LH_DefaultDomain_0&amp;var=&amp;hash=item257a0bcc58" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.ebay.fr']);" rel="nofollow">http://www.ebay.fr/itm/5M-5050-SMD-IP65-Waterproof-RGB-300-LED-Strip-24-44-KEY-IR-12V-5A-Power-Supply-/160961383512?pt=LH_DefaultDomain_0&amp;var=&amp;hash=item257a0bcc58</a></p>
+<p>J’achète les ruban de LED (LED Strip) uniquement.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=701#respond" onclick='return addComment.moveForm("div-comment-701", "701", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-706">
+				<div id="div-comment-706" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-706">
+			February 23, 2013 at 4:43 pm</a>		</div>
+
+		<p>Je pense acheter des ruban pour tester du coup :/</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=706#respond" onclick='return addComment.moveForm("div-comment-706", "706", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-703">
+				<div id="div-comment-703" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/ff8c5f0e32f6d5874804040476131a3f.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Mathieu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-703">
+			February 23, 2013 at 2:20 pm</a>		</div>
+
+		<p>Hello !<br>
+J’ai recu mon matos aujourd’hui également. Enfin à l’exception de mes led rgb ^^<br>
+Du coup je test le montage que tu as dans ton article, je charges le programmes exemple de la librairie : matrix.</p>
+<p>Mais rien ne s’allume et le tlc chauffe également à mort…</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=703#respond" onclick='return addComment.moveForm("div-comment-703", "703", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-704">
+				<div id="div-comment-704" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-704">
+			February 23, 2013 at 3:39 pm</a>		</div>
+
+		<p>J’ai fais mon montage ce matin suivant le schéma du haut de la page
+ (celui avec 1 seul 5940) et ca fonctionne parfaitement. (Arduino Nano)<br>
+Par contre il faut y aller doucement.<br>
+J’ai commencé par essayé de le faire fonctionner avec 1 seule LED 
+monochrome sur la sortie 0, j’ai pas directement chargé la mule.</p>
+<p>Le programme minimum.</p>
+<p>#include “Tlc5940.h”<br>
+void setup()<br>
+ {<br>
+Tlc.init();<br>
+ }<br>
+void loop()<br>
+ {<br>
+ Tlc.clear();<br>
+ Tlc.set(0, 4095);<br>
+ Tlc.update();<br>
+ }</p>
+<p>Après une fois que cela fonctionne, on peut aller plus loin.<br>
+J’ai mis 10 LED Bleues sur les sorties de 0 a 9 et chargé le programme :”fade” ou “circular light buffer”.</p>
+<p>Après j’ai remplacé les LED par 6 LED RGB (un morceau de 10cm de LED 
+STRIP 5050 RGB) sur les sorties 0, 1 et 2. Ça fonctionne aussi mais 5 
+volts de l’Arduino c’est trop faible, les strips fonctionnent en 12V.</p>
+<p>J’ai donc ajouté une alim externe de 12Volts<br>
+Le (-) relié au ground de l’Arduino.<br>
+Le (+) a l’anode du morceau de strip.<br>
+Les 3 cathodes sont sur 0, 1 et 2 du 5940.<br>
+J’ai aussi remplacé la résistance de limitation d’intensité par une de 100 Ohms.</p>
+<p>Résultat parfait !! J’ai 12V en sortie pour les LED (relevé au voltmètre) et les LED s’allument a 100%.<br>
+Ça ne chauffe pas du tout mais j’utilise que 3 sorties et 1 seul 5940.<br>
+La je vais câbler 15 (3*5) sorties, je vais mettre 5 morceaux de Strip de 6 LED RGB.<br>
+En esperant toujours que ca ne chauffera pas.</p>
+<p>Est ce que je 5940 chauffe si tu mets rien en sortie ?<br>
+Procède par étape comme moi.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=704#respond" onclick='return addComment.moveForm("div-comment-704", "704", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-707">
+				<div id="div-comment-707" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/ff8c5f0e32f6d5874804040476131a3f.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Mathieu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-707">
+			February 23, 2013 at 8:41 pm</a>		</div>
+
+		<p>Merci !<br>
+Tout marche nickel, je pilote 16 leds pour le moment.<br>
+Demain j’essayerais de mettre plusieurs tlc en cascade.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=707#respond" onclick='return addComment.moveForm("div-comment-707", "707", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-708">
+				<div id="div-comment-708" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-708">
+			February 23, 2013 at 8:49 pm</a>		</div>
+
+		<p>Quelques heures plus tard et un millier de fils de plus, le résultat est la !!</p>
+<p>2 TLC 5940 en cascade (exactement comme le schéma du début).<br>
+Alimentés en 5V depuis l’Arduino (5v USB = Arduino + 2 TLC5940).</p>
+<p>8 morceaux de 10cm de bande de LED 5050 RGB (donc 6 LED RGB par morceau).<br>
+Câblés sur 24 sorties PWM en 12volts.</p>
+<p>Tout fonctionne parfaitement et sans chauffer.<br>
+Ça fait que 40mA par sortie PWM, c’est un peu normal que ca chauffe pas.</p>
+<p>Au total on a 6*8 = 48 LED * 3 couleurs sans aucun problème de chauffe.</p>
+<p>1er  5940: 5*6 LED – 30 LED : 30*20mA = 600mA.<br>
+2eme 5940: 3*6 LED – 18 LED : 18*20mA = 360mA.</p>
+<p>Je pense que gérer 64 LED RGB de 20mA (des 3mm ou 5mm) ne pose aucun problème avec 2 5940.<br>
+Mais 64 LED RGB de 60mA (10mm), c’est peut être pas la même histoire mais ca doit être faisable.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=708#respond" onclick='return addComment.moveForm("div-comment-708", "708", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor even depth-2 parent" id="comment-709">
+				<div id="div-comment-709" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-709">
+			February 23, 2013 at 9:22 pm</a>		</div>
+
+		<p>Trop cool. On pourrai se parler via gtalk car jpense kon a un projet similaire <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=709#respond" onclick='return addComment.moveForm("div-comment-709", "709", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment odd alt depth-3 parent" id="comment-710">
+				<div id="div-comment-710" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/ff8c5f0e32f6d5874804040476131a3f.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Mathieu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-710">
+			February 23, 2013 at 9:52 pm</a>		</div>
+
+		<p>Si y’a moyen j’aimerais bien m’inviter dans la conversation aussi ^^</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=710#respond" onclick='return addComment.moveForm("div-comment-710", "710", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor even depth-4" id="comment-711">
+				<div id="div-comment-711" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-711">
+			February 23, 2013 at 10:46 pm</a>		</div>
+
+		<p>Pas de souci pr moi mais on peut faire ca comment ? Irc ? Gtalk? Mon gmail c est jhdscript.</p>
+<p>Je vous explique. J ai réalisé un logiciel qui permet d analyser le 
+contenu de l ecran pour faire une sorte d ambilight. Du coup un ou deux 
+testeurs seraient les bienvenue avant une publication officielle <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_wink.gif" alt=";)" class="wp-smiley"> </p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=711#respond" onclick='return addComment.moveForm("div-comment-711", "711", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-712">
+				<div id="div-comment-712" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-712">
+			February 24, 2013 at 11:21 am</a>		</div>
+
+		<p>Je connais pas gtalk, j’imagine que c’est un truc du genre team speak ou skype.<br>
+J’ai pas de micro désolé. Irc ou autre pourquoi pas mais je suis pas disponible a 100%.</p>
+<p>De plus j’ai déjà l’ambilight spectra 2 sur ma tv donc ca m’apporterai pas grand chose.<br>
+Mais le spectra 2 je peux en parler (ya le spectra 3 je crois) ya moyen de faire mieux que ca.</p>
+<p>Le spectra 2 c’est 24 LED RGB de chaque coté de la TV.<br>
+Il y a 4 canaux de chaque coté donc 4 groupes de 6 LED a gauche et a droite.</p>
+<p>C’est marrant parce que en tout ca fait 8 paquets de 6 LED RGB et 
+c’est exactement ce que j’ai fait avec l’arduino, deux 5940 et 8 
+morceaux de LED Strip RGB 5050.</p>
+<p>J’ai la TV qui est a 50cm de moi et je peux te dire que mes 64 LED 
+sont plus puissantes et plus colorées que le système Ambilight.</p>
+<p>Voila ce que ca donne mais ca rend pas terrible le téléphone sature.<br>
+<a href="http://www.youtube.com/watch?v=K81POCd7vyQ" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.youtube.com']);" rel="nofollow">http://www.youtube.com/watch?v=K81POCd7vyQ</a></p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=712#respond" onclick='return addComment.moveForm("div-comment-712", "712", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-jhd bypostauthor even thread-odd thread-alt depth-1" id="comment-713">
+				<div id="div-comment-713" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-713">
+			February 24, 2013 at 2:42 pm</a>		</div>
+
+		<p>bon j ai commandé 5m de leds je pense que les miennes tirent trop de jus</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=713#respond" onclick='return addComment.moveForm("div-comment-713", "713", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1 parent" id="comment-715">
+				<div id="div-comment-715" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-715">
+			February 25, 2013 at 6:47 pm</a>		</div>
+
+		<p>J’ai encore parcouru le net à la recherche d’infos.<br>
+J’ai trouvé ce post :<br>
+<a href="http://www.instructables.com/id/30-channel-LED-RGB-Ambilight-Clone/#step1" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.instructables.com']);" rel="nofollow">http://www.instructables.com/id/30-channel-LED-RGB-Ambilight-Clone/#step1</a><br>
+Un ambilight avec des LED Strip RGB 12v (60LED/m).<br>
+Il contrôle 10 bandes de 15 LED, soit 25cm.<br>
+Il a relevé l’intensité sur une bande de 25cm : 90mA pour le rouge et 75mA pour le vert/bleu.<br>
+J’ai lu qu’il a mis une résistance de limitation de 390 Ohms, moi j’ai 
+mis une 100 Ohms. Je me suis dis, inutile de limiter le courant, les 
+Strips le fonts déjà avec leurs résistance interne.<br>
+Mais si j’ai un court-jus dans un strip, aïe, je crois que je vais faire
+ des essais avec une 390 Ohms, ca permet de limiter le courant a 100 
+Ohms.<br>
+Il dis aussi que ca chauffe un peu au niveau de 5940 mais rien d’alarmant. Il a quand même mis un dissipateur.<br>
+Bref, si on sait lire l’anglais, c’est une mine d’infos.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=715#respond" onclick='return addComment.moveForm("div-comment-715", "715", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor even depth-2" id="comment-719">
+				<div id="div-comment-719" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-719">
+			February 25, 2013 at 9:29 pm</a>		</div>
+
+		<p>Je me suis inspiré de ce poste pour mon projet.</p>
+<p>J’attends mes strips pour publier mon  logiciel <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=719#respond" onclick='return addComment.moveForm("div-comment-719", "719", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-716">
+				<div id="div-comment-716" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/ff8c5f0e32f6d5874804040476131a3f.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Mathieu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-716">
+			February 25, 2013 at 7:01 pm</a>		</div>
+
+		<p>Hum vous faites comment quand vous mettez des tlc en cascade pour 
+acceder à toutes les leds ? Après les 16 premières. Moi je pensais que 
+c’étais tout simplement en agissant sur la led 32 par exemple mais 
+apparement ça n’est pas le cas…</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=716#respond" onclick='return addComment.moveForm("div-comment-716", "716", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-717">
+				<div id="div-comment-717" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-717">
+			February 25, 2013 at 8:22 pm</a>		</div>
+
+		<p>Ah si, une fois que tu as mis les 5940 en cascade, c’est comme si tu avait un seul 5940 avec 32 sorties.<br>
+Par contre la 32eme sortie c’est pas la 32 mais la 31.<br>
+Les 32 sorties vont de 0 à 31.<br>
+N’oublie pas que les sorties 0 (première) et 15 (dernière) sont de l’autre coté du 5940.<br>
+Je n’utilise pas la 1ere sortie 0, comme ca mes 8 groupe de LED RGB vont de 1 a 24.</p>
+<p>1) Câbler correctement le 2eme 5940, n’oublie pas qu’il y a 5 ficelles à câbler entre les 2 5940.</p>
+<p>2) Modifier le fichier (texte) : “tlc_config.h”</p>
+<p>Il faut modifier la valeur : “#define NUM_TLCS”<br>
+#define NUM_TLCS 1 =&gt; #define NUM_TLCS 2</p>
+<p>Après tu peux faire : Tlc.set(31,4095);</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=717#respond" onclick='return addComment.moveForm("div-comment-717", "717", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-721">
+				<div id="div-comment-721" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-721">
+			February 25, 2013 at 9:39 pm</a>		</div>
+
+		<p>Ironic ca te dirait de faire un article pour ZeM sur ton projet ?</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=721#respond" onclick='return addComment.moveForm("div-comment-721", "721", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-718">
+				<div id="div-comment-718" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/ff8c5f0e32f6d5874804040476131a3f.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Mathieu</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-718">
+			February 25, 2013 at 8:27 pm</a>		</div>
+
+		<p>Ouaip je disait 32 au hasard, mais j’ai essayé en dessous aussi et ça ne fonctionne pas chez moi :/ Je regarderais ça demain.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=718#respond" onclick='return addComment.moveForm("div-comment-718", "718", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-720">
+				<div id="div-comment-720" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-720">
+			February 25, 2013 at 9:31 pm</a>		</div>
+
+		<p>c est tout simple  <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_smile.gif" alt=":)" class="wp-smiley">  Ironic a tout dis <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=720#respond" onclick='return addComment.moveForm("div-comment-720", "720", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-722">
+				<div id="div-comment-722" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-722">
+			February 25, 2013 at 10:25 pm</a>		</div>
+
+		<p>Ouais je veux bien te faire un article complet sur “mon projet” mais le soucis c’est que…<br>
+j’ai pas vraiment de projet, je suis un touche à tout et c’est rare que je finalise quelque chose.</p>
+<p>En fait à l’origine je voulais faire un Vu-metre géant à base de LED 
+RGB forcement, mais aussi avec de grosses plaques de plexiglas.<br>
+Voici quelques exemples :<br>
+<a href="https://www.youtube.com/watch?v=mbOuIPbKuxs" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.youtube.com']);" rel="nofollow">https://www.youtube.com/watch?v=mbOuIPbKuxs</a><br>
+<a href="https://www.youtube.com/watch?v=xgTkldgVGr4" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.youtube.com']);" rel="nofollow">https://www.youtube.com/watch?v=xgTkldgVGr4</a><br>
+<a href="https://www.youtube.com/watch?v=r0M_ro1Cc2w" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.youtube.com']);" rel="nofollow">https://www.youtube.com/watch?v=r0M_ro1Cc2w</a><br>
+<a href="https://www.youtube.com/watch?v=lASJL47g-Bc" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.youtube.com']);" rel="nofollow">https://www.youtube.com/watch?v=lASJL47g-Bc</a><br>
+<a href="https://www.youtube.com/watch?v=yvUftvJz0xI" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.youtube.com']);" rel="nofollow">https://www.youtube.com/watch?v=yvUftvJz0xI</a><br>
+Yen a plein…</p>
+<p>Mais je suis incapable de trouver des plaques de plexiglas de 20mm 
+d’épaisseur et découpées aux bonnes dimensions, cela à un prix décent.</p>
+<p>J’ai quand même l’intention de faire quelques chose de tous mes trucs, j’ai 7 TLC5940, 5m de LED RGB, 3 Arduino… </p>
+<p>Je pense que je vais rester sur un système de bandes de LED RGB 
+verticales mais derrière une tour carré en panneaux blancs pour diffuser
+ les couleurs. Ça pourrait faire une lampe déco d’ambiance “tendance” 
+avec plusieurs programmes sélectionnable.<br>
+Afficheur LCD, potars et poussoirs en façade pour les programmes.<br>
+J’ai tout ce qu’il faut mais encore que je trouve la bonne matière pour 
+diffuser correctement les LED et surtout la bonne taille.</p>
+<p>Ca sera, je pense, une tour carré de 25cm sur 25cm et de 50cm à 80cm de haut.<br>
+Avec un socle pour contenir toute l’électronique.<br>
+Ca pourrait servir de lampe déco, de vu-mètre, d’avertisseur de mails…<br>
+Je voudrais quelques chose de très beau et très visuel.<br>
+Voila le projet plus ou moins en cours mais faut que je fasse quelques essais.</p>
+<p>Sinon pour l’article je suis partant mais ca va se faire petit à petit.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=722#respond" onclick='return addComment.moveForm("div-comment-722", "722", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-723">
+				<div id="div-comment-723" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-723">
+			February 25, 2013 at 10:56 pm</a>		</div>
+
+		<p>Super pr diffused tes leds tu peux mettre de la colle genre pistolet a colle dessus ( une fine couche )</p>
+<p>J attend ton article no pbm <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/icon_smile.gif" alt=":)" class="wp-smiley"> </p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=723#respond" onclick='return addComment.moveForm("div-comment-723", "723", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1" id="comment-729">
+				<div id="div-comment-729" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-729">
+			February 28, 2013 at 9:23 am</a>		</div>
+
+		<p>Encore une petite info sur le TCL5940.</p>
+<p>J’ai été plusieurs fois confronté à un problème lors de mes essais 
+câblages/programmations. La séquence ne se déroulait absolument pas 
+comme prévu.<br>
+Soit certaines sorties ne fonctionnaient pas, soit rien ne fonctionnait.</p>
+<p>Comme mon Arduino et mes TCL5940 sont recouvert de fils de câblage, à
+ chaque fois que j’en câblais ou décablais, je pouvais éventuellement 
+faire une connerie (court-circuit/faux contact..).<br>
+Comme je modifiais en même temps mon code, j’avais aussi des doute sur lui aussi.</p>
+<p>MAIS, que neni !!<br>
+Alors je sais pas si ca vient de l’Arduino, du TCL5940 ou des deux mais faite attention à une chose.</p>
+<p>NE faites PAS de câblage (même les sorties TCL5940) sous tension. Ça 
+détraque le TCL5940. C’est pas systématique mais ca arrive et après on 
+comprend plus rien.</p>
+<p>Pas de gros problème pour moi, il suffit de couper et remettre l’alimentation des Arduino/TCL5940 et tout refonctionne.</p>
+<p>Sinon j’ai réalisé a la va vite une lampe tour de plexiglas de 
+15cm/15cm/50cm avec 8 bandeau (10cm) de LED RGB horizontalement et 8 
+bandeau (5cm) de LED RGB verticalement.<br>
+Un Arduino, deux TCL5940 et “un peu” de code.<br>
+Je pensait pouvoir faire une lampe moderne et animée mais le résultat 
+n’est pas la, les couleurs se mélangent beaucoup trop. Projet a repenser
+ depuis le début :/</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=729#respond" onclick='return addComment.moveForm("div-comment-729", "729", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1" id="comment-733">
+				<div id="div-comment-733" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-733">
+			March 1, 2013 at 5:01 pm</a>		</div>
+
+		<p>Encore une petite news.<br>
+J’ai constaté quelques bugs, probablement dans la librairie du TCL5940.<br>
+Après avoir fait quelques petites modifications de mon code, plus rien 
+ne fonctionnait ou alors plus que quelques LED fonctionnaient.<br>
+Même après un Reset ou une coupure de l’alimentation Arduino/5940, le problème était la.<br>
+J’ai même eu des impossibilité de charger le sketch.</p>
+<p>J’ai trouvé que ca arrivait après l’ajout d’un “Tlc.update();”<br>
+Pour résoudre ce problème, j’ajoute un “delay(1);”<br>
+Ce qui fait : “Tlc.update(); delay(1);”</p>
+<p>Ce qui est étrange c’est que ca n’arrive pas a tous les endroits du sketch.</p>
+<p>2eme chose étrange, j’ai 10 paquets de LED RGB donc 30 sorties PWM<br>
+Tout fonctionne parfaitement, couleurs a gogo, cyclage, transition, j’ai essayé pleins de trucs.<br>
+Par contre si j’allume tout en blanc, ca merde, ca bug, des couleurs 
+apparaissent, des LED se coupent et je n’ai pas d’autre possibilité que 
+de couper l’alim Arduino/5940 pour résoudre le problème. C’est pas 
+l’alim 12V, c’est une 5A. Peut être que l’Arduino ne fourni pas assez de
+ courant pour commuter toutes les entrées a fond.<br>
+A méditer…</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=733#respond" onclick='return addComment.moveForm("div-comment-733", "733", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-734">
+				<div id="div-comment-734" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/f0a809eb9d9fd969053d229fded5088b.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">Ironic</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-734">
+			March 1, 2013 at 5:41 pm</a>		</div>
+
+		<p>Encore une petite info.<br>
+J’ai réussi a reproduire le bug en bougeant accidentellement la prise USB qui alimente l’Arduino/TCL5940. Humm…</p>
+<p>Sinon, voile le résultat :<br>
+<a href="http://www.youtube.com/watch?v=4jAyYAjAJrw" onclick="javascript:_gaq.push(['_trackEvent','outbound-comment','http://www.youtube.com']);" rel="nofollow">http://www.youtube.com/watch?v=4jAyYAjAJrw</a></p>
+<p>C’est pas mon projet définitif, je suis pas satisfait du résultat.<br>
+Je pense que l’association plexiglas/papier 80g n’est pas un bon diffuseur.<br>
+De plus j’ai du rapprocher les LED a 3cm du plexiglas sinon le mélange 
+des couleurs est total et impossible de faire des effets intéressants.<br>
+Donc la tour ne fait plus 15cm sur 15cm de base mais 15cm sur 3cm de profondeur, arf…</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=734#respond" onclick='return addComment.moveForm("div-comment-734", "734", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor odd alt depth-2" id="comment-735">
+				<div id="div-comment-735" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-735">
+			March 2, 2013 at 10:22 am</a>		</div>
+
+		<p>J avais constaté ce problème. Ce composant a vraiment l air super sensible…</p>
+<p>Pour ton projet tu devrai cloisonné chaque led je pense</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=735#respond" onclick='return addComment.moveForm("div-comment-735", "735", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-jhd bypostauthor even thread-even depth-1" id="comment-736">
+				<div id="div-comment-736" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">jhd</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-736">
+			March 2, 2013 at 10:23 am</a>		</div>
+
+		<p>d ailleur je trouve le résultat pas mal du tout:)</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=736#respond" onclick='return addComment.moveForm("div-comment-736", "736", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-1343">
+				<div id="div-comment-1343" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/d8a837baf6a18c231c825ba1c2f8cbe5.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">JB</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1343">
+			August 30, 2013 at 7:39 am</a>		</div>
+
+		<p>Merci pour ces détails ! L’un de vous pourrais m’indiquer où 
+acheter ce composant au meilleur prix ? Sur ebay j’en trouve à 9$ les 10
+ ce qui est déjà pas mal mais je me demandais si on ne pouvais pas 
+trouver encore moins cher…</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=1343#respond" onclick='return addComment.moveForm("div-comment-1343", "1343", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-jhd bypostauthor even depth-2 parent" id="comment-1345">
+				<div id="div-comment-1345" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/2909ca5c92b8697325689087d3549792.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn"><a href="http://www.zem.fr/" rel="external nofollow" class="url">jhd</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1345">
+			August 30, 2013 at 12:03 pm</a>		</div>
+
+		<p>Tout dépend du volume que tu souhaites commander. Pour moins de 100
+ unités, Ebay reste ma plateforme préférée car pas trop cher, presque 
+tout est disponible. L’inconvénient est les délai de livraison.</p>
+<p>Pour de gros volumes, je fais faire des propales aux gros sites d’electronique</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=1345#respond" onclick='return addComment.moveForm("div-comment-1345", "1345", "respond", "697")'>Reply</a>		</div>
+				</div>
+		<ul class="children">
+		<li class="comment odd alt depth-3" id="comment-1346">
+				<div id="div-comment-1346" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/d8a837baf6a18c231c825ba1c2f8cbe5.png" class="avatar avatar-32 photo" height="32" width="32">			<cite class="fn">JB</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1346">
+			August 30, 2013 at 12:36 pm</a>		</div>
+
+		<p>Merci pour la rapidité ! Je vais donc poursuivre sur Ebay car pour l’instant c’est pour moins de 30 …</p>
+<p>J’en profite pour une petite question, si je comprend bien ton 
+explication il n’y a qu’une seule résistance pour les 16 sorties ? Au 
+niveau puissance est-ce suffisant avec la même alim que l’arduino pour 
+alimenter tout le circuit ? Je réfléchi à un montage de 60 LED RGB pour 
+une horloge style Equinox avec un Arduino Nano V3.0 AVR ATmega328 et 
+donc 12 TCL5940 car je veux pouvoir régler la couleur de chaque LED.</p>
+
+		<div class="reply">
+			<a class="comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/?replytocom=1346#respond" onclick='return addComment.moveForm("div-comment-1346", "1346", "respond", "697")'>Reply</a>		</div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+            </ol>
+            
+                        
+        </div><!-- #comments -->
+        
+    								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.zem.fr/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" size="30" aria-required="true" type="text"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" size="30" aria-required="true" type="text"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" size="30" type="text"></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a
+ href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; 
+&lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del 
+datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; 
+&lt;strong&gt; </code></p>						<p class="form-submit">
+							<input name="submit" id="submit" value="Post Comment" type="submit">
+							<input name="comment_post_ID" value="697" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+						<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="1274801b5e" type="hidden"></p>					</form>
+							</div><!-- #respond -->
+			        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('#commentform').submit(function () {
+                    _gaq.push(
+                            ['_setAccount', 'UA-1727817-9'],
+                            ['_trackEvent', 'comment', 'submit']
+                    );
+                });
+            });
+        </script>
+					            
+                    
+        </div><!-- #content -->
+    
+        
+<div id="sidebar-primary">
+
+            <ul class="widget-container"><li class="comments-widget">
+         <h3 class="widgettitle">Derniers commentaires</h3>             <ul>
+                                        <li class="clearfix">
+                                                                <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1346" title="Comprendre le multiplexeur PWM TLC5940"><img class="comments-widget-avatar alignleft" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/avatar_002.png"></a> 
+                                    <div class="comments-widget-entry">
+                                                                                <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1346" class="comments-widget-author">JB</a>: Merci pour la rapidité ! Je vais donc poursuivre s 
+                                            <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1346" class="comments-widget-more">»</a>                                    </div>                        </li>
+                                            <li class="clearfix">
+                                                                <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1345" title="Comprendre le multiplexeur PWM TLC5940"><img class="comments-widget-avatar alignleft" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/avatar.png"></a> 
+                                    <div class="comments-widget-entry">
+                                                                                <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1345" class="comments-widget-author">jhd</a>: Tout dépend du volume que tu souhaites commander.  
+                                            <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1345" class="comments-widget-more">»</a>                                    </div>                        </li>
+                                            <li class="clearfix">
+                                                                <a href="http://www.zem.fr/installer-un-serveur-vpn-sur-ubuntu-serveur-kimsufi/#comment-1344" title="Installer un serveur VPN sur Ubuntu (Serveur Kimsufi)"><img class="comments-widget-avatar alignleft" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/avatar.png"></a> 
+                                    <div class="comments-widget-entry">
+                                                                                <a href="http://www.zem.fr/installer-un-serveur-vpn-sur-ubuntu-serveur-kimsufi/#comment-1344" class="comments-widget-author">jhd</a>: Hadopi ... ou comment ne pas justifier l'augmentat 
+                                            <a href="http://www.zem.fr/installer-un-serveur-vpn-sur-ubuntu-serveur-kimsufi/#comment-1344" class="comments-widget-more">»</a>                                    </div>                        </li>
+                                            <li class="clearfix">
+                                                                <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1343" title="Comprendre le multiplexeur PWM TLC5940"><img class="comments-widget-avatar alignleft" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/avatar_002.png"></a> 
+                                    <div class="comments-widget-entry">
+                                                                                <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1343" class="comments-widget-author">JB</a>: Merci pour ces détails ! L'un de vous pourrais m'i 
+                                            <a href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/#comment-1343" class="comments-widget-more">»</a>                                    </div>                        </li>
+                                            <li class="clearfix">
+                                                                <a href="http://www.zem.fr/installer-un-serveur-vpn-sur-ubuntu-serveur-kimsufi/#comment-1334" title="Installer un serveur VPN sur Ubuntu (Serveur Kimsufi)"><img class="comments-widget-avatar alignleft" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/avatar.jpg"></a> 
+                                    <div class="comments-widget-entry">
+                                                                                <a href="http://www.zem.fr/installer-un-serveur-vpn-sur-ubuntu-serveur-kimsufi/#comment-1334" class="comments-widget-author">Billy Bob Thornton</a>: "anonymat sur Internet
+(...)
+téléchargements séc 
+                                            <a href="http://www.zem.fr/installer-un-serveur-vpn-sur-ubuntu-serveur-kimsufi/#comment-1334" class="comments-widget-more">»</a>                                    </div>                        </li>
+                                </ul>
+        </li></ul>
+             <ul class="widget-container"><li class="facebook-widget">
+         <h3 class="widgettitle">Nos Potes</h3>             <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) {return;}
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div fb-iframe-plugin-query="app_id=&amp;color_scheme=light&amp;header=false&amp;height=180&amp;href=https%3A%2F%2Fwww.facebook.com%2FZemLesGeekeries&amp;locale=fr_FR&amp;sdk=joey&amp;show_faces=true&amp;stream=false&amp;width=292" fb-xfbml-state="rendered" class="fb-like-box fb_iframe_widget" data-href="https://www.facebook.com/ZemLesGeekeries" data-width="292" data-height="180" data-colorscheme="light" data-show-faces="true" data-stream="false" data-header="false" data-border-color="#ffffff"><span style="vertical-align: bottom; width: 292px; height: 180px;"><iframe class="" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/like_box.html" style="border: medium none; visibility: visible; width: 292px; height: 180px;" title="fb:like_box Facebook Social Plugin" allowtransparency="true" name="f1060bcd132e204" frameborder="0" height="180px" scrolling="no" width="292px"></iframe></span></div>
+            
+        </li></ul>
+     <ul class="widget-container"><li id="categories-2" class="widget widget_categories"><h3 class="widgettitle">Categories</h3>		<ul>
+	<li class="cat-item cat-item-7"><a href="http://www.zem.fr/category/bidouilles/" title="Tous mes tests et bidouilles">Bidouilles</a>
+</li>
+	<li class="cat-item cat-item-631"><a href="http://www.zem.fr/category/crypto-currencies/" title="Découvrez le monde des crypto currencies: Bitcoin, Litecoin, PPCoin, Terracoin, ...">CryptoCurrencies</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.zem.fr/category/geekeries/" title="Truc de geeks">Geekeries</a>
+</li>
+	<li class="cat-item cat-item-57"><a href="http://www.zem.fr/category/linux-2/" title="Découvrir le monde du pingouin Nux">Linux</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.zem.fr/category/programmation/" title="Apprendre à coder">Programmation</a>
+</li>
+	<li class="cat-item cat-item-709"><a href="http://www.zem.fr/category/web-marketing/" title="Booster le nombre de visiteurs, devenez le numéro un de votre secteur d'activité">Web Marketing</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.zem.fr/category/zem/" title="Tout ce que vous ZeMeZ">ZeM</a>
+</li>
+		</ul>
+</li></ul><ul class="widget-container"><li id="linkcat-2" class="widget widget_links"><h3 class="widgettitle">Blogroll</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.coinpixel.com/" title="Bitcoin Litecoin Casino" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.coinpixel.com']);">Bitcoin Litecoin Casino</a></li>
+<li><a href="http://www.sexyflash.org/" title="Les meilleurs jeux flash gratuit du net" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.sexyflash.org']);">Jeux Flash Gratuits</a></li>
+<li><a href="http://www.downloadost.com/" title="Téléchargement d’OST" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.downloadost.com']);">Téléchargement d'OST</a></li>
+
+	</ul>
+</li></ul>
+    
+</div><!-- #sidebar-primary -->        
+                
+    </div><!-- #main -->
+    
+    
+    <div id="footer-widgets" class="clearfix">
+                <div class="footer-widget-box">
+            <ul class="widget-container"><li id="linkcat-2" class="widget widget_links"><h3 class="widgettitle">Blogroll</h3>
+	<ul class="xoxo blogroll">
+<li><a href="http://www.coinpixel.com/" title="Bitcoin Litecoin Casino" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.coinpixel.com']);">Bitcoin Litecoin Casino</a></li>
+<li><a href="http://www.sexyflash.org/" title="Les meilleurs jeux flash gratuit du net" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.sexyflash.org']);">Jeux Flash Gratuits</a></li>
+<li><a href="http://www.downloadost.com/" title="Téléchargement d’OST" target="_blank" onclick="javascript:_gaq.push(['_trackEvent','outbound-blogroll','http://www.downloadost.com']);">Téléchargement d'OST</a></li>
+
+	</ul>
+</li></ul>
+        </div>
+        
+        <div class="footer-widget-box">
+            <ul class="widget-container"><li id="tag_cloud-2" class="widget widget_tag_cloud"><h3 class="widgettitle">Mots Clé</h3><div class="tagcloud"><a href="http://www.zem.fr/tag/3ware/" class="tag-link-15" title="2 topics" style="font-size: 8pt;">3WARE</a>
+<a href="http://www.zem.fr/tag/administrer/" class="tag-link-20" title="2 topics" style="font-size: 8pt;">administrer</a>
+<a href="http://www.zem.fr/tag/arduino/" class="tag-link-506" title="8 topics" style="font-size: 19.75pt;">arduino</a>
+<a href="http://www.zem.fr/tag/backup/" class="tag-link-28" title="2 topics" style="font-size: 8pt;">backup</a>
+<a href="http://www.zem.fr/tag/bash/" class="tag-link-52" title="2 topics" style="font-size: 8pt;">bash</a>
+<a href="http://www.zem.fr/tag/bitcoin/" class="tag-link-628" title="10 topics" style="font-size: 22pt;">bitcoin</a>
+<a href="http://www.zem.fr/tag/cryptocurrency/" class="tag-link-641" title="3 topics" style="font-size: 11pt;">cryptocurrency</a>
+<a href="http://www.zem.fr/tag/dlna/" class="tag-link-38" title="2 topics" style="font-size: 8pt;">DLNA</a>
+<a href="http://www.zem.fr/tag/dotnet/" class="tag-link-386" title="10 topics" style="font-size: 22pt;">dotnet</a>
+<a href="http://www.zem.fr/tag/easylight/" class="tag-link-573" title="4 topics" style="font-size: 13.5pt;">easylight</a>
+<a href="http://www.zem.fr/tag/find/" class="tag-link-160" title="2 topics" style="font-size: 8pt;">find</a>
+<a href="http://www.zem.fr/tag/hostname/" class="tag-link-77" title="2 topics" style="font-size: 8pt;">hostname</a>
+<a href="http://www.zem.fr/tag/human-readable/" class="tag-link-118" title="3 topics" style="font-size: 11pt;">human readable</a>
+<a href="http://www.zem.fr/tag/ksh/" class="tag-link-55" title="2 topics" style="font-size: 8pt;">ksh</a>
+<a href="http://www.zem.fr/tag/ligne-de-commande/" class="tag-link-34" title="3 topics" style="font-size: 11pt;">ligne de commande</a>
+<a href="http://www.zem.fr/tag/linux/" class="tag-link-50" title="10 topics" style="font-size: 22pt;">linux</a>
+<a href="http://www.zem.fr/tag/litecoin/" class="tag-link-629" title="9 topics" style="font-size: 21pt;">litecoin</a>
+<a href="http://www.zem.fr/tag/mdadm/" class="tag-link-16" title="2 topics" style="font-size: 8pt;">mdadm</a>
+<a href="http://www.zem.fr/tag/mediatomb/" class="tag-link-42" title="4 topics" style="font-size: 13.5pt;">Mediatomb</a>
+<a href="http://www.zem.fr/tag/monitoring/" class="tag-link-18" title="3 topics" style="font-size: 11pt;">monitoring</a>
+<a href="http://www.zem.fr/tag/mysql/" class="tag-link-60" title="2 topics" style="font-size: 8pt;">MySQL</a>
+<a href="http://www.zem.fr/tag/netsysinfo/" class="tag-link-131" title="5 topics" style="font-size: 15.5pt;">NetSysInfo</a>
+<a href="http://www.zem.fr/tag/optimize-raspberry/" class="tag-link-430" title="3 topics" style="font-size: 11pt;">optimize raspberry</a>
+<a href="http://www.zem.fr/tag/ppcoin/" class="tag-link-633" title="3 topics" style="font-size: 11pt;">ppcoin</a>
+<a href="http://www.zem.fr/tag/raid/" class="tag-link-8" title="3 topics" style="font-size: 11pt;">RAID</a>
+<a href="http://www.zem.fr/tag/raid-logiciel/" class="tag-link-11" title="2 topics" style="font-size: 8pt;">Raid logiciel</a>
+<a href="http://www.zem.fr/tag/raspberry/" class="tag-link-425" title="4 topics" style="font-size: 13.5pt;">raspberry</a>
+<a href="http://www.zem.fr/tag/raspberry-pi/" class="tag-link-427" title="6 topics" style="font-size: 17.25pt;">raspberry pi</a>
+<a href="http://www.zem.fr/tag/raspberrypi/" class="tag-link-426" title="7 topics" style="font-size: 18.5pt;">raspberrypi</a>
+<a href="http://www.zem.fr/tag/sauvegarde/" class="tag-link-29" title="2 topics" style="font-size: 8pt;">sauvegarde</a>
+<a href="http://www.zem.fr/tag/script/" class="tag-link-27" title="2 topics" style="font-size: 8pt;">script</a>
+<a href="http://www.zem.fr/tag/securite/" class="tag-link-187" title="2 topics" style="font-size: 8pt;">securite</a>
+<a href="http://www.zem.fr/tag/shell/" class="tag-link-30" title="2 topics" style="font-size: 8pt;">shell</a>
+<a href="http://www.zem.fr/tag/ssh/" class="tag-link-33" title="2 topics" style="font-size: 8pt;">SSH</a>
+<a href="http://www.zem.fr/tag/supervision/" class="tag-link-19" title="3 topics" style="font-size: 11pt;">supervision</a>
+<a href="http://www.zem.fr/tag/trafic/" class="tag-link-181" title="2 topics" style="font-size: 8pt;">trafic</a>
+<a href="http://www.zem.fr/tag/ubuntu/" class="tag-link-24" title="8 topics" style="font-size: 19.75pt;">Ubuntu</a>
+<a href="http://www.zem.fr/tag/vb-net/" class="tag-link-462" title="4 topics" style="font-size: 13.5pt;">vb.net</a>
+<a href="http://www.zem.fr/tag/webmarketing/" class="tag-link-125" title="4 topics" style="font-size: 13.5pt;">webmarketing</a>
+<a href="http://www.zem.fr/tag/wordpress/" class="tag-link-121" title="4 topics" style="font-size: 13.5pt;">wordpress</a>
+<a href="http://www.zem.fr/tag/zem-2/" class="tag-link-166" title="3 topics" style="font-size: 11pt;">zem</a>
+<a href="http://www.zem.fr/tag/zem-fr/" class="tag-link-692" title="2 topics" style="font-size: 8pt;">zem.fr</a>
+<a href="http://www.zem.fr/tag/zfs/" class="tag-link-21" title="4 topics" style="font-size: 13.5pt;">ZFS</a>
+<a href="http://www.zem.fr/tag/zpool/" class="tag-link-23" title="3 topics" style="font-size: 11pt;">zpool</a>
+<a href="http://www.zem.fr/tag/zraid/" class="tag-link-22" title="3 topics" style="font-size: 11pt;">zraid</a></div>
+</li></ul>        </div>
+        
+        <div class="footer-widget-box">
+            <ul class="widget-container"><li id="archives-3" class="widget widget_archive"><h3 class="widgettitle">Archives</h3>		<ul>
+			<li><a href="http://www.zem.fr/2013/08/" title="August 2013">August 2013</a>&nbsp;(3)</li>
+	<li><a href="http://www.zem.fr/2013/07/" title="July 2013">July 2013</a>&nbsp;(1)</li>
+	<li><a href="http://www.zem.fr/2013/06/" title="June 2013">June 2013</a>&nbsp;(12)</li>
+	<li><a href="http://www.zem.fr/2013/05/" title="May 2013">May 2013</a>&nbsp;(6)</li>
+	<li><a href="http://www.zem.fr/2013/04/" title="April 2013">April 2013</a>&nbsp;(9)</li>
+	<li><a href="http://www.zem.fr/2013/03/" title="March 2013">March 2013</a>&nbsp;(1)</li>
+	<li><a href="http://www.zem.fr/2013/01/" title="January 2013">January 2013</a>&nbsp;(12)</li>
+	<li><a href="http://www.zem.fr/2012/12/" title="December 2012">December 2012</a>&nbsp;(7)</li>
+	<li><a href="http://www.zem.fr/2012/10/" title="October 2012">October 2012</a>&nbsp;(2)</li>
+	<li><a href="http://www.zem.fr/2012/09/" title="September 2012">September 2012</a>&nbsp;(3)</li>
+	<li><a href="http://www.zem.fr/2012/08/" title="August 2012">August 2012</a>&nbsp;(10)</li>
+	<li><a href="http://www.zem.fr/2012/07/" title="July 2012">July 2012</a>&nbsp;(8)</li>
+	<li><a href="http://www.zem.fr/2012/06/" title="June 2012">June 2012</a>&nbsp;(6)</li>
+	<li><a href="http://www.zem.fr/2012/05/" title="May 2012">May 2012</a>&nbsp;(12)</li>
+	<li><a href="http://www.zem.fr/2012/04/" title="April 2012">April 2012</a>&nbsp;(31)</li>
+	<li><a href="http://www.zem.fr/2012/03/" title="March 2012">March 2012</a>&nbsp;(7)</li>
+		</ul>
+</li></ul>        </div>
+        
+        <div class="footer-widget-box footer-widget-box-last">
+                    <ul class="widget-container"><li class="infobox-widget">
+            <h3 class="widgettitle"><a href="http://www.zem.fr/contact/">A Propos de ZeM.fr</a></h3>            <ul>
+        	   <li class="infobox-widget-description">
+                <img src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/zem_contact.png" class="alignleft">ZeM.fr est un blog que j'ai lancé afin de stocker les informations qui me semblent importantes.<br>
+Fort de mon expérience dans le développement d'applications, j'ai étendu
+ le blog à la programmation, aux cryptocurrencies et aux autres 
+geekeries en tout genre que j'affectionne tant ;-)
+<br>
+N'hésitez pas à me contacter sivous avez des demandes spécifiques ou des questions concernant un article. <a href="http://www.zem.fr/contact/" class="infobox-widget-more">En savoir plus »</a><a>               </a></li><a>
+            </a></ul><a>
+        </a></li></ul><a>
+                </a></div><a>
+        
+    </a></div><a>
+
+    </a><div id="footer"><a>
+    
+        </a><div id="copyrights"><a>
+             © 2013  </a><a href="http://www.zem.fr/">ZeM, geekeries en tout genre</a> 
+        </div>
+      
+        <!--<div id="credits"></div>--><!-- #credits -->
+        
+    </div><!-- #footer -->
+    
+</div><div class=" fb_reset" id="fb-root"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/xd_arbiter.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_http" allowtransparency="true" name="fb_xdm_frame_http" frameborder="0" scrolling="no"></iframe><iframe src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/xd_arbiter_002.html" style="border: medium none;" tab-index="-1" title="Facebook Cross Domain Communication Frame" aria-hidden="true" id="fb_xdm_frame_https" allowtransparency="true" name="fb_xdm_frame_https" frameborder="0" scrolling="no"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><!-- #container -->
+
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/jquery_002.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.zem.fr\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/scripts.js"></script>
+<script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/hoverIntent.js"></script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+jQuery.noConflict();
+jQuery(function(){ 
+	jQuery('ul.menu-primary').superfish({ 
+	animation: {opacity:'show'},
+autoArrows:  true,
+                dropShadows: false, 
+                speed: 200,
+                delay: 800
+                });
+            });
+jQuery('.menu-primary-container').mobileMenu({
+                defaultText: 'Menu',
+                className: 'menu-primary-responsive',
+                containerClass: 'menu-primary-responsive-container',
+                subMenuDash: '&ndash;'
+            });
+
+jQuery(function(){ 
+	jQuery('ul.menu-secondary').superfish({ 
+	animation: {opacity:'show'},
+autoArrows:  true,
+                dropShadows: false, 
+                speed: 200,
+                delay: 800
+                });
+            });
+jQuery('.menu-secondary-container').mobileMenu({
+                defaultText: 'Navigation',
+                className: 'menu-secondary-responsive',
+                containerClass: 'menu-secondary-responsive-container',
+                subMenuDash: '&ndash;'
+            });
+
+/* ]]> */
+</script>
+
+<div style="padding: 40px;" id="arevicofancy-tmp"></div><div style="display: none;" id="arevicofancy-loading"><div></div></div><div style="background-color: rgb(119, 119, 119); opacity: 0.7; cursor: auto; height: 20005px; display: block;" id="arevicofancy-overlay"></div><div style="width: 400px; height: auto; top: 3088px; left: 492px; display: block;" id="arevicofancy-wrap"><div id="arevicofancy-outer"><div class="arevicofancy-bg" id="arevicofancy-bg-n"></div><div class="arevicofancy-bg" id="arevicofancy-bg-ne"></div><div class="arevicofancy-bg" id="arevicofancy-bg-e"></div><div class="arevicofancy-bg" id="arevicofancy-bg-se"></div><div class="arevicofancy-bg" id="arevicofancy-bg-s"></div><div class="arevicofancy-bg" id="arevicofancy-bg-sw"></div><div class="arevicofancy-bg" id="arevicofancy-bg-w"></div><div class="arevicofancy-bg" id="arevicofancy-bg-nw"></div><div style="border-width: 0px; width: 400px; height: 257px;" id="arevicofancy-content"><div style="width:auto;height:auto;overflow: auto;position:relative;"><div id="data" style="overflow:hidden;"><iframe src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/likebox.html" style="border:none; overflow:hidden; width:400px; height:255px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe></div></div></div><a style="display: inline;" id="arevicofancy-close"></a><div style="display: none;" id="arevicofancy-title"></div><a href="javascript:;" id="arevicofancy-left"><span class="fancy-ico" id="arevicofancy-left-ico"></span></a><a href="javascript:;" id="arevicofancy-right"><span class="fancy-ico" id="arevicofancy-right-ico"></span></a></div></div><div class="dd_outer"><div style="width: 930px;" class="dd_inner"><div style="position: absolute; top: 375px; left: -95px; display: block;" id="dd_ajax_float"><div class="dd_button_v"><iframe data-twttr-rendered="true" title="Twitter Tweet Button" style="width: 55px; height: 62px;" class="twitter-share-button twitter-count-vertical" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/tweet_button.html" allowtransparency="true" frameborder="0" scrolling="no"></iframe><script type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/widgets.js"></script></div><div style="clear:left"></div><div class="dd_button_v"><script src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/all.js"></script><fb:like class="fb_edge_widget_with_comment fb_iframe_widget" fb-xfbml-state="rendered" href="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/" send="false" show_faces="false" layout="box_count" width="50"><span style="height: 61px; width: 59px;"><iframe src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/like.html" class="fb_ltr" title="Like this content on Facebook." style="border: medium none; overflow: hidden; height: 61px; width: 59px;" name="f3657c16564795" id="f3fc585231cc2fe" scrolling="no"></iframe></span></fb:like></div><div style="clear:left"></div><div class="dd_button_v"><script gapi_processed="true" type="text/javascript" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/plusone.js"></script><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 50px; height: 60px;"><iframe title="+1" data-gapiattached="true" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/fastbutton.html" name="I0_1377953484128" id="I0_1377953484128" vspace="0" tabindex="0" style="position: static; top: 0px; width: 50px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 60px;" marginwidth="0" marginheight="0" hspace="0" frameborder="0" scrolling="no" width="100%"></iframe></div></div><div style="clear:left"></div><div class="dd_button_v"><script src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/in.js" type="text/javascript"></script><span class="IN-widget" style="line-height: 1; vertical-align: baseline; display: inline-block; text-align: center;"><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1377953485232_1-container" class="IN-top IN-empty"><span id="li_ui_li_gen_1377953485232_1" class="IN-top"><span id="li_ui_li_gen_1377953485232_1-inner" class="IN-top"><span id="li_ui_li_gen_1377953485232_1-content" class="IN-top">0</span></span></span></span></span><br><span style="padding: 0px ! important; margin: 0px ! important; text-indent: 0px ! important; display: inline-block ! important; vertical-align: baseline ! important; font-size: 1px ! important;"><span id="li_ui_li_gen_1377953485177_0"><a id="li_ui_li_gen_1377953485177_0-link" href="javascript:void(0);"><span id="li_ui_li_gen_1377953485177_0-logo">in</span><span id="li_ui_li_gen_1377953485177_0-title"><span id="li_ui_li_gen_1377953485177_0-mark"></span><span id="li_ui_li_gen_1377953485177_0-title-text">Share</span></span></a></span></span></span><script type="IN/Share+init" date-url="http://www.zem.fr/comprendre-le-composant-tcl5940-multiplexeur-pwn/" data-counter="top"></script></div><div style="clear:left"></div></div></div></div><a id="inline" href="#data" style="display: none;">Show</a><div style="display:none"><div style="display: none;" class="arevicofancy-inline-tmp"></div></div><iframe style="width: 1px; height: 1px; position: absolute; left: -100px;" src="Comprendre%20le%20multiplexeur%20PWN%20TLC5940%20%7C%20ZeM,%20geekeries%20en%20tout%20genre_fichiers/postmessageRelay.html" id="oauth2relay1237149575" name="oauth2relay1237149575"></iframe></body></html>
