@@ -404,8 +404,26 @@ public void applique_fichier_config(String chemin_fichier_config) {
         }
 
         else if (attrib_nom.equals("couleur")) {
+
           try {
-            Maingrille.MaGrille[curr_col][curr_row].ChangeColor(color(Integer.parseInt(attrib_valeur)));
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+            
+            Maingrille.MaGrille[curr_col][curr_row].ChangeColor(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("couleur_LED")) {
+
+          try {
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+            
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLED(color(valeurR, valeurG, valeurB));
           } 
           catch (Exception e) {
           }

@@ -10,7 +10,7 @@ byte chaineReception[300]; // tableau contenant qui va contebir les octets recus
 int Nombre_RGB_LED=12;// Nombre de Led RGB controlées
 // Indique l'ordre des canaux des TLCs (utile par exemple si on a monté les TLCs dnas le mauvaise ordre)
 int ChannelOrder[36]= { 
-  12,13,14,9,10,11,6,7,8,3,4,5,0,1,2,28,29,30,25,26,27,22,23,24,19,20,21,16,17,18,45,46,47,42,43,44};
+  0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
 TLC_CHANNEL_TYPE channel;
 int RGB_Led_Fading_Information[12][8];
 ;

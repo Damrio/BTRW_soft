@@ -16,7 +16,8 @@ row             =   0
 col             =   0
 function_type   =   None
 icon            =   Metro UI Icon Set/Internet Shortcuts/Facebook alt 1.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 
 # Cell(1,0)
@@ -24,7 +25,8 @@ row             =   0
 col             =   1
 function_type   =   None
 icon            =   Metro UI Icon Set/Internet Shortcuts/Twitter alt 2.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 
 # Cell(2,0)
@@ -32,7 +34,8 @@ row             =   0
 col             =   2
 function_type   =   None
 icon            =   Metro UI Icon Set/Internet Shortcuts/Linked in alt.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 
 # Cell(3,0)
@@ -40,7 +43,8 @@ row             =   0
 col             =   3
 function_type   =   GMAIL
 icon            =   Metro UI Icon Set/Google Services/Gmail.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FFFF00
 FullSize        =   false
 
 # Cell(0,1)
@@ -48,7 +52,8 @@ row             =   1
 col             =   0
 function_type   =   Rss
 icon            =   Le-Monde-logo.gif
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3058/index.rss
 
@@ -58,7 +63,8 @@ row             =   1
 col             =   1
 function_type   =   Rss
 icon            =   Le-Monde-logo.gif
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3061/index.rss
 
@@ -68,7 +74,8 @@ row             =   1
 col             =   2
 function_type   =   Rss
 icon            =   Le-Monde-logo.gif
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3056/index.rss
 
@@ -78,8 +85,9 @@ row             =   1
 col             =   3
 function_type   =   Rss
 icon            =   Le-Monde-logo.gif
-couleur         =   0
+couleur         =   #000000
 FullSize        =   false
+couleur_LED     =   #FF0000
 Url		=   http://www.lemonde.fr/rss/tag/sciences.xml
 
 # Cell(0,2)
@@ -87,7 +95,8 @@ row             =   2
 col             =   0
 function_type   =   None
 icon            =   icone-amis.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 
 # Cell(1,2)
@@ -95,7 +104,8 @@ row             =   2
 col             =   1
 function_type   =   None
 icon            =   Metro UI Icon Set/System Icons/Task Manager alt 2.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 
 # Cell(2,2)
@@ -103,7 +113,8 @@ row             =   2
 col             =   2
 function_type   =   None
 icon            =   Metro UI Icon Set/Folders & OS/Videos Library.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false
 
 # Cell(3,2)
@@ -111,5 +122,6 @@ row             =   2
 col             =   3
 function_type   =   None
 icon            =   Metro UI Icon Set/System Icons/Action Center.png
-couleur         =   0
+couleur         =   #000000
+couleur_LED     =   #FF0000
 FullSize        =   false

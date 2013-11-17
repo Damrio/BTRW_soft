@@ -17,6 +17,7 @@ import javax.swing.*;
 import com.wyldco.romefeeder.*;
 import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.feed.*; 
+import processing.serial.*;
 //--------------------------------------------------------
 
 
@@ -33,8 +34,6 @@ int rows = 3;
 int scareSize;
 int gridSize=480;
 
-
-
 //=========================================================================
 //     DECLARATION DES VARIABLES DE LA PARTIE DYNAMIQUE
 
@@ -44,6 +43,7 @@ int gridSize=480;
 //    4   5   6   7
 //    ..  ..  ..  ..
 int case_courante         =   -1;
+int led_courante          =   -1;
 int ligne_selected        =   -1;
 int col_selected          =   -1;
 String curr_function_type =   "";
@@ -173,10 +173,19 @@ long temps_de_ref_Rss = System.currentTimeMillis();// temps de la dernière MAJ 
 long tempsIni=System.currentTimeMillis();// temps du démarrage de l'application
 long nb_sec_refresh_Rss;
 long nb_sec_refresh_Rss_ini=1;//intervalle de temps de rafraîchissement des flux Rss initial
-long nb_sec_refresh_Rss_nominal=3*60;//intervalle de temps de rafraîchissement des flux Rss nominal
+long nb_sec_refresh_Rss_nominal=60;//intervalle de temps de rafraîchissement des flux Rss nominal
 long Init_Temps_Rss=20;//en secondes
 long nb_sec_mode_veille=100;// en secondes
 //-------------------------------------------------------------------------------------- 
+
+
+// ----------------------------------------------------------
+//   DECLARATION DES VARIABLES POUR COMMUNIQUER AVEC ARUDINO
+int nombre_Led_RGB=16;//Nombrte de LED RGB du projet
+Serial port; // On déclare le port série
+boolean arduino_enabled = true; // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche
+// ----------------------------------------------------------
+
 
 
 
@@ -255,6 +264,18 @@ void setup() {
   Maingrille.InitListRSS(cols, rows);
   CreateRss() ;
   UpdateRss() ;
+  
+  
+  // INIT PORT SERIE POUR ARDUINO
+  // On sélectionne le premier, mais il faut vérifier que ce soit bien celui la
+  if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
+  println(port.list()[0]);
+  port = new Serial(this, Serial.list()[0], 115200); // On établit une connexion série à 115,2 Mbaud
+  port.clear(); //On efface le buffer du port série 
+  port.bufferUntil('\n'); // On indique qu'on bufferise jusqu'à l'arrivée d'un saut de ligne
+  
+  SendRGBValue_Message(1,255,0,0);
+  }
 }  
 
 
@@ -263,6 +284,7 @@ void setup() {
 //              FONCTION DRAW                     //
 ////////////////////////////////////////////////////
 void draw() {
+
   background(0);
   // fonction de taches planifiees
   draw_applique_tache_planifiees();
@@ -452,6 +474,7 @@ void mousePressed()
 
     // on calcule la case courante, la ligne, la colonne, et le type de fonction selectionne
     case_courante = (int)(x/(gridSize/4)) + cols*(int)(y/(gridSize/4));
+    led_courante =  case_courante+1;
     ligne_selected = int(floor(case_courante / cols));
     col_selected   = int(case_courante%4);
     curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
@@ -459,12 +482,21 @@ void mousePressed()
 
     if (curr_function_type.equals("GMAIL")) {
     Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
+    color couleur_originale = Maingrille.MaGrille[col_selected][ligne_selected].couleur_bulle;
+    println(couleur_originale);
     Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
+      if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
+        Stop_Fading_Message (led_courante);
+        port.write("/");
+        SendRGBValue_Message(led_courante, 255, 255, 255);
+        port.write("/");
+      }
     }
     
     if (curr_function_type.equals("Rss")) {
     Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
     Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
+    // TODO rajouter ici les fonctions pour controler les LED
     }
     // on regarde sur quelle case on a clique : les cases sont numerotees :
     //    0   1   2   3

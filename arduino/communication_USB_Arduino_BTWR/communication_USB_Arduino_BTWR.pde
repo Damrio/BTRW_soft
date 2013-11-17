@@ -1,37 +1,58 @@
-
 import processing.serial.*;
-int nombre_Led_RGB=12;//Nombrte de LED RGB du projet
 
+int nombre_Led_RGB=12;//Nombrte de LED RGB du projet
+  int count=0;
 Serial port; // On déclare le port série
 
 void setup() {
   size(200, 200);
-
+  
   // Si on veut connaitre les ports série disponibles
-  // println(Serial.list());
+   println("OK");
+   println(port.list());
+   println("OK");
 
   // On sélectionne le premier, mais il faut vérifier que ce soit bien celui la
-  println(Serial.list()[0]);
+  println(port.list()[0]);
   port = new Serial(this, Serial.list()[0], 115200); // On établit une connexion série à 115,2 Mbaud
   port.clear(); //On efface le buffer du port série 
   port.bufferUntil('\n'); // On indique qu'on bufferise jusqu'à l'arrivée d'un saut de ligne
+
 }
 
 void draw() {
+
   SendRGBValue_Message(1, 255, 255, 255);
-  SendRGBValue_Message(2, 255, 255, 255);
   port.write("/"); // On envoie une terminaison de message
   delay(1000);
-  SendRGBValue_Message(1, 0, 0, 0);
-  SendRGBValue_Message(2, 0, 0, 0);
-  port.write("/");
+  SendRGBValue_Message(1, 100, 0, 0);
+  port.write("/"); // On envoie une terminaison de message
   delay(1000);
-  SendRGB_Fading_Start_Message(12, 1000, 0, 255, 0, 255, 0, 255);
-  port.write("/");
-  delay(4000);
-  Stop_Fading_Message (12) ;
-  port.write("/");
+//  SendRGBValue_Message(1, 150, 0, 0);
+//  port.write("/"); // On envoie une terminaison de message
+//  delay(1000);
+//  SendRGBValue_Message(1, 200, 0, 0);
+//  port.write("/"); // On envoie une terminaison de message
+//  delay(1000);
+//  SendRGBValue_Message(1, 250, 0, 0);
+//  port.write("/"); // On envoie une terminaison de message
+//  delay(1000);
+  
+//  SendRGBValue_Message(3, 255, 0, 0);
+//  port.write("/"); // On envoie une terminaison de message
+//  delay(1000);
+//  SendRGBValue_Message(4, 255, 0, 255);
+//  port.write("/"); // On envoie une terminaison de message
+//  delay(1000);
+//  SendRGB_Fading_Start_Message(1, 1000, 50, 255, 0, 0, 0, 0);
+//  SendRGB_Fading_Start_Message(3, 1000, 100, 200, 0, 100, 0, 0);
+//  SendRGB_Fading_Start_Message(5, 1000, 50, 100, 100, 200, 0, 0);
+//  SendRGB_Fading_Start_Message(7, 1000, 0, 0, 50, 255, 0, 0);
+//  port.write("/");
   delay(1000);
+//  Stop_Fading_Message (12) ;
+//  port.write("/");
+//  delay(1000);
 }
 
 // Called whenever there is something available to read

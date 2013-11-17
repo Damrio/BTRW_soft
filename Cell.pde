@@ -7,6 +7,7 @@ class Cell {
   float w, h;   // width and height
   color couleur;
   color couleur_bulle; 
+  color couleur_LED;
   PImage Icone;
   Boolean FullSize;
   String Type; 
@@ -22,6 +23,7 @@ class Cell {
     h = tempH;
     couleur= Couleur;
     couleur_bulle = color(0,0,100);
+    couleur_LED = color(255,0,0);
     numberofEvents=0;
     FullSize=true;//false;
     Type="Event";
@@ -46,6 +48,12 @@ class Cell {
     couleur_bulle= colorToSet;
     //display(Maingrille);
   }
+
+  void ChangeCouleurLED(color colorToSet) {
+    couleur_LED = colorToSet;
+    //display(Maingrille);
+  }
+
 
   void displayImage(Grille CurrentGrille) {
     float rationHL;

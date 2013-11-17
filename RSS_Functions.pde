@@ -39,6 +39,7 @@ void UpdateRss() {
         Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(1);
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeCouleurBulle(color(200, 0, 0));
+            // TODO rajouter ici les fonctions pour controler les LED
       }
       else {
         FluxUpadted =true;
