@@ -58,7 +58,8 @@ void draw() {
 // Called whenever there is something available to read
 void serialEvent(Serial port) {
   // ******** Gestion de la valeur reçue sur le port série : **********
-  String inString = port.readStringUntil('\n'); // chaine stockant la chaîne reçue sur le port Série
+
+  String inString = port.readStringUntil('\n'); // chaine stockant la chaîne reçue sur le port Série 
   if (inString != null) { // si la chaine recue n'est pas vide
     print(inString); // affiche chaine recue
   }
