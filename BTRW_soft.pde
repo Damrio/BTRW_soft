@@ -287,7 +287,7 @@ void setup() {
 //              FONCTION DRAW                     //
 ////////////////////////////////////////////////////
 void draw() {
- smooth();
+  smooth();
   background(0);
   // fonction de taches planifiees
   draw_applique_tache_planifiees();
@@ -323,11 +323,11 @@ void draw() {
     xpos+=hauteurVent+20;
     AffichageTemperatureLendemain(weather, 1, 60, 250, 30);
     rationHL=AffichageImageWeather(weather, 1, 150, 50, 270);
-    Affichage_Journee(weather, 1,80 , 450,30);
+    Affichage_Journee(weather, 1, 80, 450, 30);
     xpos+=(int)rationHL*100+10;
     AffichageTemperatureLendemain(weather, 2, 410, 250, 30);
     rationHL=AffichageImageWeather(weather, 2, 150, 400, 270);
-     Affichage_Journee(weather, 2, 420, 450,30);
+    Affichage_Journee(weather, 2, 420, 450, 30);
   }
 
   // ON ne rafraichit l'affichage que si on est dans le MODE principal 
@@ -440,6 +440,13 @@ void mousePressed()
 
     if (mouseButton==RIGHT &&  ModeLevel==0) {
       indicateur_mode    =    1; // on repasse en MODE principal
+      println("Case_Courante:"+case_courante);
+      if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
+        Stop_Fading_Message ( case_courante+1);
+        port.write("/");
+        SendRGBValue_Message( case_courante+1, 0, 0, 0);
+        port.write("/");
+      }
       case_courante      =   -1; // on met case_courante a -1
     }
 
@@ -487,6 +494,9 @@ void mousePressed()
     col_selected   = int(case_courante%4);
     curr_function_type = Maingrille.MaGrille[col_selected][ligne_selected].function_type;
     ModeLevel=0;
+    int col_selec_R= (int)(red(Maingrille.MaGrille[col_selected][ligne_selected].couleur_LED_selec)) ;
+    int  col_selec_V= (int)( green(Maingrille.MaGrille[col_selected][ligne_selected].couleur_LED_selec)) ;
+    int col_selec_B= (int)(blue(Maingrille.MaGrille[col_selected][ligne_selected].couleur_LED_selec)) ;
 
     if (curr_function_type.equals("GMAIL")) {
       Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
@@ -496,7 +506,7 @@ void mousePressed()
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
         Stop_Fading_Message (led_courante);
         port.write("/");
-        SendRGBValue_Message(led_courante, 255, 0, 255);
+        SendRGBValue_Message(led_courante, col_selec_R, col_selec_V, col_selec_B);
         port.write("/");
       }
     }
@@ -504,7 +514,12 @@ void mousePressed()
     if (curr_function_type.equals("Rss")) {
       Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
       Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
-      // TODO rajouter ici les fonctions pour controler les LED
+      if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
+        Stop_Fading_Message (led_courante);
+        port.write("/");
+        SendRGBValue_Message(led_courante, col_selec_R, col_selec_V, col_selec_B);
+        port.write("/");
+      }
     }
     // on regarde sur quelle case on a clique : les cases sont numerotees :
     //    0   1   2   3

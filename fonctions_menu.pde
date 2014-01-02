@@ -193,10 +193,10 @@ public void draw_applique_tache_planifiees() {
 
   if (indicateur_mode==0 && curr_temps- temps_ref_ModeVeille>1000*nb_sec_changement_mode_veille) {
     temps_ref_ModeVeille=curr_temps;
-    if(ModeVeille==0){
+    if (ModeVeille==0) {
       ModeVeille=1;
     }
-    else{
+    else {
       ModeVeille=0;
     }
   }
@@ -426,14 +426,71 @@ public void applique_fichier_config(String chemin_fichier_config) {
           }
         }
 
-        else if (attrib_nom.equals("couleur_LED")) {
+        else if (attrib_nom.equals("couleur_LED_selec")) {
 
           try {
             int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
             int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
             int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
 
-            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLED(color(valeurR, valeurG, valeurB));
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDSelec(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("couleur_LED_Event")) {
+
+          try {
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDEvent(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("couleur_Fade_Min")) {
+
+          try {
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDFadeMin(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("couleur_Fade_Max")) {
+
+          try {
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDFadeMax(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("Fade_Duration_ms")) {
+
+          try {
+            Maingrille.MaGrille[curr_col][curr_row].SetFadeDuration(Integer.parseInt(attrib_valeur));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("Type_of_LED_Event")) {
+
+          try {
+            Maingrille.MaGrille[curr_col][curr_row].SetTypeLedEvent(attrib_valeur);
           } 
           catch (Exception e) {
           }
@@ -546,8 +603,8 @@ public void affichage_gmail(int y)
     triangle(0 + 100, bloc_gmail.debut_zone_message, int(gridSize/2), bloc_gmail.debut_zone_message + 20, gridSize -100, bloc_gmail.debut_zone_message);
   }
 
- // else if (y < bloc_gmail.debut_zone_message + bloc_gmail.total_height && y > bloc_gmail.debut_zone_message + bloc_gmail.total_height-20) {
-   else if (y < bloc_gmail.debut_zone_message + 480 && y > bloc_gmail.debut_zone_message + 480-20) {
+  // else if (y < bloc_gmail.debut_zone_message + bloc_gmail.total_height && y > bloc_gmail.debut_zone_message + bloc_gmail.total_height-20) {
+  else if (y < bloc_gmail.debut_zone_message + 480 && y > bloc_gmail.debut_zone_message + 480-20) {
     // on a la souris en bas
 
     // on recule la position de defilement

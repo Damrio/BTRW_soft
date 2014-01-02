@@ -39,7 +39,18 @@ void UpdateRss() {
         Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(1);
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeCouleurBulle(color(200, 0, 0));
-            // TODO rajouter ici les fonctions pour controler les LED
+
+        if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
+         /* led_courante=Cellule[1]*4+Cellule[0]+1;
+          println("Numero Case Rss: "+led_courante);
+          int col_selec_R= (int)(red( Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
+          int  col_selec_V= (int)( green(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
+          int col_selec_B= (int)(blue(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ; 
+          //Stop_Fading_Message (led_courante);
+          //port.write("/");
+          SendRGBValue_Message(led_courante, col_selec_R, col_selec_V, col_selec_B);
+          port.write("/");*/
+        }
       }
       else {
         FluxUpadted =true;
@@ -119,5 +130,4 @@ String ListoFTitle() {
   }
   return ToPrint;
 }
-
 
