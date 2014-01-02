@@ -32,7 +32,7 @@ Grille Maingrille;
 int cols = 4;
 int rows = 3;
 int scareSize;
-int gridSize=480;
+int gridSize=640;
 
 //=========================================================================
 //     DECLARATION DES VARIABLES DE LA PARTIE DYNAMIQUE
@@ -62,8 +62,9 @@ int indicateur_mode = 1;
 //--------------------------------------------------------------------
 //     Niveau du mode activé 
 int ModeLevel=0;
+//-1 Niveau -1
 //0- 1er Niveau
-//1- 2nd Noveau
+//1- 2nd Niveau
 //2- 3ème niveau
 //...
 
@@ -138,8 +139,8 @@ int NombreTitreToPlot=10; //Nombres d'entrées à afficher
 int OffsetTitreRss; 
 String TitreRss;
 int indice=0;
-int Offset_deplacement=3;// vitesse de déplacment du bandeau en pixel
-long nb_millisec_deplacement=20;// intervalle de temps entre chaque déplacement du bandeau
+int Offset_deplacement=6;// vitesse de déplacment du bandeau en pixel
+long nb_millisec_deplacement=10;// intervalle de temps entre chaque déplacement du bandeau
 long temps_dernier_deplacement_bandeau=System.currentTimeMillis();// temps de la dernière mise à jour du bandeau
 
 //-------------------------------------------------------------------
@@ -175,13 +176,16 @@ long nb_sec_refresh_Rss;
 long nb_sec_refresh_Rss_ini=1;//intervalle de temps de rafraîchissement des flux Rss initial
 long nb_sec_refresh_Rss_nominal=60;//intervalle de temps de rafraîchissement des flux Rss nominal
 long Init_Temps_Rss=20;//en secondes
-long nb_sec_mode_veille=100;// en secondes
+long nb_sec_mode_veille=10;// en secondes
+long nb_sec_changement_mode_veille=60;// en secondes 
+long temps_ref_ModeVeille;
+int ModeVeille;
 //-------------------------------------------------------------------------------------- 
 
 
 // ----------------------------------------------------------
 //   DECLARATION DES VARIABLES POUR COMMUNIQUER AVEC ARUDINO
-int nombre_Led_RGB=16;//Nombrte de LED RGB du projet
+int nombre_Led_RGB=12;//Nombrte de LED RGB du projet
 Serial port; // On déclare le port série
 boolean arduino_enabled = true; // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche
 // ----------------------------------------------------------
@@ -196,10 +200,10 @@ void setup() {
 
 
   scareSize=(int)(gridSize/4);
-  size(640, gridSize);
+  size(640, 480);
   Maingrille= new Grille(cols, rows);
   Maingrille.SetDefaultFont("K22 Didoni Swash.ttf");
-//  Maingrille.SetIconeSize((int)(scareSize*0.3));
+  //  Maingrille.SetIconeSize((int)(scareSize*0.3));
   Maingrille.SetIconeSize((int)(scareSize*0.85));
 
   fnt=createFont("Courier", 18);
@@ -258,23 +262,22 @@ void setup() {
   // ON lit le fichier de configuration pour mettre a jour les cellules de la grille
   // TODO : gerer les exceptions si le fichier n'est pas bien configure (valeurs idiotes)
   applique_fichier_config(chemin_fichier_config);
-  
- 
+
+
   //InitilialisationRSS
   Maingrille.InitListRSS(cols, rows);
   CreateRss() ;
   UpdateRss() ;
-  
-  
+
+
   // INIT PORT SERIE POUR ARDUINO
   // On sélectionne le premier, mais il faut vérifier que ce soit bien celui la
   if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
-  println(port.list()[0]);
-  port = new Serial(this, Serial.list()[0], 115200); // On établit une connexion série à 115,2 Mbaud
-  port.clear(); //On efface le buffer du port série 
-  port.bufferUntil('\n'); // On indique qu'on bufferise jusqu'à l'arrivée d'un saut de ligne
-  
-  SendRGBValue_Message(1,255,0,0);
+    println(port.list()[0]);
+    port = new Serial(this, Serial.list()[0], 115200); // On établit une connexion série à 115,2 Mbaud
+    port.clear(); //On efface le buffer du port série 
+    port.bufferUntil('\n'); // On indique qu'on bufferise jusqu'à l'arrivée d'un saut de ligne
+    SendRGBValue_Message(1, 255, 0, 0);
   }
 }  
 
@@ -284,7 +287,7 @@ void setup() {
 //              FONCTION DRAW                     //
 ////////////////////////////////////////////////////
 void draw() {
-
+ smooth();
   background(0);
   // fonction de taches planifiees
   draw_applique_tache_planifiees();
@@ -292,44 +295,49 @@ void draw() {
   // Si on n'est dans le mode veille on ne fait rien on laisse le background en noir
   if (indicateur_mode == 0)
   {
-   Affichage_Heure();
-  } 
+    if (ModeVeille==0) {
+      frameRate(2);
+      Affichage_Heure();
+    }
+    else {
+      frameRate(30);  
+      if (ListTitleToPrint.size()>=NombreTitreToPlot) {
+        DefilerBandeauTitreRss();
+        textFont(myfontTittleRSS, 100);
+        text(TitreRss, OffsetTitreRss, 240+textAscent()/2);
+      }
+    }
+  }  
 
+  if (indicateur_mode == -1)
+  {
+    frameRate(30);
+    int xpos;
+    xpos=0;
+    int hauteurVent=60;
+    AffichageTempertaure(weather, 10, 2, 50);
+    rationHL=AffichageImageWeather(weather, 0, 200, 0, 10); 
+    xpos+=(int)rationHL*100+10;
+    Affichage_Vitesse_Vent(weather, hauteurVent, 300, 40, 30);
+    Affichage_Text_Weather(300, 70);
+    xpos+=hauteurVent+20;
+    AffichageTemperatureLendemain(weather, 1, 60, 250, 30);
+    rationHL=AffichageImageWeather(weather, 1, 150, 50, 270);
+    Affichage_Journee(weather, 1,80 , 450,30);
+    xpos+=(int)rationHL*100+10;
+    AffichageTemperatureLendemain(weather, 2, 410, 250, 30);
+    rationHL=AffichageImageWeather(weather, 2, 150, 400, 270);
+     Affichage_Journee(weather, 2, 420, 450,30);
+  }
 
   // ON ne rafraichit l'affichage que si on est dans le MODE principal 
   // (sinon cela signifie que les mails sont consultes et le reste de l'affichage est freeze)
   if (indicateur_mode == 1) // Il faudrait rajouter une condition : and Change_flag == true
   {
-    
+
     strokeWeight(1);
     frameRate(30);
-    Maingrille.Display(cols, rows); 
-
-    
-    int xpos;
-    xpos=0;
-    int hauteurVent=40;
-    AffichageTempertaure(weather, 480+3, xpos);
-    rationHL=AffichageImageWeather(weather, 0, 100, 480, xpos+3); 
-    xpos+=(int)rationHL*100+10;
-    Affichage_Vitesse_Vent(weather,hauteurVent,480+10+hauteurVent/2, xpos);
-    xpos+=hauteurVent+20;
-    AffichageTemperatureLendemain(weather, 1,480+3, xpos);
-    rationHL=AffichageImageWeather(weather, 1, 80, 480, xpos);
-    Affichage_Journee(weather, 1,  480+110, xpos);
-    xpos+=(int)rationHL*100+10;
-    AffichageTemperatureLendemain(weather, 2,480+3, xpos);
-    rationHL=AffichageImageWeather(weather, 2, 80, 480, xpos);
-    Affichage_Journee(weather, 2,  480+110, xpos);
-    
-
-    if (ListTitleToPrint.size()>=NombreTitreToPlot) {
-      DefilerBandeauTitreRss();
-      textFont(myfontTittleRSS, 45);
-      text(TitreRss, OffsetTitreRss, 360+(60)+textAscent()/2);
-      
-      
-    }
+    Maingrille.Display(cols, rows);
   }
 
   else if (indicateur_mode == 2) // cas ou on est en MODE case cliquee
@@ -467,7 +475,7 @@ void mousePressed()
   }
 
 
-  else if (indicateur_mode == 1) // sinon on regarde si on est dans le mode principal
+  else if (indicateur_mode == 1 && mouseButton==LEFT) // sinon on regarde si on est dans le mode principal
   {              
     //last_mode       = 1 ;
     indicateur_mode = 2 ; // on bascule en MODE case cliquee
@@ -481,22 +489,22 @@ void mousePressed()
     ModeLevel=0;
 
     if (curr_function_type.equals("GMAIL")) {
-    Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
-    color couleur_originale = Maingrille.MaGrille[col_selected][ligne_selected].couleur_bulle;
-    println(couleur_originale);
-    Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
+      Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
+      color couleur_originale = Maingrille.MaGrille[col_selected][ligne_selected].couleur_bulle;
+      println(couleur_originale);
+      Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
         Stop_Fading_Message (led_courante);
         port.write("/");
-        SendRGBValue_Message(led_courante, 255, 255, 255);
+        SendRGBValue_Message(led_courante, 255, 0, 255);
         port.write("/");
       }
     }
-    
+
     if (curr_function_type.equals("Rss")) {
-    Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
-    Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
-    // TODO rajouter ici les fonctions pour controler les LED
+      Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
+      Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
+      // TODO rajouter ici les fonctions pour controler les LED
     }
     // on regarde sur quelle case on a clique : les cases sont numerotees :
     //    0   1   2   3
@@ -504,6 +512,14 @@ void mousePressed()
     //    ..  ..  ..  ..
   }
 
+  else if ( indicateur_mode == 1 && mouseButton==RIGHT) {// si on est dans le menu général et que l'on fait un clique gauche
+    indicateur_mode = -1;
+    println("Mode -1 activé");
+  }
+
+  else if ( indicateur_mode == -1 && mouseButton==LEFT) {// si on est dans le menu général et que l'on fait un clique gauche
+    indicateur_mode = 1;
+  }
 
   else if (indicateur_mode == 3) // cas ou est en mode config et ou on a clique sur une case
   {

@@ -57,9 +57,9 @@ int ComputeOffset(int CurrentOffset) {
     //println("osset +15");
     offset=offset+15;
   }
-  maxOffset=(ListLoader.get(indice).RssContent.size())*(HauteurPhoto+20);
+  maxOffset=(ListLoader.get(indice).RssContent.size()+1)*(HauteurPhoto+20)-10;
   if (offset>0)offset=0;
-  if (offset<-(int)((maxOffset-gridSize)/4)*4)offset=-(int)((maxOffset-gridSize)/4+1)*4; 
+  if (offset<-(int)((maxOffset-gridSize)/4)*4)offset=-(int)((maxOffset-gridSize)/4)*4; 
 
   return offset;
 }

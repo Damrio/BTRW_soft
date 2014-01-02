@@ -169,7 +169,6 @@ public void draw_case_cliquee() {
       currentListIndex=getIndexFromUrl(curr_Url);
       maxOffsetLecture=DisplayCurrentRSS(offsetLecture, indicePrintedRss, ListLoader.get(currentListIndex)) ;
     }
-
   }
 }
 
@@ -185,9 +184,21 @@ public void draw_case_cliquee() {
 public void draw_applique_tache_planifiees() {
 
   long curr_temps = System.currentTimeMillis();
-  
-  if(curr_temps-temps_derniere_action>1000*nb_sec_mode_veille){
+
+  if (indicateur_mode!=0 && curr_temps-temps_derniere_action>1000*nb_sec_mode_veille) {
     indicateur_mode=0;
+    ModeVeille=1;
+    temps_ref_ModeVeille=curr_temps;
+  }
+
+  if (indicateur_mode==0 && curr_temps- temps_ref_ModeVeille>1000*nb_sec_changement_mode_veille) {
+    temps_ref_ModeVeille=curr_temps;
+    if(ModeVeille==0){
+      ModeVeille=1;
+    }
+    else{
+      ModeVeille=0;
+    }
   }
 
   if (temps_de_ref_mails+ nb_sec_refresh_mails*1000 < curr_temps)
@@ -195,7 +206,6 @@ public void draw_applique_tache_planifiees() {
     temps_de_ref_mails = curr_temps;   
     Thread t = new Thread(new RunImpl(monMail));
     t.start();
-
   }
 
   if (System.currentTimeMillis()-tempsIni<Init_Temps_Rss*1000) {
@@ -409,7 +419,7 @@ public void applique_fichier_config(String chemin_fichier_config) {
             int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
             int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
             int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
-            
+
             Maingrille.MaGrille[curr_col][curr_row].ChangeColor(color(valeurR, valeurG, valeurB));
           } 
           catch (Exception e) {
@@ -422,7 +432,7 @@ public void applique_fichier_config(String chemin_fichier_config) {
             int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
             int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
             int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
-            
+
             Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLED(color(valeurR, valeurG, valeurB));
           } 
           catch (Exception e) {
@@ -536,7 +546,8 @@ public void affichage_gmail(int y)
     triangle(0 + 100, bloc_gmail.debut_zone_message, int(gridSize/2), bloc_gmail.debut_zone_message + 20, gridSize -100, bloc_gmail.debut_zone_message);
   }
 
-  else if (y < bloc_gmail.debut_zone_message + bloc_gmail.total_height && y > bloc_gmail.debut_zone_message + bloc_gmail.total_height-20) {
+ // else if (y < bloc_gmail.debut_zone_message + bloc_gmail.total_height && y > bloc_gmail.debut_zone_message + bloc_gmail.total_height-20) {
+   else if (y < bloc_gmail.debut_zone_message + 480 && y > bloc_gmail.debut_zone_message + 480-20) {
     // on a la souris en bas
 
     // on recule la position de defilement
@@ -546,10 +557,10 @@ public void affichage_gmail(int y)
 
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
-    rect(0, bloc_gmail.debut_zone_message + bloc_gmail.total_height -20, bloc_gmail.total_width, 20);
+    rect(0, bloc_gmail.debut_zone_message + 480 -20, 640, 20);
     fill(150, 150, 255, 50);
     stroke(200);
-    triangle(0 + 100, bloc_gmail.debut_zone_message + bloc_gmail.total_height, int(gridSize/2), bloc_gmail.debut_zone_message + bloc_gmail.total_height-20, gridSize -100, bloc_gmail.debut_zone_message + bloc_gmail.total_height);
+    triangle(0 + 100, bloc_gmail.debut_zone_message + 480, int(640/2), bloc_gmail.debut_zone_message +480-20, 640 -100, bloc_gmail.debut_zone_message + 480);
   }   
 
   else {

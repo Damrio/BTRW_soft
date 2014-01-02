@@ -44,7 +44,7 @@ col             =   3
 function_type   =   GMAIL
 icon            =   Metro UI Icon Set/Google Services/Gmail.png
 couleur         =   #000000
-couleur_LED     =   #FFFF00
+couleur_LED     =   #FFFFFF
 FullSize        =   false
 
 # Cell(0,1)

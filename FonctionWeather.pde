@@ -45,21 +45,21 @@ private float Affichage_Text_Weather(float MargeIniH, int OffsetY) {
   float[] XY=new float[2];
   fill(255, 255, 255);
   textFont(TextWeatherFont);
-  textSize(TexteSize=15); 
+  textSize(TexteSize=30); 
   XY[1]=TexteSize+marginV+ OffsetY;
   XY[0]=0;
   XY[1]=AddText(weather.getCityName(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0])[1];
-  textSize(TexteSize=12);
-  XY=AddText(weather.getWeatherCondition(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
+  textSize(TexteSize=25);
+  //XY=AddText(weather.getWeatherCondition(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   XY=AddText("Humidité: "+weather.getHumidity()+"%", TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
-  XY=AddText("Vent: "+weather.getWindSpeed()+" km/h", TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
+  //XY=AddText("Vent: "+weather.getWindSpeed()+" km/h", TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   XY=AddText("Lever du soleil: "+weather.getSunrise(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   XY=AddText("Coucher du soleil: "+weather.getSunset(), TexteSize, rationHL, MargeDebut, marginH, marginV, XY[1], XY[0]);
   return XY[0]+ MargeDebut+marginH;
 }
 
 
-private void Affichage_Vitesse_Vent(YahooWeather weather, float taille, float x, float y) {
+private void Affichage_Vitesse_Vent(YahooWeather weather, float taille, float x, float y,int Text_size) {
   float Windspeed;
   float Direction;
 
@@ -73,19 +73,24 @@ private void Affichage_Vitesse_Vent(YahooWeather weather, float taille, float x,
   rotate(radians(Direction));
   if (Windspeed<20) {
     stroke(25, 225, 65);
+    fill(25, 225, 65);
   }
   else if (Windspeed<50) {
     stroke(243, 146, 0);
+    fill(243, 146, 0);
   }
   else {
     stroke(243, 24, 0);
+    fill(243, 24, 0);
   }
   line(0, -taille/2, 0, taille/2);
+  
   triangle(0, -taille/2, taille/6, -taille/2+taille/6, -taille/6, -taille/2+taille/6);
-
+  noFill(); 
+ 
   rotate(radians(-Direction));
   textFont(TextWeatherFont);
-  textSize(20);
+  textSize(Text_size);
   text(round(Windspeed)+"km/h", taille/2+10, textAscent()/2);
   popMatrix();
 } 
@@ -101,17 +106,17 @@ private float[] AddText(String Text, int TextSize, float rationHL, float DebutH,
   return XY;
 }
 
-private void AffichageTempertaure(YahooWeather weather, int x, int y) {   
+private void AffichageTempertaure(YahooWeather weather, int x, int y,int Text_size) {   
   textFont(TextWeatherFont);
-  int TexteSize=25;
+  int TexteSize=Text_size;
   //fill( CouleurTemperature(weather.getWindTemperature()));
   textSize(TexteSize);
   text(+weather.getWindTemperature()+"°", x, TexteSize+y+3);
 }
 
-public void AffichageTemperatureLendemain(YahooWeather weather, int DayToPlot, float x, float y) {
+public void AffichageTemperatureLendemain(YahooWeather weather, int DayToPlot, float x, float y,int Text_size) {
   textFont(TextWeatherFont);
-  textSize(20);
+  textSize(Text_size);
 
   String Texte="";
   if (DayToPlot==1)
@@ -133,7 +138,7 @@ public void AffichageTemperatureLendemain(YahooWeather weather, int DayToPlot, f
   text(Texte, MarginIni, y);
 }
 
-private void Affichage_Journee(YahooWeather weather, int DayToPlot, float x, float y) {
+private void Affichage_Journee(YahooWeather weather, int DayToPlot, float x, float y, int Text_Size) {
   String Weekday="";
   if (DayToPlot==1) {
     Weekday=weather.getWeekdayTomorrow();
@@ -144,7 +149,7 @@ private void Affichage_Journee(YahooWeather weather, int DayToPlot, float x, flo
   //println( Weekday);
   Weekday=TraductionJournee(Weekday);
   textFont(TextWeatherFont);
-  textSize(20);
+  textSize(Text_Size);
   text(Weekday, x, y);
 }
 
@@ -152,19 +157,19 @@ String TraductionJournee(String Jour) {
   String Trad="";
 
   if (Jour.equals("Mon"))
-    Trad="Lun";
+    Trad="Mardi";
   else if (Jour.equals("Tue"))
-    Trad="Mar";
+    Trad="Mercredi";
   else if (Jour.equals("Wed"))
-    Trad="Mer";
+    Trad="Jeudi";
   else if (Jour.equals("Thu"))
-    Trad="Jeu";
+    Trad="Vendredi";
   else if (Jour.equals("Fri"))
-    Trad="Ven";
+    Trad="Samedi";
   else if (Jour.equals("Sat"))
-    Trad="Sam";
+    Trad="Dimanche";
   else if (Jour.equals("Sun"))
-    Trad="Dim";
+    Trad="Lundi";
 
 
   return Trad;
