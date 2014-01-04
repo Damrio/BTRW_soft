@@ -183,7 +183,7 @@ long nb_sec_mode_veille=100;// en secondes
 //   DECLARATION DES VARIABLES POUR COMMUNIQUER AVEC ARUDINO
 int nombre_Led_RGB=16;//Nombrte de LED RGB du projet
 Serial port; // On déclare le port série
-boolean arduino_enabled = true; // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche
+boolean arduino_enabled = false; // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche
 // ----------------------------------------------------------
 
 
@@ -488,7 +488,7 @@ void mousePressed()
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
         Stop_Fading_Message (led_courante);
         port.write("/");
-        SendRGBValue_Message(led_courante, 255, 255, 255);
+        SendRGBValue_Message(led_courante, 0, 0, 0);
         port.write("/");
       }
     }

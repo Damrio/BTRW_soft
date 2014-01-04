@@ -24,7 +24,7 @@ if (monMail.nb_nvx_mails > 0) {
     int blue_value = int(blue(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED));
    SendRGBValue_Message(Cellule[1]*4+Cellule[0]+1,red_value, green_value, blue_value);
    // TODO : resoudre probleme FADING
-//   SendRGB_Fading_Start_Message(Cellule[1]*4+Cellule[0]+1, 1000, 0, red_value, 0, green_value, 0, blue_value);
+//   SendRGB_Fading_Start_Message(Cellule[1]*4+Cellule[0]+1, 1000, 0, red_value, 0, green_value, 255, blue_value);
     port.write("/");
        println("MAJ LED");
   }

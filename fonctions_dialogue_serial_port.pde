@@ -76,3 +76,4 @@ byte[] toByteArray(int value) {
     (byte) value
   };
 }
+

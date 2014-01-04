@@ -18,8 +18,7 @@ class MailChecker {
   public ArrayList array_date;
   public int nb_nvx_mails;
   public int current_nb_mails;            // nombre de mails courant (utilise pour faire un delta et ne recuperer que les derniers)
-  public boolean flag_changement;         // TODO : flag pour voir si le nombre de messages a change depuis la derniere fois
-
+  public String flag_type;
 
 
   //--------------------------------------------
@@ -35,8 +34,8 @@ class MailChecker {
     nb_nvx_mails               =   0;
     array_sujet                =   new ArrayList<String>();
     array_date                 =   new ArrayList<String>();
+    flag_type                  =   "MAIL";
 
-    flag_changement            =   false;
   }
 
 
@@ -79,9 +78,29 @@ class MailChecker {
       // on compte le nombre de nouveaux mails depuis le dernier check
       nb_nvx_mails = numberofMessages - current_nb_mails;      
 
+/////////////////////////////////////////////////////////////////////////////////////
+// WORK IN PROGRESS
+
+/*SearchTerm fb_search = new SearchTerm() {
+	public boolean match(Message message) {
+		try {
+			if (message.getSubject().contains("Oracle")) {
+				return true;
+			}
+		} catch (MessagingException ex) {
+			ex.printStackTrace();
+		}
+		return false;
+	}
+};
+*/
+//      Message message1[]      =   folder.search(fb_search);  
+
+////////////////////////////////////////////////////////////////////////////////////
 
       // on recupere au plus les NB_MAX_MESSAGES derniers messages
       //        Message message[]      =   folder.getMessages(max(numberofMessages-current_nb_mails,1),numberofMessages);
+      
       Message message[]      =   folder.getMessages(max(numberofMessages-NB_MAX_MESSAGES, 1), numberofMessages);  
 
 
@@ -204,6 +223,7 @@ class MailChecker {
     return mess_erreur;
   }
 }
+
 
 
 
