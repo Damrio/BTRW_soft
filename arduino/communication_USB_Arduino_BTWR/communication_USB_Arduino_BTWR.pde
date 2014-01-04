@@ -21,13 +21,14 @@ void setup() {
 }
 
 void draw() {
-
-  SendRGBValue_Message(1, 255, 255, 255);
+  Stop_Fading_Message (1) ;
+  port.write("/"); 
+  SendRGBValue_Message(1, 0, 0, 255);
   port.write("/"); // On envoie une terminaison de message
-  delay(1000);
-  SendRGBValue_Message(1, 100, 0, 0);
-  port.write("/"); // On envoie une terminaison de message
-  delay(1000);
+  delay(3000);
+  //SendRGBValue_Message(1, 100, 0, 0);
+  //port.write("/"); // On envoie une terminaison de message
+  //delay(1000);
 //  SendRGBValue_Message(1, 150, 0, 0);
 //  port.write("/"); // On envoie une terminaison de message
 //  delay(1000);
@@ -47,9 +48,9 @@ void draw() {
 //  SendRGB_Fading_Start_Message(1, 1000, 50, 255, 0, 0, 0, 0);
 //  SendRGB_Fading_Start_Message(3, 1000, 100, 200, 0, 100, 0, 0);
 //  SendRGB_Fading_Start_Message(5, 1000, 50, 100, 100, 200, 0, 0);
-//  SendRGB_Fading_Start_Message(7, 1000, 0, 0, 50, 255, 0, 0);
-//  port.write("/");
-  delay(1000);
+ SendRGB_Fading_Start_Message(1, 1000, 251, 0, 250, 0, 250, 0);
+  port.write("/");
+  delay(10000);
 //  Stop_Fading_Message (12) ;
 //  port.write("/");
 //  delay(1000);

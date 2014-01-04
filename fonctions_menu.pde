@@ -240,6 +240,7 @@ public void draw_applique_tache_planifiees() {
     temps_de_ref_Rss=System.currentTimeMillis();
     //Mis a jour Flux RSS
     UpdateRss();
+    UpdateLedRss();
   }
 }
 

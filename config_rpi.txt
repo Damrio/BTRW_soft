@@ -91,10 +91,10 @@ icon            =   Le-Monde-logo.gif
 couleur         =   #000000
 couleur_LED_selec   = #FFFFFF
 couleur_LED_Event   = #F8FF0A
-couleur_Fade_Min    = #FFEF00
-couleur_Fade_Max    = #F8FF0A
-Fade_Duration_ms    = 1000
-Type_of_LED_Event   = StaticColor
+couleur_Fade_Min    = #FF0000
+couleur_Fade_Max    = #0000FF
+Fade_Duration_ms    = 3000
+Type_of_LED_Event   = Fading
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3061/index.rss
 
@@ -107,10 +107,10 @@ icon            =   Le-Monde-logo.gif
 couleur         =   #000000
 couleur_LED_selec   = #FFFFFF
 couleur_LED_Event   = #F8FF0A
-couleur_Fade_Min    = #FFEF00
-couleur_Fade_Max    = #F8FF0A
-Fade_Duration_ms    = 1000
-Type_of_LED_Event   = StaticColor
+couleur_Fade_Min    = #FF0000
+couleur_Fade_Max    = #0000FF
+Fade_Duration_ms    = 3000
+Type_of_LED_Event   = Fading
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3056/index.rss
 
@@ -124,16 +124,16 @@ couleur         =   #000000
 FullSize        =   false
 couleur_LED_selec   = #FFFFFF
 couleur_LED_Event   = #F8FF0A
-couleur_Fade_Min    = #FFEF00
-couleur_Fade_Max    = #F8FF0A
-Fade_Duration_ms    = 1000
-Type_of_LED_Event   = StaticColor
+couleur_Fade_Min    = #FF0000
+couleur_Fade_Max    = #0000FF
+Fade_Duration_ms    = 3000
+Type_of_LED_Event   = Fading
 Url		=   http://www.lemonde.fr/rss/tag/sciences.xml
 
 # Cell(0,2)
 row             =   2
 col             =   0
-function_type   =   None
+function_type   =   Calendar
 icon            =   icone-amis.png
 couleur         =   #000000
 couleur_LED_selec   = #FF0000
@@ -143,11 +143,12 @@ couleur_Fade_Max    = #FF0000
 Fade_Duration_ms    = 1000
 Type_of_LED_Event   = StaticColor
 FullSize        =   false
+Url		=   http://www.lemonde.fr/rss/tag/sciences.xml
 
 # Cell(1,2)
 row             =   2
 col             =   1
-function_type   =   None
+function_type   =   Calendar
 icon            =   Metro UI Icon Set/System Icons/Task Manager alt 2.png
 couleur         =   #000000
 couleur_LED_selec   = #FF0000
@@ -161,7 +162,7 @@ FullSize        =   false
 # Cell(2,2)
 row             =   2
 col             =   2
-function_type   =   None
+function_type   =   Calendar
 icon            =   Metro UI Icon Set/Folders & OS/Videos Library.png
 couleur         =   #000000
 couleur_LED_selec   = #FF0000
@@ -175,7 +176,7 @@ FullSize        =   false
 # Cell(3,2)
 row             =   2
 col             =   3
-function_type   =   None
+function_type   =   Calendar
 icon            =   Metro UI Icon Set/System Icons/Action Center.png
 couleur         =   #000000
 couleur_LED_selec   = #FF0000

@@ -267,12 +267,12 @@ void setup() {
 
 
   //InitilialisationRSS
-  Maingrille.InitListRSS(cols, rows);
-  CreateRss() ;
-  UpdateRss() ;
+  Maingrille.InitListRSS(cols, rows);//On crée la liste des flux Rss à gérer
+  CreateRss() ;//On crée les Threads Rss à gérer
+  UpdateRss() ;//On met à jour les flux Rss
 
 
-  // INIT PORT SERIE POUR ARDUINO
+    // INIT PORT SERIE POUR ARDUINO
   // On sélectionne le premier, mais il faut vérifier que ce soit bien celui la
   if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
     println(port.list()[0]);
@@ -554,8 +554,12 @@ void mousePressed()
       Maingrille.MaGrille[col_selected][ligne_selected].numberofEvents=0;
       Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
+
+        if( Maingrille.MaGrille[col_selected][ligne_selected].IsFading){
         Stop_Fading_Message (led_courante);
         port.write("/");
+        Maingrille.MaGrille[col_selected][ligne_selected].IsFading=false;
+        }
         SendRGBValue_Message(led_courante, col_selec_R, col_selec_V, col_selec_B);
         port.write("/");
       }

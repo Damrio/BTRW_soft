@@ -19,6 +19,7 @@ class Cell {
   String function_type;
   int numberofEvents;
   String Url;
+  Boolean IsFading;
 
   // Cell Constructor
   Cell(float tempX, float tempY, float tempW, float tempH, color Couleur) {
@@ -39,6 +40,7 @@ class Cell {
     Type="Event";
     function_type = "none";
     Url="";
+    IsFading=false;
   }
 
   void SetImage(String nomImage) {

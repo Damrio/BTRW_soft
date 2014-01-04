@@ -39,18 +39,6 @@ void UpdateRss() {
         Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].AddEvent(1);
         Maingrille.MaGrille[Cellule[0]][Cellule[1]].ChangeCouleurBulle(color(200, 0, 0));
-
-        if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
-         /* led_courante=Cellule[1]*4+Cellule[0]+1;
-          println("Numero Case Rss: "+led_courante);
-          int col_selec_R= (int)(red( Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
-          int  col_selec_V= (int)( green(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
-          int col_selec_B= (int)(blue(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ; 
-          //Stop_Fading_Message (led_courante);
-          //port.write("/");
-          SendRGBValue_Message(led_courante, col_selec_R, col_selec_V, col_selec_B);
-          port.write("/");*/
-        }
       }
       else {
         FluxUpadted =true;
@@ -60,11 +48,6 @@ void UpdateRss() {
     if (HasBeenUpdated) {
       TitreRss=ListoFTitle();
     }
-
-    println("Rss updated!");
-    //int Cellule[]=new int[2]; 
-    //Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
-    //Maingrille.MaGrille[Cellule[0]][Cellule[1]].numberofEvents=ListLoader.get(i).remaining;
   }
 }
 
@@ -86,6 +69,46 @@ void DeleteRss(int index) {
 }
 
 
+void   UpdateLedRss() {
+  for (int i=0;i<ListAdresseRSS.size();i++) {
+    int Cellule[]=new int[2]; 
+    Cellule=Maingrille.RechercheAdresseDansGrille(cols, rows, ListAdresseRSS.get(i));
+    String TypeofLed=  Maingrille.MaGrille[Cellule[0]][Cellule[1]].Type_of_LED_Event;
+    int CaseToUpdate=Cellule[1]*4+Cellule[0]+1;
+    if (Maingrille.MaGrille[Cellule[0]][Cellule[1]].numberofEvents>0) {
+      if (arduino_enabled) { 
+        if (TypeofLed.equals("StaticColor")) {
+          int col_selec_R= (int)(red( Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
+          int col_selec_V= (int)( green(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
+          int col_selec_B= (int)(blue(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
+          if (Maingrille.MaGrille[Cellule[0]][Cellule[1]].IsFading) {
+            Stop_Fading_Message (CaseToUpdate);
+            port.write("/");
+          }
+          SendRGBValue_Message(CaseToUpdate, col_selec_R, col_selec_V, col_selec_B) ;
+          port.write("/");
+          Maingrille.MaGrille[Cellule[0]][Cellule[1]].IsFading=false;
+        }
+        else if (TypeofLed.equals("Fading")) {
+          if (Maingrille.MaGrille[Cellule[0]][Cellule[1]].IsFading==false) {
+            int col_selec_Rmin= (int)(red( Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_Fade_Min)) ;
+            int col_selec_Vmin= (int)( green(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_Fade_Min)) ;
+            int col_selec_Bmin= (int)(blue(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_Fade_Min)) ;
+            int col_selec_Rmax= (int)(red( Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_Fade_Max)) ;
+            int col_selec_Vmax= (int)( green(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_Fade_Max)) ;
+            int col_selec_Bmax= (int)(blue(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_Fade_Max)) ;
+            int FadeDuration=Maingrille.MaGrille[Cellule[0]][Cellule[1]].Fade_Duration_ms;
+            SendRGBValue_Message(CaseToUpdate, 0, 0, 0) ;
+            port.write("/");
+            SendRGB_Fading_Start_Message (CaseToUpdate, FadeDuration, col_selec_Rmin, col_selec_Rmax, col_selec_Vmin, col_selec_Vmax, col_selec_Bmin, col_selec_Bmax ) ;
+            port.write("/");
+            Maingrille.MaGrille[Cellule[0]][Cellule[1]].IsFading=true;
+          }
+        }
+      }
+    }
+  }
+}
 
 
 void TestIfAddToTitleList(RssEntry EntreeCourante) {
