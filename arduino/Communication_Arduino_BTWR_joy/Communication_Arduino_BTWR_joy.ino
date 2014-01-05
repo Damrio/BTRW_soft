@@ -10,7 +10,7 @@ byte chaineReception[300]; // tableau contenant qui va contebir les octets recus
 int Nombre_RGB_LED=12;// Nombre de Led RGB controlées
 // Indique l'ordre des canaux des TLCs (utile par exemple si on a monté les TLCs dnas le mauvaise ordre)
 int ChannelOrder[36]= { 
-  0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,32,33,34,35,36,37};
+  0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35};
 TLC_CHANNEL_TYPE channel;
 int RGB_Led_Fading_Information[12][8];
 ;
@@ -24,11 +24,20 @@ int RGB_Led_Fading_Information[12][8];
  5: Valeur ini  Vert
  6: Valeur fin  Vert
  7: Valeur ini  Vert
- 8: Valeur fin  Vert
- 
- 
- 
- */
+ 8: Valeur fin  Vert*/
+
+const int VERT = 0; // analog
+const int HORIZ = 1; // analog
+const int SEL = 2; // digital
+const int SEL2 = 7; // digital
+const long joy_refresh = 1000;
+int vertical, horizontal, select1, select2;
+boolean Previous_flag=false;
+boolean Previous_flag_bouton1=false;
+boolean Previous_flag_bouton2=false;
+long Timer;
+
+
 
 void setup() { 
   Tlc.init();//initialise le TLC
@@ -37,20 +46,30 @@ void setup() {
   for(int i=0;i<12;i++){// On initialise le tableau de Fadinf à 0 (inactif) 
     RGB_Led_Fading_Information[i][0]=0;
   } 
+
+  // make the SEL line an input
+  pinMode(SEL,INPUT);
+  // turn on the pull-up resistor for the SEL line (see http://arduino.cc/en/Tutorial/DigitalPins)
+  digitalWrite(SEL,HIGH);
+  digitalWrite(SEL2,HIGH);
+  Timer=millis();
 } 
 // ********************************************************************************
 
 void loop(){ // debut de la fonction loop()
 
   while (Serial.available()>0) { // tant qu'un octet en réception
+  //-----------------------------
+  //Partie LEDs RGB
+  //-----------------------------
 
     octetReception=Serial.read(); // Lit le 1er octet reçu et le met dans la variable
     compt=compt+1;
 
     if (octetReception==47) { // si Octet reçu est le saut de ligne
-      Serial.println();
-      Serial.println("**** Reponse Arduino **** :");
-      Serial.println ("Nombre Octets : "+ String(nombreOctetMessage));
+      //Serial.println();
+      //Serial.println("**** Reponse Arduino **** :");
+      //Serial.println ("Nombre Octets : "+ String(nombreOctetMessage));
       TreatMessage(chaineReception,nombreOctetMessage);// Ontraite le message recu
       compt=0; // RAZ compteur
       nombreOctetMessage=0;// compteur du nombre d'octet de la trame recue
@@ -68,6 +87,64 @@ void loop(){ // debut de la fonction loop()
   } // fin tant que  octet réception
   MiseAJourFading();//On met à jour le tableau de Fading
   tlc_updateFades();// On met à jour les fading si nécessaire
+   
+   
+  //-----------------------------
+  //Partie Joystick et bouton
+  //-----------------------------
+
+  vertical = analogRead(VERT); // will be 0-1023
+  horizontal = analogRead(HORIZ); // will be 0-1023
+  select1 = digitalRead(SEL); // will be HIGH (1) if not pressed, and LOW (0) if pressed
+  select2 = digitalRead(SEL2);
+
+  if(vertical<300 || vertical>700 || horizontal<300 || horizontal>700 ){
+    if(Previous_flag==false)
+    {
+      send_joy_message();
+      Timer=millis();
+      Previous_flag=true;
+
+    }
+    else{
+
+      long currentTimer = millis();
+
+      if (currentTimer - Timer > joy_refresh){
+
+        send_joy_message();
+        Timer = millis();
+
+      }
+
+    }
+
+  }
+  else{
+
+    Previous_flag=false;
+  }
+
+
+  if(select1==1){
+    if(Previous_flag_bouton1==false){
+      send_bouton1_message();
+    }
+    Previous_flag_bouton1=true;
+  }
+  else{
+    Previous_flag_bouton1=false;
+  }
+
+  if(select2==1){
+    if(Previous_flag_bouton2==false){
+      send_bouton2_message();
+    }
+    Previous_flag_bouton2=true;
+  }
+  else{
+    Previous_flag_bouton2=false;
+  }
 
 } // fin de la fonction loop() - le programme recommence au début de la fonction loop sans fin
 // ********************************************************************************
@@ -94,7 +171,7 @@ void TreatMessage(byte* chaineRecue,int NombreOctetsATraiter){
     int Mode=chaineRecue[i];
     //Serial.println (Mode,DEC);
     if(Mode==1){// On regarde si on a une trame allumage RGB 
-      Serial.println("Mode1 recu");
+      //Serial.println("Mode1 recu");
       int RGBLED=chaineRecue[i+1]; // Numéro de la Le RGB à controller
       //  Serial.print("LED a allumer: ");
       //Serial.println (RGBLED,DEC);
@@ -124,15 +201,6 @@ void TreatMessage(byte* chaineRecue,int NombreOctetsATraiter){
       int BMinValue=chaineRecue[i+10]; 
       int BMaxValue=chaineRecue[i+11]; 
       UpadateTableFading(RGBLED,true,Duration,map(RMinValue, 0, 255, 0, 4095),map(RMaxValue, 0, 255, 0, 4095),map(GMinValue, 0, 255, 0, 4095),map(GMaxValue, 0, 255, 0, 4095),map(BMinValue, 0, 255, 0, 4095),map(BMaxValue, 0, 255, 0, 4095));
-      /*Serial.println ("Mode 3");
-       Serial.println ( RGBLED,DEC);
-       Serial.println (Duration,DEC);
-       Serial.println (RMinValue,DEC);
-       Serial.println (RMaxValue,DEC);
-       Serial.println (GMinValue,DEC);
-       Serial.println (GMaxValue,DEC);
-       Serial.println (BMinValue,DEC);
-       Serial.println (BMaxValue,DEC);*/
       i+=12;// On incrémente le buffer pour lecture du message suivant
     }
     else if(Mode==3){
@@ -148,6 +216,7 @@ void TreatMessage(byte* chaineRecue,int NombreOctetsATraiter){
     }
   }
   Tlc.update();// On met à jour les TLCs
+
 }
 
 
@@ -208,7 +277,32 @@ void MiseAJourFading(){
   }
 }
 
+// Fonction qui envoie le message Joystick
+void send_joy_message() {
+  Serial.write(byte(85));
+  if(vertical<300) Serial.write(byte(49));
+  if(vertical>700) Serial.write(byte(50));
+  if(horizontal<300) Serial.write(byte(51));
+  if(horizontal>700) Serial.write(byte(52));
+  Serial.write('\n');
+
+}
+
+// Fonction qui envoie le message bouton1
+void send_bouton1_message() {
+  Serial.write(byte(86));
+  Serial.write(byte(49));
+  Serial.write('\n');
+}
+
+// Fonction qui envoie le message bouton2
+void send_bouton2_message() {
+  Serial.write(byte(87));
+  Serial.write(byte(49));
+  Serial.write('\n');
+}
 // ////////////////////////// Fin du programme //////////////////// 
+
 
 
 

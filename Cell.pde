@@ -7,7 +7,12 @@ class Cell {
   float w, h;   // width and height
   color couleur;
   color couleur_bulle; 
-  color couleur_LED;
+  color couleur_LED_selec;
+  color couleur_LED_Event;
+  color couleur_Fade_Min;
+  color couleur_Fade_Max;
+  int Fade_Duration_ms;
+  String Type_of_LED_Event;
   PImage Icone;
   Boolean FullSize;
   String Type; 
@@ -22,8 +27,13 @@ class Cell {
     w = tempW;
     h = tempH;
     couleur= Couleur;
-    couleur_bulle = color(0,0,100);
-    couleur_LED = color(255,0,0);
+    couleur_bulle    = color(0, 0, 100);
+    couleur_LED_selec= color(0, 0, 0);
+    couleur_LED_Event= color(0, 0, 0);
+    couleur_Fade_Min = color(0, 0, 0);
+    couleur_Fade_Max = color(0, 0, 0);
+    Fade_Duration_ms = 0;
+    Type_of_LED_Event= "StaticColor";
     numberofEvents=0;
     FullSize=true;//false;
     Type="Event";
@@ -41,19 +51,35 @@ class Cell {
 
   void ChangeColor(color colorToSet) {
     couleur= colorToSet;
-    //display(Maingrille);
   }
-  
+
   void ChangeCouleurBulle(color colorToSet) {
     couleur_bulle= colorToSet;
-    //display(Maingrille);
   }
 
-  void ChangeCouleurLED(color colorToSet) {
-    couleur_LED = colorToSet;
-    //display(Maingrille);
+  void ChangeCouleurLEDSelec(color colorToSet) {
+    couleur_LED_selec = colorToSet;
   }
 
+  void ChangeCouleurLEDEvent(color colorToSet) {
+    couleur_LED_Event   = colorToSet;
+  }
+
+  void ChangeCouleurLEDFadeMin(color colorToSet) {
+    couleur_Fade_Min   = colorToSet;
+  }
+
+  void ChangeCouleurLEDFadeMax(color colorToSet) {
+    couleur_Fade_Max   = colorToSet;
+  }
+
+  void SetFadeDuration(int FadeDuration) {
+    Fade_Duration_ms  = FadeDuration;
+  }
+
+  void SetTypeLedEvent(String Type) {
+    Type_of_LED_Event = Type;
+  }
 
   void displayImage(Grille CurrentGrille) {
     float rationHL;
@@ -108,7 +134,7 @@ class Cell {
   String getFunction_type() {
     return function_type;
   }
-  
+
   void displayEvent(Grille CurrentGrille) {
     textFont(CurrentGrille.font, 150);
     String Value;
@@ -125,7 +151,7 @@ class Cell {
       else {
         fill(0, 0, 0);
       }
-      
+
       // On met les events dans une petite bulle toute mignonne !
       strokeWeight(2);
       stroke(couleur_bulle);
@@ -137,7 +163,7 @@ class Cell {
       text(Value, x+20, y+scareSize-25);
       textAlign(LEFT);
       fill(255);
-     // text(Value, x+(w/2-(int)(textWidth(Value)/2)), y+(int)((h+25+textAscent()-textDescent())/2));
+      // text(Value, x+(w/2-(int)(textWidth(Value)/2)), y+(int)((h+25+textAscent()-textDescent())/2));
     }
   }
 }
@@ -187,9 +213,9 @@ class Grille {
       }
     }
   }
-  
+
   int[] RechercheAdresseDansGrille(int row, int col, String Url) {
-   int Cellule[]=new int[2];
+    int Cellule[]=new int[2];
     for (int i=0;i<row;i++) {
       for (int j=0;j<col;j++) {
         if (MaGrille[i][j].getUrl().equals(Url)) {
@@ -200,10 +226,10 @@ class Grille {
     }
     return Cellule;
   }
-  
-  
+
+
   int[] Recherchefunction_typeDansGrille(int row, int col, String function_type) {
-   int Cellule[]=new int[2];
+    int Cellule[]=new int[2];
     for (int i=0;i<row;i++) {
       for (int j=0;j<col;j++) {
         if (MaGrille[i][j].function_type.equals(function_type)) {
@@ -214,6 +240,5 @@ class Grille {
     }
     return Cellule;
   }
-  
 }
 

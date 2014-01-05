@@ -14,10 +14,15 @@
 # Cell(0,0)
 row             =   0
 col             =   0
-function_type   =   None
+function_type   =   FB
 icon            =   Metro UI Icon Set/Internet Shortcuts/Facebook alt 1.png
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #0000FF
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #0000FF
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 
 # Cell(1,0)
@@ -26,7 +31,12 @@ col             =   1
 function_type   =   None
 icon            =   Metro UI Icon Set/Internet Shortcuts/Twitter alt 2.png
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #00FFBC
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #00FFBC
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 
 # Cell(2,0)
@@ -35,16 +45,26 @@ col             =   2
 function_type   =   None
 icon            =   Metro UI Icon Set/Internet Shortcuts/Linked in alt.png
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #0101FF
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #0101FF
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 
 # Cell(3,0)
 row             =   0
 col             =   3
-function_type   =   GMAIL
+function_type   =   MAIL
 icon            =   Metro UI Icon Set/Google Services/Gmail.png
 couleur         =   #000000
-couleur_LED     =   #FFFF00
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #FF0000
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #FF0000
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 
 # Cell(0,1)
@@ -53,7 +73,12 @@ col             =   0
 function_type   =   Rss
 icon            =   Le-Monde-logo.gif
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #F8FF0A
+couleur_Fade_Min    = #FFEF00
+couleur_Fade_Max    = #F8FF0A
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3058/index.rss
 
@@ -64,7 +89,12 @@ col             =   1
 function_type   =   Rss
 icon            =   Le-Monde-logo.gif
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #F8FF0A
+couleur_Fade_Min    = #FFEF00
+couleur_Fade_Max    = #F8FF0A
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3061/index.rss
 
@@ -75,7 +105,12 @@ col             =   2
 function_type   =   Rss
 icon            =   Le-Monde-logo.gif
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #F8FF0A
+couleur_Fade_Min    = #FFEF00
+couleur_Fade_Max    = #F8FF0A
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 Url		=   http://rss.lemonde.fr/c/205/f/3056/index.rss
 
@@ -87,7 +122,12 @@ function_type   =   Rss
 icon            =   Le-Monde-logo.gif
 couleur         =   #000000
 FullSize        =   false
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FFFFFF
+couleur_LED_Event   = #F8FF0A
+couleur_Fade_Min    = #FFEF00
+couleur_Fade_Max    = #F8FF0A
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 Url		=   http://www.lemonde.fr/rss/tag/sciences.xml
 
 # Cell(0,2)
@@ -96,7 +136,12 @@ col             =   0
 function_type   =   None
 icon            =   icone-amis.png
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FF0000
+couleur_LED_Event   = #0000FF
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #FF0000
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 
 # Cell(1,2)
@@ -105,7 +150,12 @@ col             =   1
 function_type   =   None
 icon            =   Metro UI Icon Set/System Icons/Task Manager alt 2.png
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FF0000
+couleur_LED_Event   = #0000FF
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #FF0000
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 
 # Cell(2,2)
@@ -114,7 +164,12 @@ col             =   2
 function_type   =   None
 icon            =   Metro UI Icon Set/Folders & OS/Videos Library.png
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FF0000
+couleur_LED_Event   = #0000FF
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #FF0000
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false
 
 # Cell(3,2)
@@ -123,5 +178,10 @@ col             =   3
 function_type   =   None
 icon            =   Metro UI Icon Set/System Icons/Action Center.png
 couleur         =   #000000
-couleur_LED     =   #FF0000
+couleur_LED_selec   = #FF0000
+couleur_LED_Event   = #0000FF
+couleur_Fade_Min    = #000000
+couleur_Fade_Max    = #FF0000
+Fade_Duration_ms    = 1000
+Type_of_LED_Event   = StaticColor
 FullSize        =   false

@@ -26,7 +26,7 @@ class MailChecker {
   // ------------------------------------------- 
 
   // CONSTRUCTEUR  
-  MailChecker() {
+  MailChecker(String flag) {
     numberofMessages           =   0;
     array_contenu              =   new ArrayList<String>();
     array_from                 =   new ArrayList<String>();
@@ -34,7 +34,7 @@ class MailChecker {
     nb_nvx_mails               =   0;
     array_sujet                =   new ArrayList<String>();
     array_date                 =   new ArrayList<String>();
-    flag_type                  =   "MAIL";
+    flag_type                  =   flag;
 
   }
 
@@ -70,6 +70,9 @@ class MailChecker {
       Folder folder              =   store.getFolder("INBOX");
       folder.open(Folder.READ_ONLY);
 
+Message message[]  = null;
+ 
+  if (flag_type.equals("MAIL")) {
       // compte et met a jour le nombre de messages
       numberofMessages   =   folder.getMessageCount();
 
@@ -77,32 +80,28 @@ class MailChecker {
 
       // on compte le nombre de nouveaux mails depuis le dernier check
       nb_nvx_mails = numberofMessages - current_nb_mails;      
+      
+      // on recupere au plus les NB_MAX_MESSAGES derniers messages      
+      message      =   folder.getMessages(max(numberofMessages-NB_MAX_MESSAGES, 1), numberofMessages);  
 
+   }
+
+  else if (flag_type.equals("FB")) {
 /////////////////////////////////////////////////////////////////////////////////////
 // WORK IN PROGRESS
 
-/*SearchTerm fb_search = new SearchTerm() {
-	public boolean match(Message message) {
-		try {
-			if (message.getSubject().contains("Oracle")) {
-				return true;
-			}
-		} catch (MessagingException ex) {
-			ex.printStackTrace();
-		}
-		return false;
-	}
-};
-*/
-//      Message message1[]      =   folder.search(fb_search);  
+SearchTerm fb_search = new FromTerm(new InternetAddress("materiel.net"));
+
+     message      =   folder.search(fb_search);  
+     //println("NOMBRE DE MESSAGES FB : "+message.length);
+
+    numberofMessages   = message.length;
+    nb_nvx_mails = numberofMessages - current_nb_mails;
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////
-
-      // on recupere au plus les NB_MAX_MESSAGES derniers messages
-      //        Message message[]      =   folder.getMessages(max(numberofMessages-current_nb_mails,1),numberofMessages);
-      
-      Message message[]      =   folder.getMessages(max(numberofMessages-NB_MAX_MESSAGES, 1), numberofMessages);  
-
+  }
 
       
       // Si il y a des nouveaux mails, on recharge tout
@@ -224,11 +223,4 @@ class MailChecker {
   }
 }
 
-
-
-
-
-// classe calendrier TODO
-class Calendrier {
-}
 

@@ -139,19 +139,37 @@ public void draw_case_a_configurer()
 public void draw_case_cliquee() {
 
   // CAS OU A CLIQUE SUR UNE CASE GMAIL
-  if (curr_function_type.equals("GMAIL"))
+  if (curr_function_type.equals("MAIL"))
   {
     int y=mouseY;
 
     if ( ModeLevel==0) {
 
-      affichage_gmail(y); // affichage liste des mails
+      affichage_gmail(y, bloc_gmail, monMail); // affichage liste des mails
     }
     else if (ModeLevel==1) {
 
-      affichage_contenu_mail(y); // affichage d'un mail particulier
+      affichage_contenu_mail(y, bloc_gmail, monMail); // affichage d'un mail particulier
     }
   }
+
+
+  // CAS OU A CLIQUE SUR UNE CASE FACEBOOK
+  if (curr_function_type.equals("FB"))
+  {
+    int y=mouseY;
+
+    if ( ModeLevel==0) {
+
+      affichage_gmail(y, bloc_facebook, monMail_FB); // affichage liste des mails
+    }
+    else if (ModeLevel==1) {
+
+      affichage_contenu_mail(y, bloc_facebook, monMail_FB); // affichage d'un mail particulier
+    }
+  }
+
+
 
 
   // CAS OU A CLIQUE SUR UNE CASE RSS
@@ -169,7 +187,6 @@ public void draw_case_cliquee() {
       currentListIndex=getIndexFromUrl(curr_Url);
       maxOffsetLecture=DisplayCurrentRSS(offsetLecture, indicePrintedRss, ListLoader.get(currentListIndex)) ;
     }
-
   }
 }
 
@@ -185,17 +202,30 @@ public void draw_case_cliquee() {
 public void draw_applique_tache_planifiees() {
 
   long curr_temps = System.currentTimeMillis();
-  
-  if(curr_temps-temps_derniere_action>1000*nb_sec_mode_veille){
+
+  if (indicateur_mode!=0 && curr_temps-temps_derniere_action>1000*nb_sec_mode_veille) {
     indicateur_mode=0;
+    ModeVeille=1;
+    temps_ref_ModeVeille=curr_temps;
+  }
+
+  if (indicateur_mode==0 && curr_temps- temps_ref_ModeVeille>1000*nb_sec_changement_mode_veille) {
+    temps_ref_ModeVeille=curr_temps;
+    if (ModeVeille==0) {
+      ModeVeille=1;
+    }
+    else {
+      ModeVeille=0;
+    }
   }
 
   if (temps_de_ref_mails+ nb_sec_refresh_mails*1000 < curr_temps)
   {
     temps_de_ref_mails = curr_temps;   
-    Thread t = new Thread(new RunImpl(monMail));
+    Thread t = new Thread(new RunImpl("MAIL"));
+    Thread t2 = new Thread(new RunImpl("FB"));
     t.start();
-
+    t2.start();
   }
 
   if (System.currentTimeMillis()-tempsIni<Init_Temps_Rss*1000) {
@@ -409,21 +439,78 @@ public void applique_fichier_config(String chemin_fichier_config) {
             int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
             int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
             int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
-            
+
             Maingrille.MaGrille[curr_col][curr_row].ChangeColor(color(valeurR, valeurG, valeurB));
           } 
           catch (Exception e) {
           }
         }
 
-        else if (attrib_nom.equals("couleur_LED")) {
+        else if (attrib_nom.equals("couleur_LED_selec")) {
 
           try {
             int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
             int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
             int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
-            
-            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLED(color(valeurR, valeurG, valeurB));
+
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDSelec(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("couleur_LED_Event")) {
+
+          try {
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDEvent(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("couleur_Fade_Min")) {
+
+          try {
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDFadeMin(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("couleur_Fade_Max")) {
+
+          try {
+            int valeurR = Integer.valueOf( attrib_valeur.substring( 1, 3 ), 16 );            
+            int valeurG = Integer.valueOf( attrib_valeur.substring( 3, 5 ), 16 );
+            int valeurB = Integer.valueOf( attrib_valeur.substring( 5, 7 ), 16 );
+
+            Maingrille.MaGrille[curr_col][curr_row].ChangeCouleurLEDFadeMax(color(valeurR, valeurG, valeurB));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("Fade_Duration_ms")) {
+
+          try {
+            Maingrille.MaGrille[curr_col][curr_row].SetFadeDuration(Integer.parseInt(attrib_valeur));
+          } 
+          catch (Exception e) {
+          }
+        }
+
+        else if (attrib_nom.equals("Type_of_LED_Event")) {
+
+          try {
+            Maingrille.MaGrille[curr_col][curr_row].SetTypeLedEvent(attrib_valeur);
           } 
           catch (Exception e) {
           }
@@ -518,42 +605,43 @@ public void modifier_fichier_config(String chemin_fichier_config, String nom_att
 ////////////////////////////////////////////////////
 //  affichage_gmail()            //
 ////////////////////////////////////////////////////
-public void affichage_gmail(int y)
+public void affichage_gmail(int y, Afficheur_data af1, MailChecker m1)
 {
-  if (y < bloc_gmail.debut_zone_message + 20 && y > bloc_gmail.debut_zone_message) {
+  if (y <af1.debut_zone_message + 20 && y >af1.debut_zone_message) {
     // on a la souris en haut
 
     // on avance la position de defilement
-    bloc_gmail.pos_defil_courant = bloc_gmail.pos_defil_courant + 15;
+   af1.pos_defil_courant =af1.pos_defil_courant + 15;
     // on rafraichit 
-    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet, monMail.array_date);
+   af1.affiche_data(m1.array_from, m1.array_sujet, m1.array_date);
 
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
-    rect(0, bloc_gmail.debut_zone_message, bloc_gmail.total_width, 20);
+    rect(0,af1.debut_zone_message,af1.total_width, 20);
     fill(150, 150, 255, 50);
     stroke(200);
-    triangle(0 + 100, bloc_gmail.debut_zone_message, int(gridSize/2), bloc_gmail.debut_zone_message + 20, gridSize -100, bloc_gmail.debut_zone_message);
+    triangle(0 + 100,af1.debut_zone_message, int(gridSize/2),af1.debut_zone_message + 20, gridSize -100,af1.debut_zone_message);
   }
 
-  else if (y < bloc_gmail.debut_zone_message + bloc_gmail.total_height && y > bloc_gmail.debut_zone_message + bloc_gmail.total_height-20) {
+  // else if (y <af1.debut_zone_message +af1.total_height && y >af1.debut_zone_message +af1.total_height-20) {
+  else if (y <af1.debut_zone_message + 480 && y >af1.debut_zone_message + 480-20) {
     // on a la souris en bas
 
     // on recule la position de defilement
-    bloc_gmail.pos_defil_courant = bloc_gmail.pos_defil_courant - 15;
+   af1.pos_defil_courant =af1.pos_defil_courant - 15;
     // on rafraichit 
-    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet, monMail.array_date);
+   af1.affiche_data(m1.array_from, m1.array_sujet, m1.array_date);
 
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
-    rect(0, bloc_gmail.debut_zone_message + bloc_gmail.total_height -20, bloc_gmail.total_width, 20);
+    rect(0,af1.debut_zone_message + 480 -20, 640, 20);
     fill(150, 150, 255, 50);
     stroke(200);
-    triangle(0 + 100, bloc_gmail.debut_zone_message + bloc_gmail.total_height, int(gridSize/2), bloc_gmail.debut_zone_message + bloc_gmail.total_height-20, gridSize -100, bloc_gmail.debut_zone_message + bloc_gmail.total_height);
+    triangle(0 + 100,af1.debut_zone_message + 480, int(640/2),af1.debut_zone_message +480-20, 640 -100,af1.debut_zone_message + 480);
   }   
 
   else {
-    bloc_gmail.affiche_data(monMail.array_from, monMail.array_sujet, monMail.array_date);
+   af1.affiche_data(m1.array_from, m1.array_sujet, m1.array_date);
   }
 }
 
@@ -564,44 +652,44 @@ public void affichage_gmail(int y)
 ////////////////////////////////////////////////////
 //  affichage_contenu_gmail()            //
 ////////////////////////////////////////////////////
-public void affichage_contenu_mail(int y) {
+public void affichage_contenu_mail(int y, Afficheur_data af1, MailChecker m1) {
 
 
 
-  if (y < bloc_gmail.debut_zone_message + 20 && y > bloc_gmail.debut_zone_message) {
+  if (y < af1.debut_zone_message + 20 && y > af1.debut_zone_message) {
     // on a la souris en haut
 
     // on avance la position de defilement
-    bloc_gmail.pos_defil_contenu_mail_courant = bloc_gmail.pos_defil_contenu_mail_courant + 15;
+    af1.pos_defil_contenu_mail_courant = af1.pos_defil_contenu_mail_courant + 15;
     // on rafraichit 
-    bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
+    af1.affiche_contenu_mail(m1.array_from, m1.array_sujet, m1.array_contenu);
 
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
-    rect(0, bloc_gmail.debut_zone_message, bloc_gmail.total_width, 20);
+    rect(0, af1.debut_zone_message, af1.total_width, 20);
     fill(150, 150, 255, 50);
     stroke(200);
-    triangle(0 + 100, bloc_gmail.debut_zone_message, int(gridSize/2), bloc_gmail.debut_zone_message + 20, gridSize -100, bloc_gmail.debut_zone_message);
+    triangle(0 + 100, af1.debut_zone_message, int(gridSize/2), af1.debut_zone_message + 20, gridSize -100, af1.debut_zone_message);
   }
 
-  else if (y < bloc_gmail.debut_zone_message + bloc_gmail.total_height && y > bloc_gmail.debut_zone_message + bloc_gmail.total_height-20) {
+  else if (y < af1.debut_zone_message + af1.total_height && y > af1.debut_zone_message + af1.total_height-20) {
     // on a la souris en bas
 
     // on recule la position de defilement
-    bloc_gmail.pos_defil_contenu_mail_courant = bloc_gmail.pos_defil_contenu_mail_courant - 15;
+    af1.pos_defil_contenu_mail_courant = af1.pos_defil_contenu_mail_courant - 15;
     // on rafraichit 
-    bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
+    af1.affiche_contenu_mail(m1.array_from, m1.array_sujet, m1.array_contenu);
 
     // on dessine une petite fleche
     fill(230, 230, 255, 50);
-    rect(0, bloc_gmail.debut_zone_message + bloc_gmail.total_height -20, bloc_gmail.total_width, 20);
+    rect(0, af1.debut_zone_message + af1.total_height -20, af1.total_width, 20);
     fill(150, 150, 255, 50);
     stroke(200);
-    triangle(0 + 100, bloc_gmail.debut_zone_message + bloc_gmail.total_height, int(gridSize/2), bloc_gmail.debut_zone_message + bloc_gmail.total_height-20, gridSize -100, bloc_gmail.debut_zone_message + bloc_gmail.total_height);
+    triangle(0 + 100, af1.debut_zone_message + af1.total_height, int(gridSize/2), af1.debut_zone_message + af1.total_height-20, gridSize -100, af1.debut_zone_message + af1.total_height);
   }   
 
   else {
-    bloc_gmail.affiche_contenu_mail(monMail.array_from, monMail.array_sujet, monMail.array_contenu);
+    af1.affiche_contenu_mail(m1.array_from, m1.array_sujet, m1.array_contenu);
   }
 
 
