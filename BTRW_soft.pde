@@ -1,4 +1,4 @@
-
+  
 
 ///////////////////////////////////////////////
 //           FONCTION PRINCIPALE
@@ -46,6 +46,11 @@ int case_courante         =   -1;
 int led_courante          =   -1;
 int ligne_selected        =   -1;
 int col_selected          =   -1;
+
+int case_courante2         =   5;
+int ligne_selected2        =   1;
+int col_selected2          =   1;
+
 String curr_function_type =   "";
 
 
@@ -191,7 +196,12 @@ int ModeVeille;
 //   DECLARATION DES VARIABLES POUR COMMUNIQUER AVEC ARUDINO
 int nombre_Led_RGB=12;//Nombrte de LED RGB du projet
 Serial port; // On déclare le port série
-boolean arduino_enabled = false; // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche
+boolean arduino_enabled = true; // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche
+
+// PARTIE CONCERNANT LE JOYSTICK
+String ma_dir = "";
+String ma_dir_commande ="";
+boolean flag_new_msg = false;
 // ----------------------------------------------------------
 
 
@@ -279,7 +289,7 @@ void setup() {
     port = new Serial(this, Serial.list()[0], 115200); // On établit une connexion série à 115,2 Mbaud
     port.clear(); //On efface le buffer du port série 
     port.bufferUntil('\n'); // On indique qu'on bufferise jusqu'à l'arrivée d'un saut de ligne
-    SendRGBValue_Message(1, 255, 0, 0);
+   // SendRGBValue_Message(1, 255, 0, 0);
   }
 }  
 
@@ -295,12 +305,12 @@ void draw() {
   draw_applique_tache_planifiees();
   
   
-  // lecture joystick
-  while (myPort.available() > 0) {
-    int inByte = myPort.read();
-
-    // si non vide : TODO
-    println(inByte);    
+//  // lecture joystick
+//  while (myPort.available() > 0) {
+//    int inByte = myPort.read();
+//
+//    // si non vide : TODO
+//    println(inByte);    
     
     // Action_detectee()
     
@@ -310,7 +320,62 @@ void draw() {
     
         //affichage carre rouge autour de la case selectionne
     
-    }
+//    }
+
+
+if (arduino_enabled) {
+
+//  while (port.available() > 0) {
+////      println("YOOOOOOOOOOOOOO !!!!");   
+//      char inBit = port.readChar();
+//      String inByte = Character.toString(inBit);
+//      println("inByte" + inByte);      
+//
+//      if (inByte.equals("U")) {
+//        flag_new_msg = true;
+//       
+//       // println("passe par U");
+//        //    println("Ma dir : " + ma_dir);
+//      }
+//  
+//      if (flag_new_msg) {   
+//        if (inByte.equals("\n")) {
+//          flag_new_msg = false;  
+//          //    println("passe par back n");
+//          println("Ma dir : " + ma_dir);
+//          ma_dir_commande = convert_direction(ma_dir);
+//          println("Ma dir commande : " + ma_dir_commande);
+//          int[] vect_mvt = new int[2];
+//  //        vect_mvt = bouge_rectangle(ma_dir);
+//  //        fill(100);
+//  //        rect(0,0,400,400);
+//  //        x = x + vect_mvt[0];
+//  //        y = y + vect_mvt[1];
+//  //        fill(255,255);
+//  //        rect(x,y,20,20);
+//          ma_dir = "";
+//        }
+//  
+//        else {
+//          if (!inByte.equals("U")) {
+//            ma_dir = ma_dir + inByte;
+//          
+//          }
+//          //      println("Ma dir curr : " + ma_dir);
+//        }
+//      }
+//  //  }
+}
+
+
+
+
+
+
+
+
+
+
   
 
   // Si on n'est dans le mode veille on ne fait rien on laisse le background en noir
@@ -378,6 +443,9 @@ void draw() {
   {
     draw_case_a_configurer();
   }
+  
+
+  
 }
 
 
@@ -463,7 +531,7 @@ void mousePressed()
       indicateur_mode    =    1; // on repasse en MODE principal
       println("Case_Courante:"+case_courante);
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
-        Stop_Fading_Message ( case_courante+1);
+     //   Stop_Fading_Message ( case_courante+1);
         port.write("/");
         SendRGBValue_Message( case_courante+1, 0, 0, 0);
         port.write("/");
@@ -529,7 +597,7 @@ void mousePressed()
       println(couleur_originale);
       Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
-        Stop_Fading_Message (led_courante);
+     //   Stop_Fading_Message (led_courante);
         port.write("/");
         SendRGBValue_Message(led_courante, col_selec_R, col_selec_V, col_selec_B);
         port.write("/");
@@ -542,7 +610,7 @@ void mousePressed()
       println(couleur_originale);
       Maingrille.MaGrille[col_selected][ligne_selected].ChangeCouleurBulle(color(0, 0, 100));
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
-        Stop_Fading_Message (led_courante);
+       // Stop_Fading_Message (led_courante);
         port.write("/");
         SendRGBValue_Message(led_courante, col_selec_R, col_selec_V, col_selec_B);
         port.write("/");
@@ -556,7 +624,7 @@ void mousePressed()
       if (arduino_enabled) { // flag pour pouvoir desactiver les fonctions arduino si celui ci n'est pas branche (phase de test)
 
         if( Maingrille.MaGrille[col_selected][ligne_selected].IsFading){
-        Stop_Fading_Message (led_courante);
+        //Stop_Fading_Message (led_courante);
         port.write("/");
         Maingrille.MaGrille[col_selected][ligne_selected].IsFading=false;
         }

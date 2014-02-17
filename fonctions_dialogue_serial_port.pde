@@ -3,7 +3,114 @@ void serialEvent(Serial port) {
   // ******** Gestion de la valeur reçue sur le port série : **********
   String inString = port.readStringUntil('\n'); // chaine stockant la chaîne reçue sur le port Série
   if (inString != null) { // si la chaine recue n'est pas vide
-    print(inString); // affiche chaine recue
+    println(inString); // affiche chaine recue
+
+if (inString.contains("U1")) {
+
+println("U1 recu");
+println("direction : EST");
+col_selected2 = min(col_selected2 + 1,cols-1);
+case_courante2 = cols * ligne_selected2 + col_selected2;
+println(case_courante2);
+
+  
+}
+
+if (inString.contains("U2")) {
+
+println("U2 recu");
+println("direction : OUEST");
+col_selected2 = max(col_selected2 - 1,0);
+case_courante2 = cols * ligne_selected2 + col_selected2;
+println(case_courante2);
+  
+}
+
+if (inString.contains("U3")) {
+
+println("U3 recu");
+println("direction : SUD");
+ligne_selected2 = min(ligne_selected2 + 1,rows-1);
+case_courante2 = cols * ligne_selected2 + col_selected2;
+println(case_courante2);
+  
+}
+
+if (inString.contains("U4")) {
+
+println("U4 recu");
+println("direction : NORD");
+ligne_selected2 = max(ligne_selected2 - 1,0);
+case_courante2 = cols * ligne_selected2 + col_selected2;
+println(case_courante2);
+  
+}
+
+if (inString.contains("U23")) {
+
+println("U23 recu");
+  
+}
+
+if (inString.contains("U24")) {
+
+println("U24 recu");
+  
+}
+
+if (inString.contains("U13")) {
+
+println("U13 recu");
+  
+}
+
+if (inString.contains("U14")) {
+
+println("U14 recu");
+  
+}
+
+
+
+//    //  while (port.available () > 0) {
+//    char inBit = port.readChar();
+//    String inByte = Character.toString(inBit);
+//    println(inByte);
+//
+//    if (inByte.equals("U")) {
+//      flag_new_msg = true;  
+//      // println("passe par U");
+//      //    println("Ma dir : " + ma_dir);
+//    }
+//
+//    if (flag_new_msg) {   
+//      if (inByte.equals("\n")) {
+//        flag_new_msg = false;  
+//        //    println("passe par back n");
+//        println("Ma dir : " + ma_dir);
+//        ma_dir_commande = convert_direction(ma_dir);
+//        println("Ma dir commande : " + ma_dir_commande);
+//        int[] vect_mvt = new int[2];
+//        //   vect_mvt = bouge_rectangle(ma_dir);
+//        //   fill(100);
+//        //   rect(0,0,400,400);
+//        //    x = x + vect_mvt[0];
+//        //    y = y + vect_mvt[1];
+//        //    fill(255,255);
+//        //    rect(x,y,20,20);
+//        ma_dir = "";
+//      }
+//
+//      else {
+//        if (!inByte.equals("U")) {
+//          ma_dir = ma_dir + inByte;
+//        }
+//        //      println("Ma dir curr : " + ma_dir);
+//      }
+//    }
+//    //  }
+
+
   }
 }
 

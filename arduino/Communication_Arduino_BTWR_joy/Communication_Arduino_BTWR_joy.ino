@@ -98,6 +98,7 @@ void loop(){ // debut de la fonction loop()
   select1 = digitalRead(SEL); // will be HIGH (1) if not pressed, and LOW (0) if pressed
   select2 = digitalRead(SEL2);
 
+
   if(vertical<300 || vertical>700 || horizontal<300 || horizontal>700 ){
     if(Previous_flag==false)
     {
@@ -285,7 +286,8 @@ void send_joy_message() {
   if(horizontal<300) Serial.write(byte(51));
   if(horizontal>700) Serial.write(byte(52));
   Serial.write('\n');
-
+  Serial.println(vertical);
+  Serial.println(horizontal);
 }
 
 // Fonction qui envoie le message bouton1

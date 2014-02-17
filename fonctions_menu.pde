@@ -697,3 +697,8 @@ public void affichage_contenu_mail(int y, Afficheur_data af1, MailChecker m1) {
   // on affiche le contenu du mail
 }
 
+
+
+
+
+

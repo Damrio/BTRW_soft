@@ -82,7 +82,7 @@ void   UpdateLedRss() {
           int col_selec_V= (int)( green(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
           int col_selec_B= (int)(blue(Maingrille.MaGrille[Cellule[0]][Cellule[1]].couleur_LED_Event)) ;
           if (Maingrille.MaGrille[Cellule[0]][Cellule[1]].IsFading) {
-            Stop_Fading_Message (CaseToUpdate);
+           // Stop_Fading_Message (CaseToUpdate);
             port.write("/");
           }
           SendRGBValue_Message(CaseToUpdate, col_selec_R, col_selec_V, col_selec_B) ;
@@ -100,7 +100,7 @@ void   UpdateLedRss() {
             int FadeDuration=Maingrille.MaGrille[Cellule[0]][Cellule[1]].Fade_Duration_ms;
             SendRGBValue_Message(CaseToUpdate, 0, 0, 0) ;
             port.write("/");
-            SendRGB_Fading_Start_Message (CaseToUpdate, FadeDuration, col_selec_Rmin, col_selec_Rmax, col_selec_Vmin, col_selec_Vmax, col_selec_Bmin, col_selec_Bmax ) ;
+           // SendRGB_Fading_Start_Message (CaseToUpdate, FadeDuration, col_selec_Rmin, col_selec_Rmax, col_selec_Vmin, col_selec_Vmax, col_selec_Bmin, col_selec_Bmax ) ;
             port.write("/");
             Maingrille.MaGrille[Cellule[0]][Cellule[1]].IsFading=true;
           }
