@@ -138,7 +138,8 @@ public void draw_case_a_configurer()
 
 public void draw_case_cliquee() {
 
-  // CAS OU A CLIQUE SUR UNE CASE GMAIL
+  
+    // CAS OU A CLIQUE SUR UNE CASE GMAIL
   if (curr_function_type.equals("MAIL"))
   {
     int y=mouseY;
@@ -146,6 +147,7 @@ public void draw_case_cliquee() {
     if ( ModeLevel==0) {
 
       affichage_gmail(y, bloc_gmail, monMail); // affichage liste des mails
+      encadre_item_courant(bloc_gmail);
     }
     else if (ModeLevel==1) {
 
@@ -162,6 +164,7 @@ public void draw_case_cliquee() {
     if ( ModeLevel==0) {
 
       affichage_gmail(y, bloc_facebook, monMail_FB); // affichage liste des mails
+      encadre_item_courant(bloc_facebook);
     }
     else if (ModeLevel==1) {
 
@@ -243,6 +246,8 @@ public void draw_applique_tache_planifiees() {
     UpdateLedRss();
   }
 }
+
+
 
 
 
@@ -608,6 +613,8 @@ public void modifier_fichier_config(String chemin_fichier_config, String nom_att
 ////////////////////////////////////////////////////
 public void affichage_gmail(int y, Afficheur_data af1, MailChecker m1)
 {
+  if (!arduino_enabled) {
+  
   if (y <af1.debut_zone_message + 20 && y >af1.debut_zone_message) {
     // on a la souris en haut
 
@@ -644,6 +651,22 @@ public void affichage_gmail(int y, Afficheur_data af1, MailChecker m1)
   else {
    af1.affiche_data(m1.array_from, m1.array_sujet, m1.array_date);
   }
+  
+  }
+  
+  else {
+   
+    
+   int position_de_defilement = -item_selectionne * af1.message_height;
+    
+   af1.pos_defil_courant =  position_de_defilement;
+    
+   af1.affiche_data(m1.array_from, m1.array_sujet, m1.array_date);
+   
+   // TODO : dessiner carre rouge autour du mail a cliquer
+    
+  }
+  
 }
 
 
@@ -699,6 +722,46 @@ public void affichage_contenu_mail(int y, Afficheur_data af1, MailChecker m1) {
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+//           dessine_carre_rouge()                //
+//////////////////////////////////////////////////// 
+
+public void dessine_carre_rouge() {
+ 
+ 
+ int cell_size = gridSize / cols; // TODO : checker si OK
+ 
+ 
+ stroke(255,0,0);
+ strokeWeight(10);
+ fill(200,0);
+ rect(col_selected * cell_size, ligne_selected * cell_size,cell_size,cell_size);
+ fill(0,1);
+ strokeWeight(1);
+  
+}
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+//  encadre_item_courant()            //
+////////////////////////////////////////////////////
+public void encadre_item_courant(Afficheur_data af1) {
+  
+ stroke(255,0,0);
+ strokeWeight(10);
+ fill(200,0);
+ rect(0, item_selectionne * af1.message_height+af1.pos_defil_courant,af1.message_width, af1.message_height);
+ fill(0,1);
+ strokeWeight(1);  
+  
+  
+}
 
 
 

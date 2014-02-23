@@ -12,7 +12,7 @@ public class Afficheur_data {
   // CONSTRUCTEUR
   Afficheur_data() {
     total_width = 640;
-    total_height = gridSize; //int(gridSize/2);
+    total_height = 480; //gridSize mais attention ce n'est plus carre;
     debut_zone_message = 0;//int(gridSize/2);
     message_height = int(gridSize/8);
     message_width = 640;
@@ -27,6 +27,7 @@ public class Afficheur_data {
   void affiche_data(ArrayList array_from, ArrayList array_sujet, ArrayList array_date) {
 
     int nb_messages_available =  array_from.size();
+
 
     // on verifie si la consigne de defilement n'est pas excessive par rapport au nb de messages, sinon on la corrige
     // ATTENTION : cela signifie que chaque fois que l'on touche la consigne dans le main() il faut faire appel a affiche_data ensuite

@@ -9,10 +9,12 @@ if (inString.contains("U1")) {
 
 println("U1 recu");
 println("direction : EST");
-col_selected2 = min(col_selected2 + 1,cols-1);
-case_courante2 = cols * ligne_selected2 + col_selected2;
-println(case_courante2);
 
+if (indicateur_mode==1) {
+col_selected = min(col_selected + 1,cols-1);
+case_courante = cols * ligne_selected + col_selected;
+println(case_courante);
+}
   
 }
 
@@ -20,19 +22,34 @@ if (inString.contains("U2")) {
 
 println("U2 recu");
 println("direction : OUEST");
-col_selected2 = max(col_selected2 - 1,0);
-case_courante2 = cols * ligne_selected2 + col_selected2;
-println(case_courante2);
+
+if (indicateur_mode ==1) {
+col_selected = max(col_selected - 1,0);
+case_courante = cols * ligne_selected + col_selected;
+println(case_courante);
   
+}
 }
 
 if (inString.contains("U3")) {
 
 println("U3 recu");
 println("direction : SUD");
-ligne_selected2 = min(ligne_selected2 + 1,rows-1);
-case_courante2 = cols * ligne_selected2 + col_selected2;
-println(case_courante2);
+
+if (indicateur_mode==1) {
+ligne_selected = min(ligne_selected + 1,rows-1);
+case_courante = cols * ligne_selected + col_selected;
+println(case_courante);
+}
+else if (indicateur_mode==2) {
+ 
+ item_selectionne = min(item_selectionne + 1, NB_MAX_MESSAGES); // TODO a remplacer par le nb de messages available
+ println("item selectionne : "+item_selectionne);
+ 
+ 
+}
+
+
   
 }
 
@@ -40,9 +57,19 @@ if (inString.contains("U4")) {
 
 println("U4 recu");
 println("direction : NORD");
-ligne_selected2 = max(ligne_selected2 - 1,0);
-case_courante2 = cols * ligne_selected2 + col_selected2;
-println(case_courante2);
+
+if (indicateur_mode ==1) {
+ligne_selected = max(ligne_selected - 1,0);
+case_courante = cols * ligne_selected + col_selected;
+println(case_courante);
+}
+
+ else if (indicateur_mode==2) {
+ 
+  item_selectionne = max(item_selectionne - 1, 0);
+   println("item selectionne : "+item_selectionne);
+}
+ 
   
 }
 

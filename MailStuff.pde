@@ -109,6 +109,7 @@ SearchTerm fb_search = new FromTerm(new InternetAddress("materiel.net"));
       
         int nb_mails =   min(message.length, NB_MAX_MESSAGES);
         
+        
         // on nettoie les tableaux des mails precedents
             array_from.clear();
             array_sujet.clear();
